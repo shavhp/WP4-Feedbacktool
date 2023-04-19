@@ -1,24 +1,8 @@
 from django.contrib import admin
 from .models import *
-from django.contrib.auth.admin import UserAdmin
-from .forms import CustomUserCreationForm, CustomUserChangeForm
 
 
 # Register your models here.
-class CustomUserAdmin(UserAdmin):
-    addForm = CustomUserCreationForm
-    form = CustomUserChangeForm
-    model = CustomUser
-    listDisplay = [
-        "email",
-        "username",
-        "role",
-        "is_staff",
-    ]
-    fieldsets = UserAdmin.fieldsets + ((None, {"fields": ("role",)}),)
-    addFieldsets = UserAdmin.add_fieldsets + ((None, {"fields": ("role",)}),)
-
-
 class McQuestionAdmin(admin.ModelAdmin):
     list_display = (
         "mc_question_id",
@@ -83,7 +67,6 @@ class ResponseAdmin(admin.ModelAdmin):
     )
 
 
-admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(McQuestion, McQuestionAdmin)
 admin.site.register(OpenQuestion, OpenQuestionAdmin)
 admin.site.register(Administrator, AdministratorAdmin)

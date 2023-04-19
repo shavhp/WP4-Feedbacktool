@@ -53,7 +53,6 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 
-AUTH_USER_MODEL = "ccforms.CustomUser"
 
 ROOT_URLCONF = 'Feedbacktool.urls'
 
