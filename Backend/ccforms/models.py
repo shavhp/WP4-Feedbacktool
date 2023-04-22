@@ -1,7 +1,6 @@
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
-
-# Create your models here.
-
+    
 
 class McQuestion(models.Model):
     mc_question_id = models.AutoField(primary_key=True, verbose_name="Vraagnummer")
