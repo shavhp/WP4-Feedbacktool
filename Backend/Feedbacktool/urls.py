@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from ccforms.views import UserList
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/users/', UserList.as_view()),
 ]
