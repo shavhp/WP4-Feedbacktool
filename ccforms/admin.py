@@ -11,6 +11,7 @@ class McQuestionAdmin(admin.ModelAdmin):
         "option_b",
         "option_c",
         "option_d",
+        "is_archived",
     )
 
 
@@ -18,6 +19,7 @@ class OpenQuestionAdmin(admin.ModelAdmin):
     list_display = (
         "open_question_id",
         "question",
+        "is_archived",
     )
 
 
@@ -66,21 +68,9 @@ class ResponseAdmin(admin.ModelAdmin):
     )
 
 
-class ArchiveAdmin(admin.ModelAdmin):
-    list_display = (
-        "item_id",
-        "survey",
-        "tm_email",
-        "response",
-        "open_question",
-        "mc_question",
-    )
-
-
 admin.site.register(McQuestion, McQuestionAdmin)
 admin.site.register(OpenQuestion, OpenQuestionAdmin)
 admin.site.register(Administrator, AdministratorAdmin)
 admin.site.register(TeamMember, TeamMemberAdmin)
 admin.site.register(Survey, SurveyAdmin)
 admin.site.register(Response, ResponseAdmin)
-admin.site.register(Archive, ArchiveAdmin)

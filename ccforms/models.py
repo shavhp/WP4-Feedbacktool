@@ -9,6 +9,7 @@ class McQuestion(models.Model):
     option_b = models.CharField(verbose_name="Optie B", max_length=250)
     option_c = models.CharField(verbose_name="Optie C", max_length=250, blank=True, default="")
     option_d = models.CharField(verbose_name="Optie D", max_length=250, blank=True, default="")
+    is_archived = models.BooleanField(default=False, verbose_name="Gearchiveerd")
 
     class Meta:
         verbose_name = "Meerkeuzevraag"
@@ -21,7 +22,7 @@ class McQuestion(models.Model):
 class OpenQuestion(models.Model):
     open_question_id = models.AutoField(primary_key=True, verbose_name="Vraagnummer")
     question = models.CharField(verbose_name="Vragen", max_length=250)
-    is_hidden = models.BooleanField(default=False, verbose_name="Verbergen")
+    is_archived = models.BooleanField(default=False, verbose_name="Gearchiveerd")
 
     class Meta:
         verbose_name = "Open vraag"
@@ -83,15 +84,3 @@ class Response(models.Model):
 
     def __str__(self):
         return f'Reactie op "{self.survey.title}"'
-
-
-class Archive(models.Model):
-    item_id = models.AutoField(primary_key=True, verbose_name="Itemnummer")
-    survey = models.ForeignKey(Survey, on_delete=models.CASCADE, default="", verbose_name="Naam enquête")
-    tm_email = models.ForeignKey(TeamMember, on_delete=models.CASCADE, default="", verbose_name="E-mailadres teamlid")
-    response = models.ForeignKey(Response, on_delete=models.CASCADE, default="", verbose_name="Reacties")
-    open_question = models.ForeignKey(OpenQuestion, on_delete=models.CASCADE, default="", verbose_name="Open vragen")
-    mc_question = models.ForeignKey(McQuestion, on_delete=models.CASCADE, default="", verbose_name="Meerkeuzevragen")
-
-    class Meta:
-        verbose_name_plural = "Archive"
