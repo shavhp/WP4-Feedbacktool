@@ -62,8 +62,18 @@ class ResponseAdmin(admin.ModelAdmin):
         "tm_email",
         "open_question",
         "mc_question",
-        "response",
         "date_submitted",
+    )
+
+
+class ArchiveAdmin(admin.ModelAdmin):
+    list_display = (
+        "item_id",
+        "survey",
+        "tm_email",
+        "response",
+        "open_question",
+        "mc_question",
     )
 
 
@@ -73,3 +83,4 @@ admin.site.register(Administrator, AdministratorAdmin)
 admin.site.register(TeamMember, TeamMemberAdmin)
 admin.site.register(Survey, SurveyAdmin)
 admin.site.register(Response, ResponseAdmin)
+admin.site.register(Archive, ArchiveAdmin)

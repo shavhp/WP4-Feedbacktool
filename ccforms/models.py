@@ -7,11 +7,12 @@ class McQuestion(models.Model):
     question = models.CharField(verbose_name="Vragen", max_length=250)
     option_a = models.CharField(verbose_name="Optie A", max_length=250)
     option_b = models.CharField(verbose_name="Optie B", max_length=250)
-    option_c = models.CharField(verbose_name="Optie C", max_length=250, null=True)
-    option_d = models.CharField(verbose_name="Optie D", max_length=250, null=True)
+    option_c = models.CharField(verbose_name="Optie C", max_length=250, blank=True, default="")
+    option_d = models.CharField(verbose_name="Optie D", max_length=250, blank=True, default="")
 
     class Meta:
-        verbose_name = "Multiple Choice Question"
+        verbose_name = "Meerkeuzevraag"
+        verbose_name_plural = "Meerkeuzevragen"
 
     def __str__(self):
         return self.question[:50]
@@ -20,6 +21,11 @@ class McQuestion(models.Model):
 class OpenQuestion(models.Model):
     open_question_id = models.AutoField(primary_key=True, verbose_name="Vraagnummer")
     question = models.CharField(verbose_name="Vragen", max_length=250)
+    is_hidden = models.BooleanField(default=False, verbose_name="Verbergen")
+
+    class Meta:
+        verbose_name = "Open vraag"
+        verbose_name_plural = "Open vragen"
 
     def __str__(self):
         return self.question[:50]
@@ -43,16 +49,21 @@ class TeamMember(models.Model):
     first_name = models.CharField(max_length=250, verbose_name="Voornaam")
     is_admin = models.BooleanField(default=False, verbose_name="Is administrator")
 
+    class Meta:
+        verbose_name = "Teamlid"
+        verbose_name_plural = "Teamleden"
+
     def __str__(self):
         return self.email
 
 
 class Survey(models.Model):
     survey_id = models.AutoField(primary_key=True, verbose_name="Enquêtenummer")
-    admin = models.ForeignKey(Administrator, on_delete=models.CASCADE, default="", verbose_name="Administrator")
+    admin = models.ForeignKey(Administrator, on_delete=models.CASCADE, default="",
+                              verbose_name="Administrator")
     title = models.CharField(max_length=100, verbose_name="Naam enquête")
-    description = models.CharField(max_length=500, verbose_name="Toelichting")
-    is_anonymous = models.BooleanField(default=True, verbose_name="Anonieme respons")
+    description = models.CharField(max_length=500, verbose_name="Toelichting", blank=True, default="")
+    is_anonymous = models.BooleanField(default=False, verbose_name="Anonieme respons")
     date_sent = models.DateField(null=True, verbose_name="Verzonden op")
     open_question = models.ForeignKey(OpenQuestion, on_delete=models.CASCADE, default="", verbose_name="Open vragen")
     mc_question = models.ForeignKey(McQuestion, on_delete=models.CASCADE, default="", verbose_name="Meerkeuzevragen")
@@ -68,5 +79,19 @@ class Response(models.Model):
     tm_email = models.ForeignKey(TeamMember, on_delete=models.CASCADE, default="", verbose_name="E-mailadres teamlid")
     open_question = models.ForeignKey(OpenQuestion, on_delete=models.CASCADE, default="", verbose_name="Open vragen")
     mc_question = models.ForeignKey(McQuestion, on_delete=models.CASCADE, default="", verbose_name="Meerkeuzevragen")
-    response = models.CharField(max_length=500, verbose_name="Reacties")
     date_submitted = models.DateField(null=True, verbose_name="Ingevuld op")
+
+    def __str__(self):
+        return f'Reactie op "{self.survey.title}"'
+
+
+class Archive(models.Model):
+    item_id = models.AutoField(primary_key=True, verbose_name="Itemnummer")
+    survey = models.ForeignKey(Survey, on_delete=models.CASCADE, default="", verbose_name="Naam enquête")
+    tm_email = models.ForeignKey(TeamMember, on_delete=models.CASCADE, default="", verbose_name="E-mailadres teamlid")
+    response = models.ForeignKey(Response, on_delete=models.CASCADE, default="", verbose_name="Reacties")
+    open_question = models.ForeignKey(OpenQuestion, on_delete=models.CASCADE, default="", verbose_name="Open vragen")
+    mc_question = models.ForeignKey(McQuestion, on_delete=models.CASCADE, default="", verbose_name="Meerkeuzevragen")
+
+    class Meta:
+        verbose_name_plural = "Archive"
