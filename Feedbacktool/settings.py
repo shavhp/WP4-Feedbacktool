@@ -31,14 +31,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "Login.apps.LoginConfig",
-    "ccforms.apps.CcformsConfig",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "django_tables2",
+    "Login.apps.LoginConfig",
+    "ccforms.apps.CcformsConfig",
 ]
 
 MIDDLEWARE = [
