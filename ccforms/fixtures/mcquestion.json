@@ -1,0 +1,104 @@
+[
+    {
+        "model": "ccforms.McQuestion",
+        "pk": 1,
+        "fields": {
+            "question": "Hoe tevreden ben je over de snelheid van onze service?",
+            "option_a": "Zeer tevreden",
+            "option_b": "Teveden",
+            "option_c": "Neutraal",
+            "option_d": "Ontevreden"
+        }
+    },
+    {
+        "model": "ccforms.McQuestion",
+        "pk": 2,
+        "fields": {
+            "question": "Hoe tevreden ben je over de kwaliteit van onze producten?",
+            "option_a": "Zeer tevreden",
+            "option_b": "Teveden",
+            "option_c": "Neutraal",
+            "option_d": "Ontevreden"
+        }
+    },
+    {
+        "model": "ccforms.McQuestion",
+        "pk": 3,
+        "fields": {
+            "question": "Hoe waarschijnlijk is het dat je ons aanbeveelt aan een vriend?",
+            "option_a": "Zeer waarschijnlijk",
+            "option_b": "Waarschijnlijk",
+            "option_c": "Onwaarschijnlijk",
+            "option_d": "Zeer onwaarschijnlijk"
+        }
+    },
+    {
+        "model": "ccforms.McQuestion",
+        "pk": 4,
+        "fields": {
+            "question": "Hoe tevreden ben je over de prijs van onze producten?",
+            "option_a": "Zeer tevreden",
+            "option_b": "Teveden",
+            "option_c": "Neutraal",
+            "option_d": "Ontevreden"
+        }
+    },
+    {
+        "model": "ccforms.McQuestion",
+        "pk": 5,
+        "fields": {
+            "question": "Hoe tevreden ben je over de vriendelijkheid van ons personeel?",
+            "option_a": "Zeer tevreden",
+            "option_b": "Teveden",
+            "option_c": "Neutraal",
+            "option_d": "Ontevreden"
+        }
+    },
+    {
+        "model": "ccforms.McQuestion",
+        "pk": 6,
+        "fields": {
+            "question": "Hoe vaak heb je in de afgelopen maand onze diensten gebruikt?",
+            "option_a": "Meer dan 5 keer",
+            "option_b": "3-5 keer",
+            "option_c": "1-2 keer",
+            "option_d": "Niet gebruikt"
+        }
+    },
+    {
+        "model": "ccforms.McQuestion",
+        "pk": 7,
+        "fields": {
+            "question": "Hoe tevreden ben je over de beschikbaarheid van onze producten?",
+            "option_a": "Zeer tevreden",
+            "option_b": "Teveden",
+            "option_c": "Neutraal",
+            "option_d": "Ontevreden"
+        }
+    },
+    {
+
+        "model": "ccforms.mcquestion",
+        "pk": 8,
+        "fields": {
+        "question": "Hoe tevreden bent u over de ondersteuning die u van ons heeft ontvangen?",
+        "option_a": "Zeer tevreden",
+        "option_b": "Tevreden",
+        "option_c": "Neutraal",
+        "option_d": "Ontevreden",
+        "is_archived": false
+        }
+    },
+    {
+    "model": "ccforms.mcquestion",
+    "pk": 9,
+    "fields": {
+      "question": "Hoe waarschijnlijk is het dat u ons zou aanbevelen aan anderen?",
+      "option_a": "Zeer waarschijnlijk",
+      "option_b": "Waarschijnlijk",
+      "option_c": "Neutraal",
+      "option_d": "Onwaarschijnlijk",
+      "is_archived": false
+    }
+  }
+]

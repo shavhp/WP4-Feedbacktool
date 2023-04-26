@@ -1,0 +1,82 @@
+[
+  {
+    "model": "ccforms.openquestion",
+    "pk": 1,
+    "fields": {
+      "question": "Wat vind je van onze dienstverlening?",
+      "is_archived": false
+    }
+  },
+  {
+    "model": "ccforms.openquestion",
+    "pk": 2,
+    "fields": {
+      "question": "Hoe waarschijnlijk is het dat je onze diensten opnieuw zou gebruiken?",
+      "is_archived": false
+    }
+  },
+  {
+    "model": "ccforms.openquestion",
+    "pk": 3,
+    "fields": {
+      "question": "Wat kunnen we doen om onze dienstverlening te verbeteren?",
+      "is_archived": false
+    }
+  },
+  {
+    "model": "ccforms.openquestion",
+    "pk": 4,
+    "fields": {
+      "question": "Zijn er aspecten van onze dienstverlening waar je ontevreden over bent?",
+      "is_archived": false
+    }
+  },
+  {
+    "model": "ccforms.openquestion",
+    "pk": 5,
+    "fields": {
+      "question": "Wat vind je van de kwaliteit van onze producten?",
+      "is_archived": false
+    }
+  },
+  {
+    "model": "ccforms.openquestion",
+    "pk": 6,
+    "fields": {
+      "question": "Zijn er aspecten van onze producten waar je ontevreden over bent?",
+      "is_archived": false
+    }
+  },
+  {
+    "model": "ccforms.openquestion",
+    "pk": 7,
+    "fields": {
+      "question": "Hoe gemakkelijk vond je het om onze producten te gebruiken?",
+      "is_archived": false
+    }
+  },
+  {
+    "model": "ccforms.openquestion",
+    "pk": 8,
+    "fields": {
+      "question": "Heb je suggesties voor nieuwe producten of functies die we aan onze producten kunnen toevoegen?",
+      "is_archived": false
+    }
+  },
+  {
+    "model": "ccforms.openquestion",
+    "pk": 9,
+    "fields": {
+      "question": "Heb je nog opmerkingen of suggesties voor ons?",
+      "is_archived": false
+    }
+  },
+  {
+    "model": "ccforms.openquestion",
+    "pk": 10,
+    "fields": {
+      "question": "Hoe heb je over ons gehoord?",
+      "is_archived": false
+    }
+  }
+]

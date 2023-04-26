@@ -1,0 +1,22 @@
+[
+{
+  "model": "ccforms.administrator",
+  "pk": 1,
+  "fields": {
+    "email": "admin@hr.nl",
+    "last_name": "Admin",
+    "first_name": "Ad",
+    "is_admin": true
+  }
+},
+{
+  "model": "ccforms.teammember",
+  "pk": 1,
+  "fields": {
+    "email": "teamlid@hr.nl",
+    "last_name": "Teamlid",
+    "first_name": "Tea",
+    "is_admin": false
+  }
+}
+]

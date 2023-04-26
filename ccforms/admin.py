@@ -4,16 +4,9 @@ from .models import *
 
 # Register your models here.
 class McQuestionAdmin(admin.ModelAdmin):
-    list_display = (
-        "mc_question_id",
-        "question",
-        "option_a",
-        "option_b",
-        "option_c",
-        "option_d",
-        "is_archived",
-    )
-
+    list_display = ('mc_question_id', 'question', 'option_a', 'option_b', 'option_c', 'option_d', 'is_archived')
+    list_filter = ('is_archived',)
+    search_fields = ('question',)
 
 class OpenQuestionAdmin(admin.ModelAdmin):
     list_display = (
