@@ -4,7 +4,7 @@ from django.db import models
 # Create your models here.
 class McQuestion(models.Model):
     mc_question_id = models.AutoField(primary_key=True, verbose_name="Vraagnummer")
-    question = models.CharField(verbose_name="Vragen", max_length=250)
+    question = models.CharField(verbose_name="Vraag", max_length=250)
     option_a = models.CharField(verbose_name="Optie A", max_length=250)
     option_b = models.CharField(verbose_name="Optie B", max_length=250)
     option_c = models.CharField(verbose_name="Optie C", max_length=250, blank=True, default="")

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Nieuwe meerkeuzevraag</h1>
+<p>Optie C en D kunnen leeg worden gelaten.</p>
+<form method="post" id="form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Vraag toevoegen"/>
+</form>
+<a href="{% url 'mc_questions' %}"><button>Annuleren</button></a>
+</body>
+</html>

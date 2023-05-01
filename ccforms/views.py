@@ -1,7 +1,10 @@
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from .models import OpenQuestion, McQuestion
 from django_tables2 import SingleTableView, LazyPaginator
 from .tables import OpenQuestionTable, McQuestionTable
+from .forms import AddMcQuestionForm
+from django.views.generic import CreateView
 
 
 # Create your views here.
@@ -17,3 +20,9 @@ class McQuestionTableView(SingleTableView):
     table_class = McQuestionTable
     template_name = "questions/mc_questions_view.html"
     paginator_class = LazyPaginator
+
+
+class AddMcQuestionView(CreateView):
+    form_class = AddMcQuestionForm
+    success_url = reverse_lazy("mc_questions")
+    template_name = "questions/add_mcquestion.html"
