@@ -15,7 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from ccforms.views import OpenQuestionTableView, McQuestionTableView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('open_questions/', OpenQuestionTableView.as_view(), name="open_questions"),
+    path('mc_questions/', McQuestionTableView.as_view(), name="mc_questions"),
 ]
