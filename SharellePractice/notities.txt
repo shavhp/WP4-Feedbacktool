@@ -1,0 +1,25 @@
+Twee dependencies die nuttig zijn voor het toegang krijgen
+tot de API vanaf een andere applicatie; deze helpen om verbinding
+tot stand te brengen tussen Django en React
+
+1. Django REST Framework:
+toolkit om Web APIs mee te bouwen
+
+2. django-cors-headers:
+app die server headers handled die vereist zijn voor CORS
+
+
+Database migreren
+Database migratie file aanmaken; deze file staat voor de directe manipulatie
+van data in de database. --empty maakt een lege migratie aan, ongeacht of de models.py
+file wordt aangepast of niet.
+python manage.py makemigrations --empty --<kolomnaam> <modelnaam> <modelnaam>
+
+
+**Django REST API**
+View: entrypoint van een request die op een specifieke endpoint gemaakt is,
+die wordt 'geserved' door een URL.
+
+Serializers: zorgen dat complete data, zoals querysets en instancies van models,
+kunnen worden omgezet naar Python datatypes. Dit kan vervolgens makkelijkworden
+gerenderd in JSON, XML of andere content types.
