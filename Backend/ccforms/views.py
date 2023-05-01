@@ -1,13 +1,15 @@
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from rest_framework import generics
 from .serializers import UserSerializer
 from django.urls import reverse_lazy
 from .models import OpenQuestion, McQuestion
-from django_tables2 import SingleTableView, LazyPaginator
+from django_tables2 import SingleTableView, LazyPaginator, RequestConfig
 from .tables import OpenQuestionTable, McQuestionTable
 from .forms import AddMcQuestionForm
 from django.views.generic import CreateView
+
 
 # Create your views here.
 class UserList(generics.ListAPIView):
