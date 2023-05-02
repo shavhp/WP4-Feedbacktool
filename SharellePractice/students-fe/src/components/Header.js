@@ -6,10 +6,11 @@ class Header extends Component {
         return (
             <div className="text-center">
                 <img
-                    src="https://logrocket-assets.io/img/logo.png"
+                    src="http://www.w3.org/2000/svg"
                     width="300"
                     className="img-thumbnail"
                     style={{ marginTop: "20px" }}
+                    alt="React logo"
                 />
                 <hr />
                 <h5>
