@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from "react";
 import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
-import NewOpenQuestionForm from "./NewOpenQuestionForm";
+import NewMcQuestionForm from "./NewMcQuestionForm";
 
 
-class NewOpenQuestionModal extends Component {
+class NewMcQuestionModal extends Component {
     state = {
         modal: false
     };
@@ -17,13 +17,13 @@ class NewOpenQuestionModal extends Component {
     render() {
         const create = this.props.create;
 
-        var title = "Open vraag aanpassen";
+        var title = "Meerkeuzevraag aanpassen";
         var button =
             <Button onClick={this.toggle}>
                 Wijzigen
             </Button>;
         if (create) {
-            title = "Nieuwe open vraag toevoegen";
+            title = "Nieuwe meerkeuzevraag toevoegen";
             button = (
                 <Button
                     color="primary"
@@ -49,12 +49,12 @@ class NewOpenQuestionModal extends Component {
                     </ModalHeader>
 
                     <ModalBody>
-                        <NewOpenQuestionForm
+                        <NewMcQuestionForm
                             create={this.props.create}
                             resetState={this.props.resetState}
                             toggle={this.toggle}
-                            openQuestion={this.props.openQuestion}
-                            getOpenQuestions={this.props.getOpenQuestions}
+                            mcQuestion={this.props.mcQuestion}
+                            getMcQuestions={this.props.getMcQuestions}
                             />
                     </ModalBody>
                 </Modal>
@@ -63,4 +63,4 @@ class NewOpenQuestionModal extends Component {
     }
 }
 
-export default NewOpenQuestionModal;
+export default NewMcQuestionModal;

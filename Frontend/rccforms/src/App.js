@@ -1,14 +1,16 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import UserList from "./GetUser";
-import OpenQuestionList from "./components/OpenQuestionList";
+import OpenQuestions from "./components/OpenQuestions";
+import McQuestions from "./components/McQuestions";
 
 function App() {
     return (
         <Router>
             <Routes>
                 <Route path='/userlist' element={<UserList/>}/>
-                <Route path='/openquestionlist' element={<OpenQuestionList/>}/>
+                <Route path='/openquestions' element={<OpenQuestions/>}/>
+                <Route path='/mcquestions' element={<McQuestions/>}/>
             </Routes>
         </Router>
     );

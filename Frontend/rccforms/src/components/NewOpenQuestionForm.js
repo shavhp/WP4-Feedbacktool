@@ -19,7 +19,7 @@ class NewOpenQuestionForm extends React.Component {
         }
     }
 
-    onchange = e => {
+    onChange = e => {
         this.setState({
             [e.target.name]: e.target.value
         });
@@ -27,7 +27,8 @@ class NewOpenQuestionForm extends React.Component {
 
     createOpenQuestion = e => {
         e.preventDefault();
-        axios.post(API_URL_OPEN_QUESTIONS,
+        axios.post(
+            API_URL_OPEN_QUESTIONS,
             this.state).then(() => {
                 this.props.resetState();
                 this.props.toggle();
@@ -35,7 +36,15 @@ class NewOpenQuestionForm extends React.Component {
         });
     };
 
-    //    Edit open questions
+    editOpenQuestion = e => {
+        e.preventDefault();
+        axios.put(API_URL_OPEN_QUESTIONS +
+            this.state.pk,
+            this.state).then(() => {
+                this.props.resetState();
+                this.props.toggle();
+        });
+    };
 
     defaultIfEmpty = value => {
         return value === "" ? "" : value;
@@ -44,7 +53,7 @@ class NewOpenQuestionForm extends React.Component {
     render() {
         return (
             <Form
-                onSubmit={this.props.openQuestion = this.createOpenQuestion}>
+                onSubmit={this.props.openQuestion ? this.editOpenQuestion : this.createOpenQuestion}>
                 <FormGroup>
                     <Label for="question">Vraag:</Label>
                     <Input
@@ -52,6 +61,7 @@ class NewOpenQuestionForm extends React.Component {
                         name="question"
                         onChange={this.onChange}
                         value={this.defaultIfEmpty(this.state.question)}
+                        autoFocus
                         />
                 </FormGroup>
                 <Button>Toevoegen</Button>

@@ -44,7 +44,7 @@ class OpenQuestionList extends Component {
                 ) : (
                     openQuestions.map(openQuestion => (
                         <tr key={openQuestion.pk}>
-                            <td>{openQuestion.pk}</td>
+                            <td>{openQuestion.open_question_id}</td>
                             <td>{openQuestion.question}</td>
                             <td align="center">
                                 <NewOpenQuestionModal
@@ -62,9 +62,5 @@ class OpenQuestionList extends Component {
         );
     }
 }
-
-OpenQuestionList.propTypes = {
-    window: OpenQuestionList.func,
-};
 
 export default OpenQuestionList;
