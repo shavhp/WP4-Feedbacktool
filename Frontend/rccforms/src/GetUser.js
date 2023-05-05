@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { API_URL_USER_LIST } from "./constants";
 
 function UserList() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
     async function fetchUsers() {
-      const response = await axios.get('http://127.0.0.1:8000/api/users/');
+      const response = await axios.get(API_URL_USER_LIST);
       setUsers(response.data);
     }
 
