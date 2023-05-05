@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Col, Container, Row } from "reactstrap";
-import McQuestionList from "./McQuestionList";
-import NewMcQuestionModal from "./NewMcQuestionModal";
+import McQuestionList from "../components/mcQuestions/McQuestionList";
+import NewMcQuestionModal from "../components/mcQuestions/NewMcQuestionModal";
 import axios from "axios";
 import { API_URL_MC_QUESTIONS } from "../constants";
 

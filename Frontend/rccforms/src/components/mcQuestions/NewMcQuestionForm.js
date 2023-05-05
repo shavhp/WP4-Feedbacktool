@@ -1,7 +1,7 @@
 import React from "react";
 import {Button, Form, FormGroup, Input, Label} from "reactstrap";
 import axios from "axios";
-import {API_URL_MC_QUESTIONS} from "../constants";
+import {API_URL_MC_QUESTIONS} from "../../constants";
 
 
 class NewMcQuestionForm extends React.Component {

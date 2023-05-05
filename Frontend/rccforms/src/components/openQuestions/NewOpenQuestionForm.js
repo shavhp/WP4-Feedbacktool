@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import axios from "axios";
-import { API_URL_OPEN_QUESTIONS } from "../constants";
+import { API_URL_OPEN_QUESTIONS } from "../../constants";
 
 
 class NewOpenQuestionForm extends React.Component {

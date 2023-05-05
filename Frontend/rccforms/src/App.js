@@ -1,8 +1,8 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import UserList from "./GetUser";
-import OpenQuestions from "./components/OpenQuestions";
-import McQuestions from "./components/McQuestions";
+import OpenQuestions from "./pages/OpenQuestions";
+import McQuestions from "./pages/McQuestions";
 
 function App() {
     return (
