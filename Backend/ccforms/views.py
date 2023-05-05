@@ -5,12 +5,7 @@ from rest_framework import generics, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import UserSerializer, OpenQuestionSerializer, McQuestionSerializer
-from django.urls import reverse_lazy
 from .models import OpenQuestion, McQuestion
-from django_tables2 import SingleTableView, LazyPaginator, RequestConfig
-# from .tables import OpenQuestionTable, McQuestionTable
-from .forms import AddMcQuestionForm
-from django.views.generic import CreateView
 
 
 # Create your views here.
@@ -19,20 +14,8 @@ class UserList(generics.ListAPIView):
     serializer_class = UserSerializer
 
 
-# class OpenQuestionTableView(SingleTableView):
-#     model = OpenQuestion
-#     table_class = OpenQuestionTable
-#     template_name = "questions/open_questions_view.html"
-#     paginator_class = LazyPaginator
-#
-#
-# class McQuestionTableView(SingleTableView):
-#     model = McQuestion
-#     table_class = McQuestionTable
-#     template_name = "questions/mc_questions_view.html"
-#     paginator_class = LazyPaginator
-
-
+# Code from
+# https://blog.logrocket.com/using-react-django-create-app-tutorial/
 @api_view(['GET', 'POST'])
 def mc_question_list(request):
     if request.method == 'GET':
@@ -53,8 +36,6 @@ def mc_question_list(request):
                         status=status.HTTP_400_BAD_REQUEST)
 
 
-# Code from
-# https://blog.logrocket.com/using-react-django-create-app-tutorial/
 @api_view(['GET', 'POST'])
 def open_question_list(request):
     if request.method == 'GET':
@@ -73,9 +54,3 @@ def open_question_list(request):
             return Response(status=status.HTTP_201_CREATED)
         return Response(serializer.errors,
                         status=status.HTTP_400_BAD_REQUEST)
-
-
-class AddMcQuestionView(CreateView):
-    form_class = AddMcQuestionForm
-    success_url = reverse_lazy("mc_questions")
-    template_name = "questions/add_mcquestion.html"
