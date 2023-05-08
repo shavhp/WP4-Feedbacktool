@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { API_URL_USER_LIST } from "./constants";
+import { API_URL_USER_LIST } from "../constants";
 
 function UserList() {
   const [users, setUsers] = useState([]);
