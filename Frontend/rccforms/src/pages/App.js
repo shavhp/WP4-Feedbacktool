@@ -3,12 +3,13 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import UserList from "./GetUser";
 import OpenQuestions from "./OpenQuestions";
 import McQuestions from "./McQuestions";
+import LoginPage from "./Login";
 
 function App() {
     return (
         <Router>
             <Routes>
-                <Route path='/' element={<UserList/>}/>
+                <Route path='/' element={<LoginPage/>}/>
                 <Route path='/userlist' element={<UserList/>}/>
                 <Route path='/openquestions' element={<OpenQuestions/>}/>
                 <Route path='/mcquestions' element={<McQuestions/>}/>
