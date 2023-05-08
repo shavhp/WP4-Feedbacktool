@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from .serializers import UserSerializer, OpenQuestionSerializer, McQuestionSerializer
 from .models import OpenQuestion, McQuestion
 from django.contrib.auth import authenticate, login
+from rest_framework.views import APIView
 
 # Create your views here.
 class UserList(generics.ListAPIView):
@@ -53,16 +54,17 @@ def open_question_list(request):
             serializer.save()
             return Response(status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-@api_view(['POST'])
-def login_view(request):
-    username = request.data.get('username')
-    password = request.data.get('password')
-
-    user = authenticate(request, username=username, password=password)
-    if user is not None:
-        login(request, user)
-        return JsonResponse({'success': True})
-    else:
-        return JsonResponse({'success': False, 'error': 'Invalid credentials'})
+    
+    
+class LoginView(APIView):
+    def post(self, request, format=None):
+        username = request.data.get('username')
+        password = request.data.get('password')
+        user = authenticate(request, username=username, password=password)
+        
+        if user is not None:
+            login(request, user)
+            print(user)
+            return Response({'success': True, 'success': username})
+        else:
+            return Response({'success': False, 'error': 'Invalid credentials'})

@@ -7,6 +7,7 @@ function LoginPage() {
   const [username, setUsername] = useState("Mustafa");
   const [password, setPassword] = useState("123");
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -23,6 +24,8 @@ function LoginPage() {
       .then(response => {
         if (response.data.success) {
           // Redirect to dashboard or home page
+          setSuccess(response.data.success);
+          console.log(response.data)
         } else {
           setError(response.data.error);
         }
@@ -38,6 +41,7 @@ function LoginPage() {
       <Col md={{ span: 6, offset: 3 }} className="mt-5">
         <h1>Login Page</h1>
         {error && <p>{error}</p>}
+        {success && <p>{success}</p>}
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <label className="form-label">Username:</label>
