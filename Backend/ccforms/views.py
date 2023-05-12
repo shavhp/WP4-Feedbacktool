@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 from rest_framework import generics, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import UserSerializer, OpenQuestionSerializer, McQuestionSerializer
-from .models import OpenQuestion, McQuestion
+from .serializers import UserSerializer, QuestionSerializer, MultipleChoiceSerializer
+from .models import Question, MultipleChoice
 
 
 # Create your views here.
@@ -17,10 +17,10 @@ class UserList(generics.ListAPIView):
 # Code from
 # https://blog.logrocket.com/using-react-django-create-app-tutorial/
 @api_view(['GET', 'POST'])
-def mc_question_list(request):
+def question_list(request):
     if request.method == 'GET':
-        data = McQuestion.objects.all()
-        serializer = McQuestionSerializer(
+        data = Question.objects.all()
+        serializer = QuestionSerializer(
             data,
             context={'request': request},
             many=True
@@ -28,7 +28,7 @@ def mc_question_list(request):
         return Response(serializer.data)
 
     elif request.method == 'POST':
-        serializer = McQuestionSerializer(data=request.data)
+        serializer = QuestionSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(status=status.HTTP_201_CREATED)
@@ -37,10 +37,10 @@ def mc_question_list(request):
 
 
 @api_view(['GET', 'POST'])
-def open_question_list(request):
+def multiple_choice_list(request):
     if request.method == 'GET':
-        data = OpenQuestion.objects.all()
-        serializer = OpenQuestionSerializer(
+        data = MultipleChoice.objects.all()
+        serializer = MultipleChoiceSerializer(
             data,
             context={'request': request},
             many=True
@@ -48,7 +48,7 @@ def open_question_list(request):
         return Response(serializer.data)
 
     elif request.method == 'POST':
-        serializer = OpenQuestionSerializer(data=request.data)
+        serializer = MultipleChoiceSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(status=status.HTTP_201_CREATED)

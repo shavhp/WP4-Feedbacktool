@@ -22,6 +22,6 @@ from ccforms import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/users/', UserList.as_view()),
-    path('api/open_questions/', views.open_question_list),
-    path('api/mc_questions/', views.mc_question_list),
+    path('api/questions/', views.question_list),
+    path('api/mc_options/', views.multiple_choice_list),
 ]

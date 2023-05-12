@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import axios from "axios";
-import { API_URL_OPEN_QUESTIONS } from "../../constants";
+import { API_URL_QUESTIONS } from "../../constants";
 
 
 class NewOpenQuestionForm extends React.Component {
@@ -28,7 +28,7 @@ class NewOpenQuestionForm extends React.Component {
     createOpenQuestion = e => {
         e.preventDefault();
         axios.post(
-            API_URL_OPEN_QUESTIONS,
+            API_URL_QUESTIONS,
             this.state).then(() => {
                 this.props.resetState();
                 this.props.toggle();
@@ -38,7 +38,7 @@ class NewOpenQuestionForm extends React.Component {
 
     editOpenQuestion = e => {
         e.preventDefault();
-        axios.put(API_URL_OPEN_QUESTIONS +
+        axios.put(API_URL_QUESTIONS +
             this.state.pk,
             this.state).then(() => {
                 this.props.resetState();

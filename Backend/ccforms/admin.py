@@ -2,25 +2,30 @@ from django.contrib import admin
 from .models import *
 
 
-# Register your models here.
-class McQuestionAdmin(admin.ModelAdmin):
+class QuestionAdmin(admin.ModelAdmin):
     list_display = (
-        "mc_question_id",
+        "question_id",
+        "question_text",
+        "question_type",
+        "is_hidden",
+    )
+
+
+class MultipleChoiceAdmin(admin.ModelAdmin):
+    list_display = (
+        "mc_id",
         "question",
         "option_a",
         "option_b",
         "option_c",
         "option_d",
-        "is_archived",
+        "is_hidden",
     )
 
-
-class OpenQuestionAdmin(admin.ModelAdmin):
-    list_display = (
-        "open_question_id",
-        "question",
-        "is_archived",
-    )
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "question":
+            kwargs["queryset"] = Question.objects.filter(question_type=Question.MULTIPLE_CHOICE)
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 class AdministratorAdmin(admin.ModelAdmin):
@@ -51,8 +56,7 @@ class SurveyAdmin(admin.ModelAdmin):
         "description",
         "is_anonymous",
         "date_sent",
-        "open_question",
-        "mc_question",
+        "question",
         "url",
     )
 
@@ -62,14 +66,13 @@ class ResponseAdmin(admin.ModelAdmin):
         "response_id",
         "survey",
         "tm_email",
-        "open_question",
-        "mc_question",
+        "question",
         "date_submitted",
     )
 
 
-admin.site.register(McQuestion, McQuestionAdmin)
-admin.site.register(OpenQuestion, OpenQuestionAdmin)
+admin.site.register(Question, QuestionAdmin)
+admin.site.register(MultipleChoice, MultipleChoiceAdmin)
 admin.site.register(Administrator, AdministratorAdmin)
 admin.site.register(TeamMember, TeamMemberAdmin)
 admin.site.register(Survey, SurveyAdmin)

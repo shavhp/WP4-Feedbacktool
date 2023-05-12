@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Table } from "reactstrap";
 import axios from "axios";
-import { API_URL_OPEN_QUESTIONS } from "../../constants";
+import { API_URL_QUESTIONS } from "../../constants";
 import NewOpenQuestionModal from "./NewOpenQuestionModal";
 
 
@@ -15,7 +15,7 @@ class OpenQuestionList extends Component {
     }
 
     getOpenQuestions() {
-        axios.get(API_URL_OPEN_QUESTIONS).then(res => this.setState(
+        axios.get(API_URL_QUESTIONS).then(res => this.setState(
             { openQuestions:res.data}
         ));
     }
