@@ -23,9 +23,10 @@ function LoginPage() {
     axios.post(API_URL_LOGIN, { username, password })
       .then(response => {
         if (response.data.success) {
-          // Redirect to dashboard or home page
-          setSuccess(response.data.success);
-          console.log(response.data)
+          // Store username in local storage
+          localStorage.setItem('username', response.data.username);
+          // Redirect to homepage
+          window.location.href = '/home';
         } else {
           setError(response.data.error);
         }
@@ -35,6 +36,7 @@ function LoginPage() {
         setError("An error occurred while logging in. Please try again.");
       });
   };
+
 
   return (
     <Container>
