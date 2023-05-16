@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Table } from "reactstrap";
 import axios from "axios";
-import { API_URL_MC_QUESTIONS } from "../../constants";
+import { API_URL_MC_OPTIONS } from "../../constants";
 import NewMcQuestionModal from "./NewMcQuestionModal";
 
 
@@ -15,7 +15,7 @@ class McQuestionList extends Component {
     }
 
     getMcQuestions() {
-        axios.get(API_URL_MC_QUESTIONS).then(res => this.setState(
+        axios.get(API_URL_MC_OPTIONS).then(res => this.setState(
             { mcQuestions:res.data}
         ));
     }

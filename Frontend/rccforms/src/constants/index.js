@@ -3,5 +3,5 @@
 // reusability of our code.
 
 export const API_URL_QUESTIONS = "http://localhost:8000/api/questions/"
-export const API_URL_MC_QUESTIONS = "http://localhost:8000/api/mc_questions/"
+export const API_URL_MC_OPTIONS = "http://localhost:8000/api/mc_options/"
 export const API_URL_USER_LIST = "http://127.0.0.1:8000/api/users/"

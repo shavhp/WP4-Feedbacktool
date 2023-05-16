@@ -1,8 +1,4 @@
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
-from django.core.exceptions import ValidationError
 from django.db import models
-from django.db.models.signals import pre_save
-from django.dispatch import receiver
 
 
 class Question(models.Model):
@@ -14,7 +10,7 @@ class Question(models.Model):
         (MULTIPLE_CHOICE, "Meerkeuze"),
     ]
 
-    question_id = models.AutoField(primary_key=True, verbose_name="Vraagnummer")
+    question_id = models.AutoField(primary_key=True, verbose_name="ID")
     question_text = models.CharField(verbose_name="Vraag", max_length=250)
     question_type = models.CharField(max_length=4, choices=QUESTION_TYPE_CHOICES, default="")
     is_hidden = models.BooleanField(default=False, verbose_name="Verborgen")
@@ -27,12 +23,6 @@ class Question(models.Model):
         return self.question_text[:50]
 
 
-@receiver(pre_save, sender=Question)
-def validate_question_type(sender, instance, **kwargs):
-    if instance.question_type == Question.OPEN and instance.multiplechoice_set.exists():
-        raise ValidationError("Open vragen hebben geen meerkeuzeopties.")
-
-
 class MultipleChoice(models.Model):
     mc_id = models.AutoField(primary_key=True, verbose_name="ID")
     question = models.ForeignKey(Question, on_delete=models.PROTECT, default="", verbose_name="Vraag")
@@ -43,15 +33,19 @@ class MultipleChoice(models.Model):
     is_hidden = models.BooleanField(default=False, verbose_name="Verborgen")
 
     class Meta:
-        verbose_name = "Vraagoptie"
-        verbose_name_plural = "Vraagopties"
+        verbose_name = "Meerkeuzeoptie"
+        verbose_name_plural = "Meerkeuzeopties"
 
-    # def __str__(self):
-    #     return self.question_text[:50]
+    def __str__(self):
+        return f"{self.question.question_text[:50]} - " \
+               f"{self.option_a[:50]} | " \
+               f"{self.option_b[:50]} | " \
+               f"{self.option_c[:50]} | " \
+               f"{self.option_d[:50]}"
 
 
 class Administrator(models.Model):
-    admin_id = models.AutoField(primary_key=True, verbose_name="Administratornummer")
+    admin_id = models.AutoField(primary_key=True, verbose_name="ID")
     email = models.EmailField(max_length=250, verbose_name="E-mailadres")
     last_name = models.CharField(max_length=250, verbose_name="Achternaam")
     first_name = models.CharField(max_length=250, verbose_name="Voornaam")
@@ -62,7 +56,7 @@ class Administrator(models.Model):
 
 
 class TeamMember(models.Model):
-    team_member_id = models.AutoField(primary_key=True, verbose_name="Teamlidnummer")
+    team_member_id = models.AutoField(primary_key=True, verbose_name="ID")
     email = models.EmailField(max_length=250, verbose_name="E-mailadres")
     last_name = models.CharField(max_length=250, verbose_name="Achternaam")
     first_name = models.CharField(max_length=250, verbose_name="Voornaam")
@@ -78,14 +72,15 @@ class TeamMember(models.Model):
 
 
 class Survey(models.Model):
-    survey_id = models.AutoField(primary_key=True, verbose_name="Enquêtenummer")
+    survey_id = models.AutoField(primary_key=True, verbose_name="ID")
     admin = models.ForeignKey(Administrator, on_delete=models.CASCADE, default="",
                               verbose_name="Administrator")
     title = models.CharField(max_length=100, verbose_name="Naam enquête")
     description = models.CharField(max_length=500, verbose_name="Toelichting", blank=True, default="")
     is_anonymous = models.BooleanField(default=False, verbose_name="Anonieme respons")
     date_sent = models.DateField(null=True, verbose_name="Verzonden op")
-    question = models.ForeignKey(Question, on_delete=models.PROTECT, default="", verbose_name="Vragen")
+    questions = models.ManyToManyField(Question, verbose_name="Open vragen")
+    multiple_choice = models.ManyToManyField(MultipleChoice, verbose_name="Meerkeuzevragen")
     url = models.URLField(max_length=200, default="", unique=True)
 
     def __str__(self):
@@ -93,10 +88,11 @@ class Survey(models.Model):
 
 
 class Response(models.Model):
-    response_id = models.AutoField(primary_key=True, verbose_name="Responsnummer")
+    response_id = models.AutoField(primary_key=True, verbose_name="ID")
     survey = models.ForeignKey(Survey, on_delete=models.CASCADE, default="", verbose_name="Naam enquête")
     tm_email = models.ForeignKey(TeamMember, on_delete=models.CASCADE, default="", verbose_name="E-mailadres teamlid")
-    question = models.ForeignKey(Question, on_delete=models.PROTECT, default="", verbose_name="Vragen")
+    answers = models.ManyToManyField(Question, verbose_name="Antwoorden")
+    multiple_choice = models.ManyToManyField(MultipleChoice, verbose_name="Meerkeuzeopties")
     date_submitted = models.DateField(null=True, verbose_name="Ingevuld op")
 
     def __str__(self):

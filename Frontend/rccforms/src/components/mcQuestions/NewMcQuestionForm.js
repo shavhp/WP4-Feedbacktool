@@ -1,7 +1,7 @@
 import React from "react";
 import {Button, Form, FormGroup, Input, Label} from "reactstrap";
 import axios from "axios";
-import {API_URL_MC_QUESTIONS} from "../../constants";
+import {API_URL_MC_OPTIONS} from "../../constants";
 
 
 class NewMcQuestionForm extends React.Component {
@@ -42,7 +42,7 @@ class NewMcQuestionForm extends React.Component {
     createMcQuestion = e => {
         e.preventDefault();
         axios.post(
-            API_URL_MC_QUESTIONS,
+            API_URL_MC_OPTIONS,
             this.state).then(() => {
                 this.props.resetState();
                 this.props.toggle();
@@ -52,7 +52,7 @@ class NewMcQuestionForm extends React.Component {
 
     editMcQuestion = e => {
         e.preventDefault();
-        axios.put(API_URL_MC_QUESTIONS +
+        axios.put(API_URL_MC_OPTIONS +
             this.state.pk,
             this.state).then(() => {
                 this.props.resetState();

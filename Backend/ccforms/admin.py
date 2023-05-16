@@ -22,6 +22,7 @@ class MultipleChoiceAdmin(admin.ModelAdmin):
         "is_hidden",
     )
 
+    # Only display multiple-choice questions from Question table
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "question":
             kwargs["queryset"] = Question.objects.filter(question_type=Question.MULTIPLE_CHOICE)
@@ -56,9 +57,22 @@ class SurveyAdmin(admin.ModelAdmin):
         "description",
         "is_anonymous",
         "date_sent",
-        "question",
+        "get_questions",
+        "get_multiple_choice",
         "url",
     )
+
+    # Display only selected open questions in database, in a string
+    def get_questions(self, obj):
+        open_questions = obj.questions.filter(question_type=Question.OPEN)
+        return ", ".join([q.question_text for q in open_questions])
+    get_questions.short_description = "Open vragen"
+
+    # Display only selected multiple choice questions in database, in a string
+    def get_multiple_choice(self, obj):
+        questions = obj.multiple_choice.all()
+        return ", ".join([q.question.question_text for q in questions])
+    get_multiple_choice.short_description = "Meerkeuzevragen"
 
 
 class ResponseAdmin(admin.ModelAdmin):
@@ -66,9 +80,13 @@ class ResponseAdmin(admin.ModelAdmin):
         "response_id",
         "survey",
         "tm_email",
-        "question",
+        "get_answers",
         "date_submitted",
     )
+
+    def get_answers(self, obj):
+        return ", ".join([q.question_text for q in obj.answers.all()])
+    get_answers.short_description = "Questions"
 
 
 admin.site.register(Question, QuestionAdmin)
