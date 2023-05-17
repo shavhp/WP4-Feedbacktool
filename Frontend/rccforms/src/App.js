@@ -4,7 +4,7 @@
 
 import './App.css';
 import { Routes, Route, Link } from "react-router-dom";
-import { Sidebar, Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
+import { Sidebar, Menu, MenuItem, SubMenu, useProSidebar } from "react-pro-sidebar";
 import UserList from "./GetUser";
 import Questions from "./pages/Questions";
 
@@ -31,14 +31,14 @@ function App() {
         >
             <Sidebar
                 style={{ height: "100vh" }}
-                onClick={() => {
-                    collapseSidebar();
-                }}
             >
                 <Menu>
                     <MenuItem
                         icon={<MenuOutlinedIcon/>}
                         style={{ textAlign: "center" }}
+                        onClick={() => {
+                            collapseSidebar();
+                        }}
                     >
                         {" "}
                         {/* Get username / fname function needed here */}
@@ -63,11 +63,18 @@ function App() {
                         Vragen
                     </MenuItem>
 
-                    <MenuItem
+                    <SubMenu
                         icon={<NoteAltOutlinedIcon/>}
+                        label="Vragenlijsten"
                     >
-                        Vragenlijsten
-                    </MenuItem>
+                        <MenuItem>
+                            Samenstellen
+                        </MenuItem>
+                        <MenuItem>
+                            Responsen
+                        </MenuItem>
+                    </SubMenu>
+
                     <MenuItem
                         icon={<AccountCircleOutlinedIcon/>}
                     >
