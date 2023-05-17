@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import *
+from authCustomUser.models import *
 
 
 # Register your models here.
@@ -66,6 +67,9 @@ class ResponseAdmin(admin.ModelAdmin):
         "mc_question",
         "date_submitted",
     )
+    
+class CustomUserAdmin(admin.ModelAdmin):
+    list_display = ('username', 'email', 'first_name', 'last_name', 'role')
 
 
 admin.site.register(McQuestion, McQuestionAdmin)
@@ -74,3 +78,4 @@ admin.site.register(Administrator, AdministratorAdmin)
 admin.site.register(TeamMember, TeamMemberAdmin)
 admin.site.register(Survey, SurveyAdmin)
 admin.site.register(Response, ResponseAdmin)
+admin.site.register(CustomUser)

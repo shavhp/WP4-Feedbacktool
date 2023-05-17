@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# CustomUser setting
+AUTH_USER_MODEL = 'authCustomUser.CustomUser'
 
 # Application definition
 
@@ -41,7 +43,7 @@ INSTALLED_APPS = [
     "ccforms.apps.CcformsConfig",
     'rest_framework',
     'corsheaders',
-    #'auth',
+    'authCustomUser',
 ]
 
 MIDDLEWARE = [
@@ -139,5 +141,3 @@ CORS_ALLOWED_ORIGINS = [
 CSRF_COOKIE_DOMAIN = 'localhost:3000'
 CORS_ALLOW_CREDENTIALS = True
 
-# CustomUser setting
-#AUTH_USER_MODEL = 'auth.CustomUser'

@@ -8,10 +8,14 @@ from .serializers import UserSerializer, OpenQuestionSerializer, McQuestionSeria
 from .models import OpenQuestion, McQuestion
 from django.contrib.auth import authenticate, login
 from rest_framework.views import APIView
+from authCustomUser.models import CustomUser
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 # Create your views here.
 class UserList(generics.ListAPIView):
-    queryset = User.objects.all()
+    queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
 
 
