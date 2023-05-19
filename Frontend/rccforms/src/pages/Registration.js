@@ -7,6 +7,8 @@ const RegistrationForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('');
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertType, setAlertType] = useState('');
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -37,66 +39,83 @@ const RegistrationForm = () => {
       .post(API_URL_REGISTER, formData)
       .then((response) => {
         console.log(response.data);
-        // Display success message or redirect to another page
+        // Clear input fields
+        setUsername('');
+        setEmail('');
+        setPassword('');
+        setRole('');
+
+        // Set success alert
+        setAlertMessage('User created successfully!');
+        setAlertType('success');
       })
       .catch((error) => {
         console.error(error);
-        // Display error message
+        // Set error alert
+        setAlertMessage('Error creating user. Please try again.');
+        setAlertType('danger');
       });
   };
 
   return (
-    <form onSubmit={handleSubmit} className="needs-validation w-50">
-      <div className="mb-3">
-        <label htmlFor="username" className="form-label">Username:</label>
-        <input
-          type="text"
-          id="username"
-          value={username}
-          onChange={handleUsernameChange}
-          className="form-control"
-          required
-        />
-        <div className="invalid-feedback">Please provide a username.</div>
-      </div>
-      <div className="mb-3">
-        <label htmlFor="email" className="form-label">Email:</label>
-        <input
-          type="email"
-          id="email"
-          value={email}
-          onChange={handleEmailChange}
-          className="form-control"
-          required
-        />
-        <div className="invalid-feedback">Please provide a valid email address.</div>
-      </div>
-      <div className="mb-3">
-        <label htmlFor="password" className="form-label">Password:</label>
-        <input
-          type="password"
-          id="password"
-          value={password}
-          onChange={handlePasswordChange}
-          className="form-control"
-          required
-        />
-        <div className="invalid-feedback">Please provide a password.</div>
-      </div>
-      <div className="mb-3">
-        <label htmlFor="role" className="form-label">Role:</label>
-        <input
-          type="text"
-          id="role"
-          value={role}
-          onChange={handleRoleChange}
-          className="form-control"
-          required
-        />
-        <div className="invalid-feedback">Please provide a role.</div>
-      </div>
-      <button type="submit" className="btn btn-primary">Register</button>
-    </form>
+    <div className="d-flex justify-content-center align-items-center vh-100">
+      <form onSubmit={handleSubmit} className="needs-validation w-50">
+        {alertMessage && (
+          <div className={`alert alert-${alertType} mb-3`} role="alert">
+            {alertMessage}
+          </div>
+        )}
+        <div className="mb-3">
+          <label htmlFor="username" className="form-label">Username:</label>
+          <input
+            type="text"
+            id="username"
+            value={username}
+            onChange={handleUsernameChange}
+            className="form-control"
+            required
+          />
+          <div className="invalid-feedback">Please provide a username.</div>
+        </div>
+        <div className="mb-3">
+          <label htmlFor="email" className="form-label">Email:</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={handleEmailChange}
+            className="form-control"
+            required
+          />
+          <div className="invalid-feedback">Please provide a valid email address.</div>
+        </div>
+        <div className="mb-3">
+          <label htmlFor="password" className="form-label">Password:</label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={handlePasswordChange}
+            className="form-control"
+            required
+          />
+          <div className="invalid-feedback">Please provide a password.</div>
+        </div>
+        <div className="mb-3">
+          <label htmlFor="role" className="form-label">Role:</label>
+          <input
+            type="text"
+            id="role"
+            value={role}
+            onChange={handleRoleChange}
+            className="form-control"
+            required
+          />
+          <div className="invalid-feedback">Please provide a role.</div>
+        </div>
+        <button type="submit" className="btn btn-primary">Register</button>
+      </form>
+    </div>
   );
 };
 
