@@ -23,5 +23,6 @@ urlpatterns = [
     path('api/users/', UserList.as_view()),
     path('api/open_questions/', views.open_question_list),
     path('api/mc_questions/', views.mc_question_list),
+    path('api/register/', views.register),
     path('api/login/', LoginView.as_view()),
 ]
