@@ -6,7 +6,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import UserSerializer, QuestionSerializer, MultipleChoiceSerializer
 from .models import Question, MultipleChoice
-
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 class UserList(generics.ListAPIView):
@@ -54,3 +54,7 @@ def multiple_choice_list(request):
             return Response(status=status.HTTP_201_CREATED)
         return Response(serializer.errors,
                         status=status.HTTP_400_BAD_REQUEST)
+
+@login_required
+def current_user(request):
+    return JsonResponse({'username': request.user.username})
