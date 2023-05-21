@@ -4,7 +4,7 @@ import { Col, Container } from "reactstrap";
 import { API_URL_LOGIN } from "../constants";
 
 function LoginPage() {
-  const [username, setUsername] = useState("Mustafa");
+  const [username, setUsername] = useState("mustafa");
   const [password, setPassword] = useState("123");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -26,6 +26,7 @@ function LoginPage() {
           // Redirect to dashboard or home page
           setSuccess(response.data.success);
           console.log(response.data)
+          localStorage.setItem("Username", username);
         } else {
           setError(response.data.error);
         }
