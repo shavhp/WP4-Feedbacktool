@@ -25,4 +25,5 @@ urlpatterns = [
     path('api/questions/', views.question_list),
     path('api/mc_options/', views.multiple_choice_list),
     path('api/currentUser/', views.current_user),
+    path('api/surveys/', views.survey_list),
 ]

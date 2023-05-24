@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 from rest_framework import generics, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import UserSerializer, QuestionSerializer, MultipleChoiceSerializer
-from .models import Question, MultipleChoice
+from .serializers import UserSerializer, QuestionSerializer, MultipleChoiceSerializer, SurveySerializer
+from .models import Question, MultipleChoice, Survey
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -58,3 +58,10 @@ def multiple_choice_list(request):
 @login_required
 def current_user(request):
     return JsonResponse({'username': request.user.username})
+
+@api_view(['GET'])
+def survey_list(request):
+    if request.method == 'GET':
+        surveys = Survey.objects.all()
+        serializer = SurveySerializer(surveys, many=True)
+        return Response(serializer.data)

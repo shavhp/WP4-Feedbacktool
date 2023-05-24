@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Question, MultipleChoice
+from .models import Question, MultipleChoice, Survey
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -31,4 +31,20 @@ class MultipleChoiceSerializer(serializers.ModelSerializer):
             'option_c',
             'option_d',
             'is_hidden',
+        )
+
+
+class SurveySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Survey
+        fields = (
+            'survey_id',
+            'admin',
+            'title',
+            'description',
+            'is_anonymous',
+            'date_sent',
+            'questions',
+            'multiple_choice',
+            'url',
         )
