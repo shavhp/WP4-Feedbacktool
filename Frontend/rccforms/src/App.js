@@ -17,6 +17,8 @@ import NoteAltOutlinedIcon from '@mui/icons-material/NoteAltOutlined';
 import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
 import Diversity3OutlinedIcon from '@mui/icons-material/Diversity3Outlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
+
 
 
 function App() {
@@ -49,6 +51,9 @@ function App() {
                         icon={<HomeOutlinedIcon/>}
                     >
                         Home
+                    </MenuItem>
+                    <MenuItem icon={<CreateOutlinedIcon/>}>
+                      Forms Maken
                     </MenuItem>
                     <MenuItem
                         icon={<Diversity3OutlinedIcon/>}
