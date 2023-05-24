@@ -1,0 +1,92 @@
+[
+  {
+    "model": "ccforms.question",
+    "pk": 1,
+    "fields": {
+      "question_text": "Hoe zou je de algemene sfeer en cultuur op onze werkplek omschrijven?",
+      "question_type": "OPEN",
+      "is_hidden": false
+    }
+  },
+  {
+    "model": "ccforms.question",
+    "pk": 2,
+    "fields": {
+      "question_text": "Welke aspecten van onze werkomgeving dragen het meest bij aan jouw productiviteit en welzijn?",
+      "question_type": "OPEN",
+      "is_hidden": false
+    }
+  },
+  {
+    "model": "ccforms.question",
+    "pk": 3,
+    "fields": {
+      "question_text": "Zijn er specifieke gebieden waar je denkt dat we verbeteringen kunnen aanbrengen qua onze fysieke werkruimte of kantoorinrichting?",
+      "question_type": "OPEN",
+      "is_hidden": false
+    }
+  },
+  {
+    "model": "ccforms.question",
+    "pk": 4,
+    "fields": {
+      "question_text": "Hoe zou je de mate van samenwerking en communicatie binnen jouw team en tussen verschillende afdelingen beoordelen?",
+      "question_type": "OPEN",
+      "is_hidden": false
+    }
+  },
+  {
+    "model": "ccforms.question",
+    "pk": 5,
+    "fields": {
+      "question_text": "Op welke manieren denk je dat we de balans tussen werk en privéleven kunnen verbeteren voor onze teamleden?",
+      "question_type": "OPEN",
+      "is_hidden": false
+    }
+  },
+  {
+    "model": "ccforms.question",
+    "pk": 6,
+    "fields": {
+      "question_text": "Voel je je voldoende ondersteund qua middelen, tools en apparatuur die nodig zijn om je werk effectief uit te voeren?",
+      "question_type": "OPEN",
+      "is_hidden": false
+    }
+  },
+  {
+    "model": "ccforms.question",
+    "pk": 7,
+    "fields": {
+      "question_text": "Zijn er specifieke beleidsregels of procedures die volgens jou kunnen worden aangepast of verbeterd om een betere werkomgeving te creëren?",
+      "question_type": "OPEN",
+      "is_hidden": false
+    }
+  },
+  {
+    "model": "ccforms.question",
+    "pk": 8,
+    "fields": {
+      "question_text": "Hoe zou je de mate van erkenning en waardering voor jouw bijdragen binnen de organisatie omschrijven?",
+      "question_type": "OPEN",
+      "is_hidden": false
+    }
+  },
+  {
+    "model": "ccforms.question",
+    "pk": 9,
+    "fields": {
+      "question_text": "Zijn er specifieke uitdagingen of obstakels met betrekking tot jouw werkomgeving of werkomstandigheden die je graag wilt bespreken?",
+      "question_type": "OPEN",
+      "is_hidden": false
+    }
+  },
+  {
+    "model": "ccforms.question",
+    "pk": 10,
+    "fields": {
+      "question_text": "Welke suggesties of aanbevelingen heb je om een meer inclusieve en diverse werkomgeving te creëren?",
+      "question_type": "OPEN",
+      "is_hidden": false
+    }
+  }
+]
