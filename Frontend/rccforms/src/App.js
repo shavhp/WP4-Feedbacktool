@@ -8,6 +8,8 @@ import { Routes, Route, Link } from "react-router-dom";
 import { Sidebar, Menu, MenuItem, SubMenu, useProSidebar } from "react-pro-sidebar";
 import UserList from "./GetUser";
 import Questions from "./pages/Questions";
+import Forms from "./components/making_forms/Forms";
+
 
 // Imports MUI icons from:
 // https://mui.com/material-ui/material-icons/?theme=Outlined
@@ -18,6 +20,7 @@ import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
 import Diversity3OutlinedIcon from '@mui/icons-material/Diversity3Outlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
+
 
 
 
@@ -52,8 +55,12 @@ function App() {
                     >
                         Home
                     </MenuItem>
-                    <MenuItem icon={<CreateOutlinedIcon/>}>
-                      Forms Maken
+                    <MenuItem
+                        icon={<CreateOutlinedIcon />}
+                        component={<Link
+                            to="/forms"/>}
+                    >
+                        Forms
                     </MenuItem>
                     <MenuItem
                         icon={<Diversity3OutlinedIcon/>}
@@ -92,6 +99,7 @@ function App() {
                 <Routes>
                     <Route path='/userlist' element={<UserList/>}/>
                     <Route path='/questions' element={<Questions/>}/>
+                    <Route path="/forms" element={<Forms />} />
                 </Routes>
         </div>
     );
