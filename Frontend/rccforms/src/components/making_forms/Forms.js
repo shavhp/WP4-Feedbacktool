@@ -5,6 +5,7 @@ import "./Forms.css";
 function Forms() {
   const [surveys, setSurveys] = useState([]);
   const [expandedSurvey, setExpandedSurvey] = useState(null);
+  const [showForm, setShowForm] = useState(false); // State for form visibility
 
   useEffect(() => {
     fetch(API_URL_SURVEYS)
@@ -38,6 +39,10 @@ function Forms() {
     }
   };
 
+  const handleAddClick = () => {
+    setShowForm(true);
+  };
+
   return (
     <div className="forms-container">
       <h1 className="forms-title">Forms</h1>
@@ -47,18 +52,18 @@ function Forms() {
           <h3 onClick={() => handleSurveyClick(survey.survey_id)}>{survey.title}</h3>
           {expandedSurvey === survey.survey_id && (
             <>
-              <p className="survey-details">Survey ID: {survey.survey_id}</p>
-              <p className="survey-details">Admin: {survey.admin}</p>
-              <p className="survey-details">Is Anonymous: {survey.is_anonymous ? "Yes" : "No"}</p>
-              <p className="survey-details">Date Sent: {survey.date_sent}</p>
-              <p className="survey-details">Open Vragen:</p>
-              <ul className="question-list">
+              <p>Survey ID: {survey.survey_id}</p>
+              <p>Admin: {survey.admin}</p>
+              <p>Is Anonymous: {survey.is_anonymous ? "Yes" : "No"}</p>
+              <p>Date Sent: {survey.date_sent}</p>
+              <p>Open Vragen:</p>
+              <ul>
                 {survey.questions.map((question) => (
                   <li key={question.id}>{question.question_text}</li>
                 ))}
               </ul>
-              <p className="survey-details">Meerkeuzevragen:</p>
-              <ul className="question-list">
+              <p>Meerkeuzevragen:</p>
+              <ul>
                 {survey.multiple_choice.map((mcQuestion) => (
                   <li key={mcQuestion.id}>{mcQuestion.question_text}</li>
                 ))}
@@ -67,7 +72,13 @@ function Forms() {
           )}
         </div>
       ))}
-      <button className="add-button">Toevoegen</button>
+      {showForm && (
+        <div className="form-popup">
+          <h3>Maak Forms</h3>
+          {/* Add your form components here */}
+        </div>
+      )}
+      <button className="add-button" onClick={handleAddClick}>Toevoegen</button>
     </div>
   );
 }
