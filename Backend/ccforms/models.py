@@ -25,7 +25,7 @@ class Question(models.Model):
 
 class MultipleChoice(models.Model):
     mc_id = models.AutoField(primary_key=True, verbose_name="ID")
-    question = models.ForeignKey(Question, on_delete=models.PROTECT, default="", verbose_name="Vraag")
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, default="", verbose_name="Vraag")
     option_a = models.CharField(verbose_name="A", max_length=250)
     option_b = models.CharField(verbose_name="B", max_length=250)
     option_c = models.CharField(verbose_name="C", max_length=250, blank=True, default="")

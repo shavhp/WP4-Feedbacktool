@@ -24,4 +24,5 @@ urlpatterns = [
     path('api/users/', UserList.as_view()),
     path('api/questions/', views.question_list),
     path('api/mc_options/', views.multiple_choice_list),
+    path('api/questions/<int:pk>/hide/', views.hide_question),
 ]

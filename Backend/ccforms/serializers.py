@@ -10,6 +10,8 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class QuestionSerializer(serializers.ModelSerializer):
+    is_hidden = serializers.BooleanField()
+
     class Meta:
         model = Question
         fields = (

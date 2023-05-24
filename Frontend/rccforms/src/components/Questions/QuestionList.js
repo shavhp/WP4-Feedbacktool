@@ -1,7 +1,11 @@
 import React, { Component, Fragment } from "react";
 import { Table, ButtonGroup, Button } from "reactstrap";
 import axios from "axios";
-import { API_URL_QUESTIONS, API_URL_MC_OPTIONS } from "../../constants";
+import {
+    API_URL_QUESTIONS,
+    API_URL_MC_OPTIONS,
+    API_URL_HIDE_QUESTION
+} from "../../constants";
 import NewQuestionModal from "./NewQuestionModal";
 
 
@@ -27,10 +31,21 @@ class QuestionList extends Component {
         });
     };
 
+    handleQuestionAdded = () => {
+        window.location.reload();
+    };
+
     getQuestions() {
-        axios.get(API_URL_QUESTIONS).then(res => this.setState(
-            { questions:res.data }
-        ));
+        axios.get(API_URL_QUESTIONS).then((res) => {
+            const filteredQuestions = res.data.filter((question) =>
+            !question.is_hidden);
+            this.setState({
+                questions: filteredQuestions.map((question) => ({
+                    ...question,
+                    is_hidden: false,
+                })),
+            });
+        });
     }
 
     getMcOptions() {
@@ -39,9 +54,32 @@ class QuestionList extends Component {
         ));
     }
 
+    handleHideQuestion = (questionId) => {
+        axios
+            .put(`${API_URL_HIDE_QUESTION}${questionId}/hide/`)
+            .then((response) => {
+                if (response.data.success) {
+                    this.setState((prevState) => ({
+                        questions: prevState.questions.map(
+                            (question) => question.question_id === questionId
+                            ? { ...question, is_hidden: true }
+                                : question
+                        )
+                    }));
+                } else {
+                    console.log(response.data.error);
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
     render() {
         const questions = this.state.questions;
         const { qSelected, options } = this.state;
+
+        const visibleQuestions = questions.filter(question => !question.is_hidden);
 
         const buttonQuestionTypeSelect = (
             <ButtonGroup>
@@ -88,14 +126,18 @@ class QuestionList extends Component {
                 </tr>
                 </thead>
                 <tbody>
-                {!questions || questions.length <= 0 ? (
+                {!visibleQuestions || visibleQuestions.length <= 0 ? (
                     <tr>
                         <td colSpan="6" align="center">
                             <b>Nog geen vragen in de database.</b>
                         </td>
                     </tr>
                 ) : (
-                    questions.map((question) => {
+                    visibleQuestions.map((question) => {
+                        if (!visibleQuestions.includes(question)) {
+                            return null;
+                        }
+
                         if (qSelected === 1 && question.question_type === "OPEN") {
                             return (
                                 <tr key={question.pk}>
@@ -108,7 +150,16 @@ class QuestionList extends Component {
                                             question={question}
                                             resetState={this.props.resetState}
                                             getQuestions={this.getQuestions}
+                                            onQuestionAdded={this.handleQuestionAdded}
                                         />
+                                    </td>
+                                    <td align="center">
+                                        <Button
+                                            color="danger"
+                                            onClick={() => this.handleHideQuestion(question.question_id)}
+                                        >
+                                            Verwijderen
+                                        </Button>
                                     </td>
                                 </tr>
                             );
@@ -134,6 +185,14 @@ class QuestionList extends Component {
                                                 multipleChoice={optionsForMcQuestion}
                                             />
                                         </td>
+                                        <td align="center">
+                                        <Button
+                                            color="danger"
+                                            onClick={() => this.handleHideQuestion(question.question_id)}
+                                        >
+                                            Verwijderen
+                                        </Button>
+                                    </td>
                                     </tr>
                                 );
                             }
