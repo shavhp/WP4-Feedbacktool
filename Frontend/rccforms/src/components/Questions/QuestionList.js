@@ -1,7 +1,12 @@
 import React, { Component, Fragment } from "react";
 import { Table, ButtonGroup, Button } from "reactstrap";
 import axios from "axios";
-import { API_URL_QUESTIONS, API_URL_MC_OPTIONS } from "../../constants";
+import {
+    API_URL_QUESTIONS,
+    API_URL_MC_OPTIONS,
+    API_URL_HIDE_QUESTION,
+
+} from "../../constants";
 import NewQuestionModal from "./NewQuestionModal";
 
 
@@ -38,6 +43,25 @@ class QuestionList extends Component {
             { options:res.data }
         ));
     }
+
+    handleHideQuestion = (questionId) => {
+        axios
+            .post(`${API_URL_HIDE_QUESTION}${questionId}/hide/`)
+            .then((response) => {
+                if (response.data.success) {
+                    this.setState((prevState) => ({
+                        questions: prevState.questions.filter(
+                            (question) => question.id !== questionId
+                        ),
+                    }));
+                } else {
+                    console.log(response.data.error);
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
 
     render() {
         const questions = this.state.questions;
@@ -83,7 +107,7 @@ class QuestionList extends Component {
                     )}
                     {/* Edit button column */}
                     <th></th>
-                    {/* Archive button column */}
+                    {/* Hide question button column */}
                     <th></th>
                 </tr>
                 </thead>
@@ -110,6 +134,14 @@ class QuestionList extends Component {
                                             getQuestions={this.getQuestions}
                                         />
                                     </td>
+                                    <td align="center">
+                                            <Button
+                                                color="danger"
+                                                onClick={() => this.handleHideQuestion(question.question_id)}
+                                            >
+                                                Verwijderen
+                                            </Button>
+                                        </td>
                                 </tr>
                             );
                         } else if (qSelected === 2 && question.question_type === "MC") {
@@ -133,6 +165,14 @@ class QuestionList extends Component {
                                                 getQuestions={this.getQuestions}
                                                 multipleChoice={optionsForMcQuestion}
                                             />
+                                        </td>
+                                        <td align="center">
+                                            <Button
+                                                color="danger"
+                                                onClick={() => this.handleHideQuestion(question.question_id)}
+                                            >
+                                                Verwijderen
+                                            </Button>
                                         </td>
                                     </tr>
                                 );

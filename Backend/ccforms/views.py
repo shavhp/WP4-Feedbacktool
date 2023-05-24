@@ -8,6 +8,7 @@ from .serializers import UserSerializer, QuestionSerializer, MultipleChoiceSeria
 from .models import Question, MultipleChoice
 from django.contrib.auth.decorators import login_required
 
+
 # Create your views here.
 class UserList(generics.ListAPIView):
     queryset = User.objects.all()
@@ -54,6 +55,20 @@ def multiple_choice_list(request):
             return Response(status=status.HTTP_201_CREATED)
         return Response(serializer.errors,
                         status=status.HTTP_400_BAD_REQUEST)
+
+
+def hide_question(request, pk):
+    try:
+        question_row = Question.objects.get(question_id=pk)
+        question_row.is_hidden = True
+        question_row.save()
+        return JsonResponse({'success': True})
+    except Question.DoesNotExist:
+        return JsonResponse({
+            'success': False,
+            'error': 'Vraag bestaat niet.'
+        })
+
 
 @login_required
 def current_user(request):
