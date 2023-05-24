@@ -47,18 +47,18 @@ function Forms() {
           <h3 onClick={() => handleSurveyClick(survey.survey_id)}>{survey.title}</h3>
           {expandedSurvey === survey.survey_id && (
             <>
-              <p>Survey ID: {survey.survey_id}</p>
-              <p>Admin: {survey.admin}</p>
-              <p>Is Anonymous: {survey.is_anonymous ? "Yes" : "No"}</p>
-              <p>Date Sent: {survey.date_sent}</p>
-              <p>Open Vragen:</p>
-              <ul>
+              <p className="survey-details">Survey ID: {survey.survey_id}</p>
+              <p className="survey-details">Admin: {survey.admin}</p>
+              <p className="survey-details">Is Anonymous: {survey.is_anonymous ? "Yes" : "No"}</p>
+              <p className="survey-details">Date Sent: {survey.date_sent}</p>
+              <p className="survey-details">Open Vragen:</p>
+              <ul className="question-list">
                 {survey.questions.map((question) => (
                   <li key={question.id}>{question.question_text}</li>
                 ))}
               </ul>
-              <p>Meerkeuzevragen:</p>
-              <ul>
+              <p className="survey-details">Meerkeuzevragen:</p>
+              <ul className="question-list">
                 {survey.multiple_choice.map((mcQuestion) => (
                   <li key={mcQuestion.id}>{mcQuestion.question_text}</li>
                 ))}
