@@ -13,7 +13,8 @@ class NewQuestionForm extends React.Component {
         option_a: "",
         option_b: "",
         option_c: "",
-        option_d: ""
+        option_d: "",
+        is_hidden: false
     };
 
     componentDidMount() {
@@ -63,6 +64,7 @@ class NewQuestionForm extends React.Component {
                     || option_d
                     ? "MC"
                     : question_type,
+                is_hidden: this.state.is_hidden
                 })
             .then((response) => {
                 this.props.resetState();

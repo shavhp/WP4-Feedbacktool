@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.contrib.auth.models import User
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework import generics, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -57,12 +58,15 @@ def multiple_choice_list(request):
                         status=status.HTTP_400_BAD_REQUEST)
 
 
+@csrf_exempt
 def hide_question(request, pk):
     try:
         question_row = Question.objects.get(question_id=pk)
         question_row.is_hidden = True
         question_row.save()
-        return JsonResponse({'success': True})
+        return JsonResponse({
+            'success': True
+        })
     except Question.DoesNotExist:
         return JsonResponse({
             'success': False,
