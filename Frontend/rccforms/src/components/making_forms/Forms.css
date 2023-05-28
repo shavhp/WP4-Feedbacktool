@@ -1,0 +1,73 @@
+.forms-container {
+  margin: 20px;
+}
+
+.forms-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.forms-subtitle {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.survey-card {
+  margin-bottom: 20px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.survey-card h3 {
+  font-size: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.survey-card p {
+  margin: 5px 0;
+}
+
+.survey-card ul {
+  margin-top: 5px;
+  margin-bottom: 10px;
+  list-style: none;
+  padding: 0;
+}
+
+.survey-card ul li {
+  margin-bottom: 5px;
+}
+
+.add-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-button:hover {
+  background-color: #0056b3;
+}
+
+.form-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 9999;
+}

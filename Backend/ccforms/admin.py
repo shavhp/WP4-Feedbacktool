@@ -3,25 +3,31 @@ from .models import *
 from authCustomUser.models import *
 
 
-# Register your models here.
-class McQuestionAdmin(admin.ModelAdmin):
+class QuestionAdmin(admin.ModelAdmin):
     list_display = (
-        "mc_question_id",
+        "question_id",
+        "question_text",
+        "question_type",
+        "is_hidden",
+    )
+
+
+class MultipleChoiceAdmin(admin.ModelAdmin):
+    list_display = (
+        "mc_id",
         "question",
         "option_a",
         "option_b",
         "option_c",
         "option_d",
-        "is_archived",
+        "is_hidden",
     )
 
-
-class OpenQuestionAdmin(admin.ModelAdmin):
-    list_display = (
-        "open_question_id",
-        "question",
-        "is_archived",
-    )
+    # Only display multiple-choice questions from Question table
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "question":
+            kwargs["queryset"] = Question.objects.filter(question_type=Question.MULTIPLE_CHOICE)
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 class AdministratorAdmin(admin.ModelAdmin):
@@ -52,10 +58,22 @@ class SurveyAdmin(admin.ModelAdmin):
         "description",
         "is_anonymous",
         "date_sent",
-        "open_question",
-        "mc_question",
+        "get_questions",
+        "get_multiple_choice",
         "url",
     )
+
+    # Display only selected open questions in database, in a string
+    def get_questions(self, obj):
+        open_questions = obj.questions.filter(question_type=Question.OPEN)
+        return ", ".join([q.question_text for q in open_questions])
+    get_questions.short_description = "Open vragen"
+
+    # Display only selected multiple choice questions in database, in a string
+    def get_multiple_choice(self, obj):
+        questions = obj.multiple_choice.all()
+        return ", ".join([q.question.question_text for q in questions])
+    get_multiple_choice.short_description = "Meerkeuzevragen"
 
 
 class ResponseAdmin(admin.ModelAdmin):
@@ -63,17 +81,20 @@ class ResponseAdmin(admin.ModelAdmin):
         "response_id",
         "survey",
         "tm_email",
-        "open_question",
-        "mc_question",
+        "get_answers",
         "date_submitted",
     )
     
 class CustomUserAdmin(admin.ModelAdmin):
     list_display = ('username', 'email', 'first_name', 'last_name', 'role')
 
+    def get_answers(self, obj):
+        return ", ".join([q.question_text for q in obj.answers.all()])
+    get_answers.short_description = "Questions"
 
-admin.site.register(McQuestion, McQuestionAdmin)
-admin.site.register(OpenQuestion, OpenQuestionAdmin)
+
+admin.site.register(Question, QuestionAdmin)
+admin.site.register(MultipleChoice, MultipleChoiceAdmin)
 admin.site.register(Administrator, AdministratorAdmin)
 admin.site.register(TeamMember, TeamMemberAdmin)
 admin.site.register(Survey, SurveyAdmin)

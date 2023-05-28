@@ -12,6 +12,9 @@ from authCustomUser.models import CustomUser
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
+from .serializers import UserSerializer, QuestionSerializer, MultipleChoiceSerializer, SurveySerializer
+from .models import Question, MultipleChoice, Survey
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 class UserList(generics.ListAPIView):
@@ -22,10 +25,10 @@ class UserList(generics.ListAPIView):
 # Code from
 # https://blog.logrocket.com/using-react-django-create-app-tutorial/
 @api_view(['GET', 'POST'])
-def mc_question_list(request):
+def question_list(request):
     if request.method == 'GET':
-        data = McQuestion.objects.all()
-        serializer = McQuestionSerializer(
+        data = Question.objects.all()
+        serializer = QuestionSerializer(
             data,
             context={'request': request},
             many=True
@@ -33,7 +36,7 @@ def mc_question_list(request):
         return Response(serializer.data)
 
     elif request.method == 'POST':
-        serializer = McQuestionSerializer(data=request.data)
+        serializer = QuestionSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(status=status.HTTP_201_CREATED)
@@ -42,10 +45,10 @@ def mc_question_list(request):
 
 
 @api_view(['GET', 'POST'])
-def open_question_list(request):
+def multiple_choice_list(request):
     if request.method == 'GET':
-        data = OpenQuestion.objects.all()
-        serializer = OpenQuestionSerializer(
+        data = MultipleChoice.objects.all()
+        serializer = MultipleChoiceSerializer(
             data,
             context={'request': request},
             many=True
@@ -53,7 +56,7 @@ def open_question_list(request):
         return Response(serializer.data)
 
     elif request.method == 'POST':
-        serializer = OpenQuestionSerializer(data=request.data)
+        serializer = MultipleChoiceSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(status=status.HTTP_201_CREATED)
@@ -98,3 +101,16 @@ def register(request):
 
     except Exception as e:
         return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response(serializer.errors,
+                        status=status.HTTP_400_BAD_REQUEST)
+
+@login_required
+def current_user(request):
+    return JsonResponse({'username': request.user.username})
+
+@api_view(['GET'])
+def survey_list(request):
+    if request.method == 'GET':
+        surveys = Survey.objects.all()
+        serializer = SurveySerializer(surveys, many=True)
+        return Response(serializer.data)
