@@ -23,7 +23,7 @@ class NewQuestionModal extends Component {
 
     render() {
         const create = this.props.create;
-        const { modal, rSelected } = this.state;
+        const { rSelected } = this.state;
 
         var title = "Vraag aanpassen";
         var button =

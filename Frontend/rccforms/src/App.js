@@ -2,7 +2,7 @@
 // https://blog.openreplay.com/simple-sidebars-with-react-pro-sidebar-and-material-ui/
 // https://blog.logrocket.com/creating-responsive-sidebar-react-mui/
 
-import './App.css';
+import './css/App.css';
 import CurrentUser from './CurrentUser';
 import { Routes, Route, Link } from "react-router-dom";
 import { Sidebar, Menu, MenuItem, SubMenu, useProSidebar } from "react-pro-sidebar";
