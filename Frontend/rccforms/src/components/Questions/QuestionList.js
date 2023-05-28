@@ -13,7 +13,8 @@ class QuestionList extends Component {
     state = {
         questions: [],
         qSelected: 1,
-        options: []
+        options: [],
+        refresh: false
     };
 
     componentDidMount() {
@@ -60,6 +61,7 @@ class QuestionList extends Component {
                             (question) => question.id !== questionId
                         ),
                     }));
+                    this.refreshQuestionList();
                 } else {
                     console.log(response.data.error);
                 }
@@ -69,10 +71,20 @@ class QuestionList extends Component {
             });
     };
 
+    refreshQuestionList = () => {
+        this.setState({ refresh: true });
+    };
+
     render() {
         const questions = this.state.questions;
-        const { qSelected, options } = this.state;
+        const { refresh, qSelected, options } = this.state;
         const visibleQuestions = questions.filter(question => !question.is_hidden);
+
+        if (refresh) {
+            this.getQuestions();
+            this.getMcOptions();
+            this.setState({ refresh: false });
+        }
 
         const buttonQuestionTypeSelect = (
             <ButtonGroup>
