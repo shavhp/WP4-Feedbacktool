@@ -1,34 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { API_URL_SURVEYS, API_URL_QUESTIONS, API_URL_MC_OPTIONS } from "../../constants";
+import { API_URL_SURVEYS, API_URL_QUESTIONS } from "../../constants";
 import "./Forms.css";
 
 function Forms() {
   const [surveys, setSurveys] = useState([]);
   const [expandedSurvey, setExpandedSurvey] = useState(null);
   const [showForm, setShowForm] = useState(false); // State for form visibility
+  const [formData, setFormData] = useState({
+    title: "",
+    questions: [],
+    multiple_choice: [],
+  });
+  const [allQuestions, setAllQuestions] = useState([]);
 
   useEffect(() => {
-    fetch(API_URL_SURVEYS)
-      .then((response) => response.json())
-      .then(async (data) => {
-        const surveysWithQuestions = await Promise.all(
-          data.map(async (survey) => {
-            const questionsResponse = await fetch(`${API_URL_QUESTIONS}?survey=${survey.survey_id}`);
-            const questionsData = await questionsResponse.json();
-
-            const mcOptionsResponse = await fetch(`${API_URL_MC_OPTIONS}?survey=${survey.survey_id}`);
-            const mcOptionsData = await mcOptionsResponse.json();
-
-            return {
-              ...survey,
-              questions: questionsData,
-              multiple_choice: mcOptionsData,
-            };
-          })
-        );
-        setSurveys(surveysWithQuestions);
-      })
-      .catch((error) => console.log(error));
+    fetchSurveysData();
+    fetchAllQuestions();
   }, []);
 
   const handleSurveyClick = (surveyId) => {
@@ -43,10 +30,91 @@ function Forms() {
     setShowForm(true);
   };
 
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await fetch(API_URL_SURVEYS, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        // Form submission successful
+        // Reset form state
+        setFormData({
+          title: "",
+          questions: [],
+          multiple_choice: [],
+        });
+        setShowForm(false);
+        // Refresh the surveys data to include the newly added survey
+        fetchSurveysData();
+      } else {
+        // Handle form submission error
+        console.error("Form submission failed");
+      }
+    } catch (error) {
+      console.error("Form submission error:", error);
+    }
+  };
+
+  const handleInputChange = (event) => {
+    const { name, value, options } = event.target;
+
+    if (name === "questions" || name === "multiple_choice") {
+      const selectedOptions = Array.from(options)
+        .filter((option) => option.selected)
+        .map((option) => option.value);
+
+      setFormData({
+        ...formData,
+        [name]: selectedOptions,
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
+  };
+
+  const fetchSurveysData = async () => {
+    try {
+      const response = await fetch(API_URL_SURVEYS);
+      if (response.ok) {
+        const data = await response.json();
+        setSurveys(data);
+      } else {
+        // Handle fetch surveys error
+        console.error("Failed to fetch surveys");
+      }
+    } catch (error) {
+      console.error("Fetch surveys error:", error);
+    }
+  };
+
+  const fetchAllQuestions = async () => {
+    try {
+      const response = await fetch(API_URL_QUESTIONS);
+      if (response.ok) {
+        const data = await response.json();
+        setAllQuestions(data);
+      } else {
+        // Handle fetch questions error
+        console.error("Failed to fetch questions");
+      }
+    } catch (error) {
+      console.error("Fetch questions error:", error);
+    }
+  };
+
   return (
     <div className="forms-container">
       <h1 className="forms-title">Forms</h1>
-      <h2 className="forms-subtitle">Alle Forms:</h2>
+      <h2 className="forms-subtitle">All Forms:</h2>
       {surveys.map((survey) => (
         <div className="survey-card" key={survey.survey_id}>
           <h3 onClick={() => handleSurveyClick(survey.survey_id)}>{survey.title}</h3>
@@ -56,16 +124,16 @@ function Forms() {
               <p>Admin: {survey.admin}</p>
               <p>Is Anonymous: {survey.is_anonymous ? "Yes" : "No"}</p>
               <p>Date Sent: {survey.date_sent}</p>
-              <p>Open Vragen:</p>
+              <p>Open Questions:</p>
               <ul>
                 {survey.questions.map((question) => (
-                  <li key={question.id}>{question.question_text}</li>
+                  <li key={question.question_id}>{question.question_text}</li>
                 ))}
               </ul>
-              <p>Meerkeuzevragen:</p>
+              <p>Multiple Choice Questions:</p>
               <ul>
                 {survey.multiple_choice.map((mcQuestion) => (
-                  <li key={mcQuestion.id}>{mcQuestion.question_text}</li>
+                  <li key={mcQuestion.mc_id}>{mcQuestion.question}</li>
                 ))}
               </ul>
             </>
@@ -74,11 +142,66 @@ function Forms() {
       ))}
       {showForm && (
         <div className="form-popup">
-          <h3>Maak Forms</h3>
-          {/* Add your form components here */}
+          <h3>Create Form</h3>
+          <form onSubmit={handleFormSubmit}>
+            <label htmlFor="title-input">Title:</label>
+            <input
+              type="text"
+              id="title-input"
+              name="title"
+              value={formData.title}
+              onChange={handleInputChange}
+            />
+
+            {/* Select open questions */}
+            <label htmlFor="questions-select">Select Open Questions:</label>
+            <select
+              id="questions-select"
+              name="questions"
+              multiple
+              value={formData.questions}
+              onChange={handleInputChange}
+            >
+              {allQuestions.map((question) => {
+                if (question.question_type === "OPEN") {
+                  return (
+                    <option key={question.question_id} value={question.question_id}>
+                      {question.question_text}
+                    </option>
+                  );
+                }
+                return null;
+              })}
+            </select>
+
+            {/* Select multiple-choice questions */}
+            <label htmlFor="multiple-choice-select">Select Multiple Choice Questions:</label>
+            <select
+              id="multiple-choice-select"
+              name="multiple_choice"
+              multiple
+              value={formData.multiple_choice}
+              onChange={handleInputChange}
+            >
+              {allQuestions.map((question) => {
+                if (question.question_type === "MC") {
+                  return (
+                    <option key={question.question_id} value={question.question_id}>
+                      {question.question_text}
+                    </option>
+                  );
+                }
+                return null;
+              })}
+            </select>
+
+            <button type="submit">Submit</button>
+          </form>
         </div>
       )}
-      <button className="add-button" onClick={handleAddClick}>Toevoegen</button>
+      <button className="add-button" onClick={handleAddClick}>
+        Add
+      </button>
     </div>
   );
 }
