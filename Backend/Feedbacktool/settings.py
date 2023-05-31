@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "ccforms.apps.CcformsConfig",
     'rest_framework',
     'corsheaders',
+    'authCustomUser',
 ]
 
 MIDDLEWARE = [
@@ -54,6 +55,8 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 
+# CustomUser setting
+AUTH_USER_MODEL = 'authCustomUser.CustomUser'
 ROOT_URLCONF = 'Feedbacktool.urls'
 
 TEMPLATES = [
