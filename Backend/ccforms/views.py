@@ -7,11 +7,11 @@ from rest_framework.response import Response
 from .serializers import UserSerializer, QuestionSerializer, MultipleChoiceSerializer, SurveySerializer
 from .models import Question, MultipleChoice, Survey
 from django.contrib.auth.decorators import login_required
-from authCustomUser.models import CustomUser
+#from authCustomUser.models import CustomUser
 
 # Create your views here.
 class UserList(generics.ListAPIView):
-    queryset = CustomUser.objects.all()
+    queryset = User.objects.all()
     serializer_class = UserSerializer
 
 
