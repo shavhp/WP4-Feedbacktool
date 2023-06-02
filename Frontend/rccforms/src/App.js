@@ -95,6 +95,22 @@ function App() {
                     >
                         Mijn account
                     </MenuItem>
+
+                    {/* <MenuItem
+                        icon={<QuizOutlinedIcon/>}
+                        component={<LoginPage
+                            to="/login"/>}
+                    >
+                        Login
+                    </MenuItem>
+
+                    <MenuItem
+                        icon={<QuizOutlinedIcon/>}
+                        component={<RegistrationForm
+                            to="/registration"/>}
+                    >
+                        Registration
+                    </MenuItem> */}
                 </Menu>
             </Sidebar>
 

@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { API_URL_CURRENT_USER } from "./constants";
 
 const CurrentUser = () => {
   const [username, setUsername] = useState('');
 
-  useEffect(() => {
-    const fetchCurrentUser = async () => {
-      try {
-        const response = await fetch(API_URL_CURRENT_USER);
-        const data = await response.json();
-        setUsername(data.username);
-      } catch (error) {
-        console.error('Error fetching current user:', error);
-      }
-    };
+  const checkLoginStatus = () => {
+    // Check if the username is stored in localStorage
+    const username = localStorage.getItem('Username');
+    setUsername(username);
+  };
 
-    fetchCurrentUser();
+  useEffect(() => {
+    const interval = setInterval(checkLoginStatus, 0); // Run checkLoginStatus every 0 second (realtime)
+
+    return () => {
+      clearInterval(interval); // Clean up the interval on component unmount
+    };
   }, []);
 
   return <div>{username}</div>;

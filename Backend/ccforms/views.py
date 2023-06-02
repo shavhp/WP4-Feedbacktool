@@ -8,6 +8,10 @@ from .serializers import UserSerializer, QuestionSerializer, MultipleChoiceSeria
 from .models import Question, MultipleChoice, Survey
 from django.contrib.auth.decorators import login_required
 from customUser.models import CustomUser
+from rest_framework.decorators import api_view
+from django.contrib.auth import authenticate, login
+from rest_framework.views import APIView
+from django.contrib.auth import get_user_model
 
 # Create your views here.
 class UserList(generics.ListAPIView):
@@ -76,18 +80,8 @@ def survey_list(request):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-from django.http import JsonResponse
-from django.shortcuts import render
-from django.contrib.auth.models import User
-from rest_framework import generics, status
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from .serializers import UserSerializer, OpenQuestionSerializer, McQuestionSerializer
-from .models import OpenQuestion, McQuestion
-from django.contrib.auth import authenticate, login
-from rest_framework.views import APIView
-from authCustomUser.models import CustomUser
-from django.contrib.auth import get_user_model
+
+
 
 User = get_user_model()
 
