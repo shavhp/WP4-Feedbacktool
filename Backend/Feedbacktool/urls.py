@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from ccforms.views import UserList
 from ccforms import views
-
+from ccforms.views import UserList, LoginView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,4 +26,6 @@ urlpatterns = [
     path('api/mc_options/', views.multiple_choice_list),
     path('api/currentUser/', views.current_user),
     path('api/surveys/', views.survey_list),
+    path('api/register/', views.register),
+    path('api/login/', LoginView.as_view()),
 ]

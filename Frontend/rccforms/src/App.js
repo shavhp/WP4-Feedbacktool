@@ -9,6 +9,8 @@ import { Sidebar, Menu, MenuItem, SubMenu, useProSidebar } from "react-pro-sideb
 import UserList from "./GetUser";
 import Questions from "./pages/Questions";
 import Forms from "./components/making_forms/Forms";
+import LoginPage from './pages/Login';
+import RegistrationForm from './pages/Registration';
 
 
 // Imports MUI icons from:
@@ -100,6 +102,8 @@ function App() {
                     <Route path='/userlist' element={<UserList/>}/>
                     <Route path='/questions' element={<Questions/>}/>
                     <Route path="/forms" element={<Forms />} />
+                    <Route path='/login' element={<LoginPage/>}/>
+                    <Route path="/registration" element={<RegistrationForm />} />
                 </Routes>
         </div>
     );
