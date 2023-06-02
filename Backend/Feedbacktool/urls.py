@@ -21,7 +21,6 @@ from ccforms.views import UserList, LoginView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/users/', UserList.as_view()),
     path('api/questions/', views.question_list),
     path('api/mc_options/', views.multiple_choice_list),
     path('api/currentUser/', views.current_user),

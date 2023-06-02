@@ -6,7 +6,6 @@ import './App.css';
 import CurrentUser from './CurrentUser';
 import { Routes, Route, Link } from "react-router-dom";
 import { Sidebar, Menu, MenuItem, SubMenu, useProSidebar } from "react-pro-sidebar";
-import UserList from "./GetUser";
 import Questions from "./pages/Questions";
 import Forms from "./components/making_forms/Forms";
 import LoginPage from './pages/Login';
@@ -116,7 +115,6 @@ function App() {
             </Sidebar>
 
                 <Routes>
-                    <Route path='/userlist' element={<UserList/>}/>
                     <Route path='/questions' element={<Questions/>}/>
                     <Route path="/forms" element={<Forms />} />
                     <Route path='/login' element={<LoginPage/>}/>

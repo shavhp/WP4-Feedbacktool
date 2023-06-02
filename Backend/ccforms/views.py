@@ -80,15 +80,8 @@ def survey_list(request):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-
-
-
 User = get_user_model()
 
-# Create your views here.
-class UserList(generics.ListAPIView):
-    queryset = CustomUser.objects.all()
-    serializer_class = UserSerializer
 
 class LoginView(APIView):
     def post(self, request, format=None):
