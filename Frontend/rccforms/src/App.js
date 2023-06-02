@@ -22,8 +22,8 @@ import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
 import Diversity3OutlinedIcon from '@mui/icons-material/Diversity3Outlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
-
-
+import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
+import InputOutlinedIcon from '@mui/icons-material/InputOutlined';
 
 
 function App() {
@@ -64,6 +64,7 @@ function App() {
                     >
                         Forms
                     </MenuItem>
+                    
                     <MenuItem
                         icon={<Diversity3OutlinedIcon/>}
                     >
@@ -96,21 +97,21 @@ function App() {
                         Mijn account
                     </MenuItem>
 
-                    {/* <MenuItem
-                        icon={<QuizOutlinedIcon/>}
-                        component={<LoginPage
-                            to="/login"/>}
+                    <MenuItem
+                        icon={<LoginOutlinedIcon />}
+                        component={<Link
+                            to="/Login"/>}
                     >
                         Login
                     </MenuItem>
 
                     <MenuItem
-                        icon={<QuizOutlinedIcon/>}
-                        component={<RegistrationForm
-                            to="/registration"/>}
+                        icon={<InputOutlinedIcon />}
+                        component={<Link
+                            to="/Registration"/>}
                     >
                         Registration
-                    </MenuItem> */}
+                    </MenuItem>
                 </Menu>
             </Sidebar>
 

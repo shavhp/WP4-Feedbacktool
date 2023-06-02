@@ -58,7 +58,7 @@ const RegistrationForm = () => {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100">
+    <div className="d-flex justify-content-center align-items-center vh-100 w-100">
       <form onSubmit={handleSubmit} className="needs-validation w-50">
         {alertMessage && (
           <div className={`alert alert-${alertType} mb-3`} role="alert">
