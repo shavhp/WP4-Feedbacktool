@@ -5,7 +5,7 @@ import "./Forms.css";
 function Forms() {
   const [surveys, setSurveys] = useState([]);
   const [expandedSurvey, setExpandedSurvey] = useState(null);
-  const [showForm, setShowForm] = useState(false); // State for form visibility
+  const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
     questions: [],
@@ -44,8 +44,6 @@ function Forms() {
       });
 
       if (response.ok) {
-        // Form submission successful
-        // Reset form state
         setFormData({
           title: "",
           questions: [],
@@ -54,10 +52,8 @@ function Forms() {
           is_anonymous: false,
         });
         setShowForm(false);
-        // Refresh the surveys data to include the newly added survey
         fetchSurveysData();
       } else {
-        // Handle form submission error
         console.error("Form submission failed");
       }
     } catch (error) {
@@ -97,7 +93,6 @@ function Forms() {
         const data = await response.json();
         setSurveys(data);
       } else {
-        // Handle fetch surveys error
         console.error("Failed to fetch surveys");
       }
     } catch (error) {
@@ -112,7 +107,6 @@ function Forms() {
         const data = await response.json();
         setAllQuestions(data);
       } else {
-        // Handle fetch questions error
         console.error("Failed to fetch questions");
       }
     } catch (error) {
@@ -127,11 +121,8 @@ function Forms() {
       });
 
       if (response.ok) {
-        // Form deletion successful
-        // Refresh the surveys data to update the list
         fetchSurveysData();
       } else {
-        // Handle form deletion error
         console.error("Form deletion failed");
       }
     } catch (error) {
@@ -143,35 +134,40 @@ function Forms() {
     <div className="forms-container">
       <h1 className="forms-title">Forms</h1>
       <h2 className="forms-subtitle">All Forms:</h2>
-      {surveys.map((survey) => {
-        console.log(survey); // Add this line to inspect the survey object
-        return (
-          <div className="survey-card" key={survey.survey_id}>
-            <h3 onClick={() => handleSurveyClick(survey.survey_id)}>{survey.title}</h3>
-            {expandedSurvey === survey.survey_id && (
-              <>
-                <p>Survey ID: {survey.survey_id}</p>
-                <p>Admin: {survey.admin}</p>
-                <p>Is Anonymous: {survey.is_anonymous ? "Yes" : "No"}</p>
-                <p>Date Sent: {survey.date_sent}</p>
-                <p>Open Questions:</p>
-                <ul>
-                  {survey.questions.map((question) => (
-                    <li key={question.question_id}>{question.question_text}</li>
-                  ))}
-                </ul>
-                <p>Multiple Choice Questions:</p>
-                <ul>
-                  {survey.multiple_choice.map((mcQuestion) => (
-                    <li key={mcQuestion.mc_id}>{mcQuestion.question}</li>
-                  ))}
-                </ul>
-                <button onClick={() => handleDelete(survey.survey_id)}>Delete</button>
-              </>
-            )}
-          </div>
-        );
-      })}
+      {surveys.map((survey) => (
+        <div className="survey-card" key={survey.survey_id}>
+          <h3 onClick={() => handleSurveyClick(survey.survey_id)}>{survey.title}</h3>
+          {expandedSurvey === survey.survey_id && (
+            <>
+              <p>Survey ID: {survey.survey_id}</p>
+              <p>Admin: {survey.admin}</p>
+              <p>Is Anonymous: {survey.is_anonymous ? "Yes" : "No"}</p>
+              <p>Date Sent: {survey.date_sent}</p>
+              <p>Open Questions:</p>
+              <ul>
+                {survey.questions.map((questionId) => {
+                  const question = allQuestions.find((q) => q.question_id === questionId);
+                  if (question) {
+                    return <li key={question.question_id}>{question.question_text}</li>;
+                  }
+                  return null;
+                })}
+              </ul>
+              <p>Multiple Choice Questions:</p>
+              <ul>
+                {survey.multiple_choice.map((mcQuestionId) => {
+                  const mcQuestion = allQuestions.find((q) => q.question_id === mcQuestionId);
+                  if (mcQuestion) {
+                    return <li key={mcQuestion.mc_id}>{mcQuestion.question}</li>;
+                  }
+                  return null;
+                })}
+              </ul>
+              <button onClick={() => handleDelete(survey.survey_id)}>Delete</button>
+            </>
+          )}
+        </div>
+      ))}
       {showForm && (
         <div className="form-popup">
           <h3>Create Form</h3>
@@ -203,7 +199,6 @@ function Forms() {
               onChange={handleInputChange}
             />
 
-            {/* Select open questions */}
             <label htmlFor="questions-select">Select Open Questions:</label>
             <select
               id="questions-select"
@@ -212,19 +207,15 @@ function Forms() {
               value={formData.questions}
               onChange={handleInputChange}
             >
-              {allQuestions.map((question) => {
-                if (question.question_type === "OPEN") {
-                  return (
-                    <option key={question.question_id} value={question.question_id}>
-                      {question.question_text}
-                    </option>
-                  );
-                }
-                return null;
-              })}
+              {allQuestions.map((question) =>
+                question.question_type === "OPEN" ? (
+                  <option key={question.question_id} value={question.question_id}>
+                    {question.question_text}
+                  </option>
+                ) : null
+              )}
             </select>
 
-            {/* Select multiple-choice questions */}
             <label htmlFor="multiple-choice-select">Select Multiple Choice Questions:</label>
             <select
               id="multiple-choice-select"
@@ -233,16 +224,13 @@ function Forms() {
               value={formData.multiple_choice}
               onChange={handleInputChange}
             >
-              {allQuestions.map((question) => {
-                if (question.question_type === "MC") {
-                  return (
-                    <option key={question.question_id} value={question.question_id}>
-                      {question.question_text}
-                    </option>
-                  );
-                }
-                return null;
-              })}
+              {allQuestions.map((question) =>
+                question.question_type === "MC" ? (
+                  <option key={question.question_id} value={question.question_id}>
+                    {question.question_text}
+                  </option>
+                ) : null
+              )}
             </select>
 
             <button type="submit">Submit</button>
