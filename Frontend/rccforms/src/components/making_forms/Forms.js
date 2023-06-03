@@ -145,23 +145,31 @@ function Forms() {
               <p>Date Sent: {survey.date_sent}</p>
               <p>Open Questions:</p>
               <ul>
-                {survey.questions.map((questionId) => {
-                  const question = allQuestions.find((q) => q.question_id === questionId);
-                  if (question) {
-                    return <li key={question.question_id}>{question.question_text}</li>;
-                  }
-                  return null;
-                })}
+                {survey.questions
+                  .filter((questionId) =>
+                    allQuestions.find((q) => q.question_id === questionId)?.question_type === "OPEN"
+                  )
+                  .map((questionId) => {
+                    const question = allQuestions.find((q) => q.question_id === questionId);
+                    if (question) {
+                      return <li key={question.question_id}>{question.question_text}</li>;
+                    }
+                    return null;
+                  })}
               </ul>
               <p>Multiple Choice Questions:</p>
               <ul>
-                {survey.multiple_choice.map((mcQuestionId) => {
-                  const mcQuestion = allQuestions.find((q) => q.question_id === mcQuestionId);
-                  if (mcQuestion) {
-                    return <li key={mcQuestion.mc_id}>{mcQuestion.question}</li>;
-                  }
-                  return null;
-                })}
+                {survey.multiple_choice
+                  .filter((mcQuestionId) =>
+                    allQuestions.find((q) => q.question_id === mcQuestionId)?.question_type === "MC"
+                  )
+                  .map((mcQuestionId) => {
+                    const mcQuestion = allQuestions.find((q) => q.question_id === mcQuestionId);
+                    if (mcQuestion) {
+                      return <li key={mcQuestion.question_id}>{mcQuestion.question_text}</li>;
+                    }
+                    return null;
+                  })}
               </ul>
               <button onClick={() => handleDelete(survey.survey_id)}>Delete</button>
             </>
