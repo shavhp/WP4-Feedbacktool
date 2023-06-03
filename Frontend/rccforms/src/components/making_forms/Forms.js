@@ -143,32 +143,35 @@ function Forms() {
     <div className="forms-container">
       <h1 className="forms-title">Forms</h1>
       <h2 className="forms-subtitle">All Forms:</h2>
-      {surveys.map((survey) => (
-        <div className="survey-card" key={survey.survey_id}>
-          <h3 onClick={() => handleSurveyClick(survey.survey_id)}>{survey.title}</h3>
-          {expandedSurvey === survey.survey_id && (
-            <>
-              <p>Survey ID: {survey.survey_id}</p>
-              <p>Admin: {survey.admin}</p>
-              <p>Is Anonymous: {survey.is_anonymous ? "Yes" : "No"}</p>
-              <p>Date Sent: {survey.date_sent}</p>
-              <p>Open Questions:</p>
-              <ul>
-                {survey.questions.map((question) => (
-                  <li key={question.question_id}>{question.question_text}</li>
-                ))}
-              </ul>
-              <p>Multiple Choice Questions:</p>
-              <ul>
-                {survey.multiple_choice.map((mcQuestion) => (
-                  <li key={mcQuestion.mc_id}>{mcQuestion.question}</li>
-                ))}
-              </ul>
-              <button onClick={() => handleDelete(survey.survey_id)}>Delete</button>
-            </>
-          )}
-        </div>
-      ))}
+      {surveys.map((survey) => {
+        console.log(survey); // Add this line to inspect the survey object
+        return (
+          <div className="survey-card" key={survey.survey_id}>
+            <h3 onClick={() => handleSurveyClick(survey.survey_id)}>{survey.title}</h3>
+            {expandedSurvey === survey.survey_id && (
+              <>
+                <p>Survey ID: {survey.survey_id}</p>
+                <p>Admin: {survey.admin}</p>
+                <p>Is Anonymous: {survey.is_anonymous ? "Yes" : "No"}</p>
+                <p>Date Sent: {survey.date_sent}</p>
+                <p>Open Questions:</p>
+                <ul>
+                  {survey.questions.map((question) => (
+                    <li key={question.question_id}>{question.question_text}</li>
+                  ))}
+                </ul>
+                <p>Multiple Choice Questions:</p>
+                <ul>
+                  {survey.multiple_choice.map((mcQuestion) => (
+                    <li key={mcQuestion.mc_id}>{mcQuestion.question}</li>
+                  ))}
+                </ul>
+                <button onClick={() => handleDelete(survey.survey_id)}>Delete</button>
+              </>
+            )}
+          </div>
+        );
+      })}
       {showForm && (
         <div className="form-popup">
           <h3>Create Form</h3>
