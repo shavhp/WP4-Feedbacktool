@@ -82,6 +82,17 @@ def survey_list(request):
 
 User = get_user_model()
 
+@api_view(['GET', 'PUT', 'DELETE'])
+def survey_detail(request, survey_id):
+    try:
+        survey = Survey.objects.get(survey_id=survey_id)
+    except Survey.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'DELETE':
+        survey.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 class LoginView(APIView):
     def post(self, request, format=None):

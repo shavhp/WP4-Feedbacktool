@@ -25,6 +25,7 @@ urlpatterns = [
     path('api/mc_options/', views.multiple_choice_list),
     path('api/currentUser/', views.current_user),
     path('api/surveys/', views.survey_list),
+    path('api/surveys/<int:survey_id>/', views.survey_detail),
     path('api/register/', views.register),
     path('api/login/', LoginView.as_view()),
 ]

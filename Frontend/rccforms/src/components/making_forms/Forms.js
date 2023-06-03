@@ -120,6 +120,25 @@ function Forms() {
     }
   };
 
+  const handleDelete = async (surveyId) => {
+    try {
+      const response = await fetch(`${API_URL_SURVEYS}${surveyId}/`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        // Form deletion successful
+        // Refresh the surveys data to update the list
+        fetchSurveysData();
+      } else {
+        // Handle form deletion error
+        console.error("Form deletion failed");
+      }
+    } catch (error) {
+      console.error("Form deletion error:", error);
+    }
+  };
+
   return (
     <div className="forms-container">
       <h1 className="forms-title">Forms</h1>
@@ -145,6 +164,7 @@ function Forms() {
                   <li key={mcQuestion.mc_id}>{mcQuestion.question}</li>
                 ))}
               </ul>
+              <button onClick={() => handleDelete(survey.survey_id)}>Delete</button>
             </>
           )}
         </div>
