@@ -10,6 +10,8 @@ function Forms() {
     title: "",
     questions: [],
     multiple_choice: [],
+    url: "",
+    is_anonymous: false,
   });
   const [allQuestions, setAllQuestions] = useState([]);
 
@@ -48,6 +50,8 @@ function Forms() {
           title: "",
           questions: [],
           multiple_choice: [],
+          url: "",
+          is_anonymous: false,
         });
         setShowForm(false);
         // Refresh the surveys data to include the newly added survey
@@ -62,9 +66,14 @@ function Forms() {
   };
 
   const handleInputChange = (event) => {
-    const { name, value, options } = event.target;
+    const { name, value, type, checked, options } = event.target;
 
-    if (name === "questions" || name === "multiple_choice") {
+    if (type === "checkbox") {
+      setFormData({
+        ...formData,
+        [name]: checked,
+      });
+    } else if (name === "questions" || name === "multiple_choice") {
       const selectedOptions = Array.from(options)
         .filter((option) => option.selected)
         .map((option) => option.value);
@@ -150,6 +159,24 @@ function Forms() {
               id="title-input"
               name="title"
               value={formData.title}
+              onChange={handleInputChange}
+            />
+
+            <label htmlFor="url-input">URL:</label>
+            <input
+              type="text"
+              id="url-input"
+              name="url"
+              value={formData.url}
+              onChange={handleInputChange}
+            />
+
+            <label htmlFor="anonymous-checkbox">Is Anonymous:</label>
+            <input
+              type="checkbox"
+              id="anonymous-checkbox"
+              name="is_anonymous"
+              checked={formData.is_anonymous}
               onChange={handleInputChange}
             />
 
