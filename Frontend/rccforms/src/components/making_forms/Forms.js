@@ -12,6 +12,7 @@ function Forms() {
     multiple_choice: [],
     url: "",
     is_anonymous: false,
+    date_sent: "" // Add the date_sent field
   });
   const [allQuestions, setAllQuestions] = useState([]);
 
@@ -50,6 +51,7 @@ function Forms() {
           multiple_choice: [],
           url: "",
           is_anonymous: false,
+          date_sent: "" // Reset the date_sent field
         });
         setShowForm(false);
         fetchSurveysData();
@@ -139,11 +141,11 @@ function Forms() {
           <h3 onClick={() => handleSurveyClick(survey.survey_id)}>{survey.title}</h3>
           {expandedSurvey === survey.survey_id && (
             <>
-              <p>Survey ID: {survey.survey_id}</p>
-              <p>Admin: {survey.admin}</p>
-              <p>Is Anonymous: {survey.is_anonymous ? "Yes" : "No"}</p>
-              <p>Date Sent: {survey.date_sent}</p>
-              <p>Open Questions:</p>
+              <p className="survey-info">Survey ID: {survey.survey_id}</p>
+              <p className="survey-info">Admin: {survey.admin}</p>
+              <p className="survey-info">Is Anonymous: {survey.is_anonymous ? "Yes" : "No"}</p>
+              <p className="survey-info">Date Sent: {survey.date_sent}</p>
+              <p className="survey-info">Open Questions:</p>
               <ul>
                 {survey.questions
                   .filter((questionId) =>
@@ -157,7 +159,7 @@ function Forms() {
                     return null;
                   })}
               </ul>
-              <p>Multiple Choice Questions:</p>
+              <p className="survey-info">Multiple Choice Questions:</p>
               <ul>
                 {survey.multiple_choice
                   .filter((mcQuestionId) =>
@@ -204,6 +206,15 @@ function Forms() {
               id="anonymous-checkbox"
               name="is_anonymous"
               checked={formData.is_anonymous}
+              onChange={handleInputChange}
+            />
+
+            <label htmlFor="date-sent-input">Date Sent:</label>
+            <input
+              type="date"
+              id="date-sent-input"
+              name="date_sent"
+              value={formData.date_sent}
               onChange={handleInputChange}
             />
 

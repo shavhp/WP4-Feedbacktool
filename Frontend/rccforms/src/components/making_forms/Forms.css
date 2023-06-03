@@ -108,3 +108,12 @@
 .add-button {
   margin-top: 20px;
 }
+
+
+/* Forms.css */
+
+.survey-info {
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+}
