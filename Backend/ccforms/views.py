@@ -62,6 +62,7 @@ def multiple_choice_list(request):
 
 @login_required
 def current_user(request):
+    print(request.user.username)
     return JsonResponse({'username': request.user.username})
 
 @api_view(['GET', 'POST'])
