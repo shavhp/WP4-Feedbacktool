@@ -55,6 +55,7 @@ class SurveyAdmin(admin.ModelAdmin):
         "url",
     )
 
+    # Gets a list from all open and mc questions for survey model
     def get_open_q(self, obj):
         return ", ".join([q.question_text for q in obj.open_q.all()])
     get_open_q.short_description = "OpenQ"
