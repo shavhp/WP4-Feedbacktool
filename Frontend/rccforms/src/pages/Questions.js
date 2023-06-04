@@ -32,6 +32,7 @@ class Questions extends Component {
         );
     };
 
+    // Refreshes the table and displays questions and mc options
     resetState = () => {
         this.getQuestions();
         this.getMcOptions();
