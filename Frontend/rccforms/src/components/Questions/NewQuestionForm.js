@@ -17,19 +17,17 @@ class NewQuestionForm extends React.Component {
     };
 
     componentDidMount() {
-        if (this.props.question) {
-            const { question_id, question_text } = this.props.question;
+        const { question, multipleChoice } = this.props;
+        if (question) {
+            const { question_id, question_text, question_type } = question;
             this.setState({
                 question_id,
-                question_text
+                question_text,
+                question_type
             });
         }
-        if (this.props.multipleChoice) {
-            const { option_a,
-                option_b,
-                option_c,
-                option_d
-            } = this.props.multipleChoice;
+        if (multipleChoice) {
+            const { option_a, option_b, option_c, option_d } = multipleChoice;
             this.setState({
                 option_a,
                 option_b,
@@ -38,6 +36,8 @@ class NewQuestionForm extends React.Component {
             });
         }
     }
+    
+    
 
     onChange = e => {
         this.setState({
@@ -67,7 +67,7 @@ class NewQuestionForm extends React.Component {
             .then((response) => {
                 this.props.resetState();
                 this.props.toggle();
-                this.getQuestions();
+                this.props.getQuestions();
 
                 if (option_a
                     || option_b
@@ -83,7 +83,7 @@ class NewQuestionForm extends React.Component {
                             option_d,
                         }).then(
                         () => {
-                            this.getMcOptions();
+                            this.props.getMcOptions();
                         });
                 }
             });
@@ -91,11 +91,16 @@ class NewQuestionForm extends React.Component {
 
     editQuestion = e => {
         e.preventDefault();
-        axios.put(API_URL_QUESTIONS +
-            this.state.pk,
-            this.state).then(() => {
+        const { question_id, question_type } = this.state;
+        const { option_a, option_b, option_c, option_d } = this.state;
+        axios.put(API_URL_QUESTIONS + question_id, {
+            question_text: this.state.question_text,
+            question_type: option_a || option_b || option_c || option_d ? "MC" : question_type,
+        })
+            .then(() => {
                 this.props.resetState();
                 this.props.toggle();
+                this.props.getQuestions();
         });
     };
 

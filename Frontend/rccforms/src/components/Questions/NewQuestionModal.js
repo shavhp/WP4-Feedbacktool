@@ -6,12 +6,16 @@ import NewQuestionForm from "./NewQuestionForm";
 class NewQuestionModal extends Component {
     state = {
         modal: false,
-        rSelected: 1
+        rSelected: 1,
+        question_id: 0,
+        question_type: "",
     };
 
     toggle = () => {
         this.setState(previous => ({
-            modal: !previous.modal
+            modal: !previous.modal,
+            question_id: this.props.question.question_id,
+            question_type: this.props.question.question_type
         }));
     };
 
@@ -28,7 +32,7 @@ class NewQuestionModal extends Component {
         var title = "Vraag aanpassen";
         var button =
             <Button onClick={this.toggle}>
-                Wijzigen
+                {create ? "Toevoegen" : "Wijzigen"}
             </Button>;
         if (create) {
             title = "Nieuwe vraag toevoegen";
@@ -81,6 +85,7 @@ class NewQuestionModal extends Component {
                     <ModalBody>
                         <NewQuestionForm
                             create={this.props.create}
+                            question={create ? null : this.props.question}
                             resetState={this.props.resetState}
                             toggle={this.toggle}
                             questionType={rSelected === 1 ? "OPEN" : "MC" }
