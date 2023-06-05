@@ -76,7 +76,7 @@ class ResponseAdmin(admin.ModelAdmin):
 
     def get_answers(self, obj):
         return ", ".join([q.question_text for q in obj.answers.all()])
-    get_answers.short_description = "Questions"
+    get_answers.short_description = "openQuestions"
 
 
 admin.site.register(OpenQ, OpenQAdmin)

@@ -4,10 +4,11 @@
 
 import './App.css';
 import CurrentUser from './CurrentUser';
-import { Routes, Route, Link } from "react-router-dom";
+import {Routes, Route, Link } from "react-router-dom";
 import { Sidebar, Menu, MenuItem, SubMenu, useProSidebar } from "react-pro-sidebar";
 import UserList from "./GetUser";
-import Questions from "./pages/Questions";
+import OpenQuestions from "./pages/OpenQuestions";
+import McQuestions from "./pages/McQuestions";
 
 // Imports MUI icons from:
 // https://mui.com/material-ui/material-icons/?theme=Outlined
@@ -27,7 +28,7 @@ function App() {
             id="app"
             style={(
                 { height: "100vh" },
-                    { display: "flex" }
+            { display: "flex" }
             )}
         >
             <Sidebar
@@ -56,13 +57,23 @@ function App() {
                         Teamleden
                     </MenuItem>
 
-                    <MenuItem
+                    <SubMenu
                         icon={<QuizOutlinedIcon/>}
-                        component={<Link
-                            to="/questions"/>}
+                        label="Vragen"
                     >
-                        Vragen
-                    </MenuItem>
+                        <MenuItem
+                            component={<Link
+                                to="/openQuestions"/>}
+                        >
+                            Open vragen
+                        </MenuItem>
+                        <MenuItem
+                            component={<Link
+                                to="/mcQuestions"/>}
+                        >
+                            Meerkeuzevragen
+                        </MenuItem>
+                    </SubMenu>
 
                     <SubMenu
                         icon={<NoteAltOutlinedIcon/>}
@@ -86,7 +97,8 @@ function App() {
 
                 <Routes>
                     <Route path='/userlist' element={<UserList/>}/>
-                    <Route path='/questions' element={<Questions/>}/>
+                    <Route path='/openQuestions' element={<OpenQuestions/>}/>
+                    <Route path='/mcQuestions' element={<McQuestions/>}/>
                 </Routes>
         </div>
     );

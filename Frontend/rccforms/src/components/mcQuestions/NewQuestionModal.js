@@ -1,14 +1,13 @@
 import React, { Component, Fragment } from "react";
-import { Button, ButtonGroup, Modal, ModalHeader, ModalBody } from "reactstrap";
-import NewQuestionForm from "./NewQuestionForm";
+import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
+import NewMcQuestionForm from "./NewQuestionForm";
 
 
-class NewQuestionModal extends Component {
+class NewMcQuestionModal extends Component {
     // Default state of the modal where the modal is not active and
     // the default question type selected in the radio button is 1 (OPEN)
     state = {
         modal: false,
-        rSelected: 1
     };
 
     // Handles the activation of the modal
@@ -18,18 +17,11 @@ class NewQuestionModal extends Component {
         }));
     };
 
-    // Handles the selection of the question type in the modal
-    handleButtonGroupChange = value => {
-        this.setState({
-            rSelected: value
-        });
-    };
-
     render() {
         // Assigns the value of the prop 'create' to the constant 'create'
         //
         const create = this.props.create;
-        const { modal, rSelected } = this.state;
+        const modal = this.state.modal;
 
         // Title of the modal when 'Wijzigen' button is clicked
         let title = "Vraag aanpassen";
@@ -53,28 +45,6 @@ class NewQuestionModal extends Component {
                     Toevoegen
                 </Button>
             );
-
-            // Radio button for the two question types in the modal (Open and Meerkeuze)
-            var buttonQuestionType = (
-                <ButtonGroup>
-                    <Button
-                        color="primary"
-                        outline
-                        onClick={() => this.handleButtonGroupChange(1)}
-                        active={rSelected === 1}
-                    >
-                        Open vraag
-                    </Button>
-                    <Button
-                        color="primary"
-                        outline
-                        onClick={() => this.handleButtonGroupChange(2)}
-                        active={rSelected === 2}
-                    >
-                        Meerkeuzevraag
-                    </Button>
-                </ButtonGroup>
-            );
         }
 
         return (
@@ -83,7 +53,7 @@ class NewQuestionModal extends Component {
                 {button}
                 {/* Modal (or i.e. this component) is open when button (toggle) is clicked */}
                 <Modal
-                    isOpen={this.state.modal}
+                    isOpen={modal}
                     toggle={this.toggle}
                     >
                     {/* Modal header is visible when modal is open and
@@ -91,20 +61,16 @@ class NewQuestionModal extends Component {
                     <ModalHeader
                         toggle={this.toggle}>
                         {title}
-                        {buttonQuestionType}
                     </ModalHeader>
 
                     {/* Renders the form to add a new question in the body of the modal.
                      The form displayed is based on the selected question type above the form */}
                     <ModalBody>
-                        <NewQuestionForm
+                        <NewMcQuestionForm
                             create={this.props.create}
                             resetState={this.props.resetState}
                             toggle={this.toggle}
-                            questionType={rSelected === 1 ? "OPEN" :
-                                rSelected === 2 ? "MC" : ""}
-                            getQuestions={this.props.getQuestions}
-                            getMcOptions={this.props.getMcOptions}
+                            getMcQuestions={this.props.getMcQuestions}
                             />
                     </ModalBody>
                 </Modal>
@@ -113,4 +79,4 @@ class NewQuestionModal extends Component {
     }
 }
 
-export default NewQuestionModal;
+export default NewMcQuestionModal;

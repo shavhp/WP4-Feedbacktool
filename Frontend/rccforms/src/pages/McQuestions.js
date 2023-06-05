@@ -1,41 +1,39 @@
 import React, { Component } from "react";
 import { Col, Container, Row } from "reactstrap";
-import QuestionList from "../components/Questions/QuestionList";
-import NewQuestionModal from "../components/Questions/NewQuestionModal";
+import McQuestionList from "../components/mcQuestions/QuestionList";
+import NewQuestionModal from "../components/openQuestions/NewQuestionModal";
 import axios from "axios";
-import { API_URL_QUESTIONS, API_URL_MC_OPTIONS } from "../constants";
+import { API_URL_MC_Q } from "../constants";
 
 
-class Questions extends Component {
+class McQuestions extends Component {
     state = {
-        questions: [],
-        multipleChoice: []
+        mcQuestions: [],
     };
 
     componentDidMount() {
         this.resetState();
     }
 
-    getQuestions = () => {
-        axios.get(API_URL_QUESTIONS).then(
+    getOpenQuestions = () => {
+        axios.get(API_URL_MC_Q).then(
             res => this.setState({
-                questions: res.data
+                mcQuestions: res.data
             })
         );
     };
 
-    getMcOptions = () => {
-        axios.get(API_URL_MC_OPTIONS).then(
+    getMcQuestions = () => {
+        axios.get(API_URL_MC_Q).then(
             res => this.setState({
-                multipleChoice: res.data
+                mcQuestions: res.data
             })
         );
     };
 
     // Refreshes the table and displays questions and mc options
     resetState = () => {
-        this.getQuestions();
-        this.getMcOptions();
+        this.getMcQuestions();
     };
 
     render() {
@@ -43,11 +41,10 @@ class Questions extends Component {
             <Container style={{ marginTop: "20px" }}>
                 <Row>
                     <Col>
-                        <QuestionList
-                            questions={this.state.questions}
-                            multipleChoice={this.state.multipleChoice}
+                        <McQuestionList
+                            mcQuestions={this.state.mcQuestions}
                             resetState={this.resetState}
-                            />
+                        />
                     </Col>
                 </Row>
                 <Row>
@@ -55,8 +52,8 @@ class Questions extends Component {
                         <NewQuestionModal
                             create={true}
                             resetState={this.resetState}
-                            getQuestions={this.getQuestions}
-                            getMcOptions={this.getMcOptions}
+                            getOpenQuestions={this.getOpenQuestions}
+                            getMcQuestions={this.getMcQuestions}
                             />
                     </Col>
                 </Row>
@@ -65,4 +62,4 @@ class Questions extends Component {
     }
 }
 
-export default Questions;
+export default McQuestions;
