@@ -21,8 +21,11 @@ import InputOutlinedIcon from '@mui/icons-material/InputOutlined';
 
 function App() {
   const { collapseSidebar } = useProSidebar();
-
   const [username, setUsername] = useState(localStorage.getItem("Username"));
+
+  function logOut() {
+    localStorage.removeItem('Username');
+  }
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -31,6 +34,7 @@ function App() {
 
     return () => clearInterval(interval);
   }, []);
+
 
   return (
     <div id="app" style={{ height: "100vh", display: "flex" }}>
@@ -72,7 +76,12 @@ function App() {
           <MenuItem icon={<AccountCircleOutlinedIcon />}>Mijn account</MenuItem>
 
           {username && (
-            <p>User is logged in</p>
+            <MenuItem icon={<LoginOutlinedIcon />}
+            onClick={() => {
+              logOut();
+            }}>
+              Logout
+            </MenuItem>
           )}
 
           {!username && (
