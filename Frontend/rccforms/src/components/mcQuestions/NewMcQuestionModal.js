@@ -1,11 +1,13 @@
+// Code inspired by
+// https://blog.logrocket.com/using-react-django-create-app-tutorial/
+
 import React, { Component, Fragment } from "react";
 import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
-import NewMcQuestionForm from "./NewQuestionForm";
+import NewMcQuestionForm from "./NewMcQuestionForm";
 
 
 class NewMcQuestionModal extends Component {
-    // Default state of the modal where the modal is not active and
-    // the default question type selected in the radio button is 1 (OPEN)
+    // Default state of the modal where the modal is not active
     state = {
         modal: false,
     };
@@ -19,7 +21,7 @@ class NewMcQuestionModal extends Component {
 
     render() {
         // Assigns the value of the prop 'create' to the constant 'create'
-        //
+        // Same for the modal.
         const create = this.props.create;
         const modal = this.state.modal;
 
@@ -57,14 +59,13 @@ class NewMcQuestionModal extends Component {
                     toggle={this.toggle}
                     >
                     {/* Modal header is visible when modal is open and
-                    shows a title based on which button is clicked */}
+                    shows a title based on which button is clicked to activate it */}
                     <ModalHeader
                         toggle={this.toggle}>
                         {title}
                     </ModalHeader>
 
-                    {/* Renders the form to add a new question in the body of the modal.
-                     The form displayed is based on the selected question type above the form */}
+                    {/* Renders the form to add a new question in the body of the modal. */}
                     <ModalBody>
                         <NewMcQuestionForm
                             create={this.props.create}

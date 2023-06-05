@@ -1,3 +1,6 @@
+// Code inspired by
+// https://blog.logrocket.com/using-react-django-create-app-tutorial/
+
 import React  from "react";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import axios from "axios";
@@ -5,8 +8,7 @@ import { API_URL_OPEN_Q } from "../../constants";
 
 
 class NewOpenQuestionForm extends React.Component {
-    // Initial state of the form: empty, but question type is selected based on the selected button.
-    // is_hidden is set to false.
+    // Initial state of the form: empty, but is_hidden is set to false.
     state = {
         question_id: 0,
         question_text: "",
@@ -16,9 +18,8 @@ class NewOpenQuestionForm extends React.Component {
     // Preparations before the component appears on screen.
     componentDidMount() {
         // If the form receives a question prop, the question object is
-        // passed to this (NewQuestionForm) component. It then extracts the id and text from the question obj.
+        // passed to this (NewOpenQuestionForm) component. It then extracts the id and text from the question obj.
         // Then it sets the component's state using setState to update id and text.
-        // Same goes for the multipleChoice prop.
         if (this.props.question) {
             const {
                 question_id,
@@ -44,13 +45,12 @@ class NewOpenQuestionForm extends React.Component {
      // Handles the addition of new questions to the database.
      createOpenQuestion = (e) => {
         e.preventDefault();
-
-        // Post new question to Question database with the set
-        // user text input, type that is selected and visibility set in the state.
+        // Post new question to Question database with the given
+        // user text input and visibility set in the state.
         axios.post(
             API_URL_OPEN_Q, this.state)
             // When POST is executed (when Toevoegen is clicked) the resetState method
-            // from the openQuestions component will be executed, the form disappears from the screen,
+            // from the OpenQuestions component will be executed, the form disappears from the screen,
             // and all questions will be fetched from the database.
             .then(() => {
                 this.props.resetState();

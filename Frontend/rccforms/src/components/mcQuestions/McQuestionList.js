@@ -5,12 +5,11 @@ import {
     API_URL_MC_Q,
     API_URL_HIDE_MC_Q
 } from "../../constants";
-import NewMcQuestionModal from "./NewQuestionModal";
+import NewMcQuestionModal from "./NewMcQuestionModal";
 
 
 class McQuestionList extends Component {
     // Default state of the component with an empty list of questions,
-    // Open questions radio button is selected,
     // Empty list of multiple choice options,
     // refreshing of the list is false (only activated when Verbergen button is clicked)
     state = {
@@ -19,26 +18,17 @@ class McQuestionList extends Component {
         option_b: [],
         option_c: [],
         option_d: [],
-        // qSelected: 2,
         refresh: false
     };
 
     // Preparations before the component appears on screen (mounts).
-    // In this case: retrieve questions and mc-options from database
-    // before the QuestionList appears on screen.
+    // In this case: retrieve mc questions from the database
+    // before the McQuestionList appears on screen.
     componentDidMount() {
         this.getMcQuestions();
     }
 
-    // Radio button above the table,
-    // to display open or multiple choice questions
-    handleQuestionTypeSelection = value => {
-        this.setState({
-            qSelected: value
-        });
-    };
-
-    // Retrieves all questions from database that are not set as hidden
+    // Retrieves all mc questions from database that are not set as hidden
     getMcQuestions = () => {
         axios
             .get(API_URL_MC_Q)
@@ -78,22 +68,23 @@ class McQuestionList extends Component {
             });
     };
 
-    // Refreshes the QuestionList component so the change is
+    // Refreshes the McQuestionList component so the change is
     // immediately visible: hidden questions are filtered out.
     refreshMcQuestionList = () => {
         this.getMcQuestions();
     };
 
     render() {
-        // Constant for question state defined above: empty question list
+        // Constant for mc question state defined above: empty question list
         const mcQuestions = this.state.questions;
 
-        // Constants for the other state variables
+        // Constants for the refresh state variable
         const { refresh } = this.state;
-        // Constant for the visible questions: questions where is_hidden = false
+
+        // Constant for the visible mc questions: questions where is_hidden is false
         const visibleMcQuestions = mcQuestions.filter(mcQ => !mcQ.is_hidden);
 
-        // If refresh occurs, get the questions and mc options from database and
+        // If refresh occurs, get the mc questions from database and
         // set the state of refresh to false again.
         if (refresh) {
             // this.getOpenQuestions();
@@ -101,47 +92,17 @@ class McQuestionList extends Component {
             this.setState({ refresh: false });
         }
 
-        // // Constant for the radio button with question types above the table
-        // const buttonQuestionTypeSelect = (
-        //     <ButtonGroup>
-        //         <Button
-        //             color="primary"
-        //             outline
-        //             onClick={() => this.handleQuestionTypeSelection(1)}
-        //             active={qSelected === 1}
-        //         >
-        //             Open vragen
-        //         </Button>
-        //         <Button
-        //             color="primary"
-        //             outline
-        //             onClick={() => this.handleQuestionTypeSelection(2)}
-        //             active={qSelected === 2}
-        //         >
-        //             Meerkeuzevragen
-        //         </Button>
-        //     </ButtonGroup>
-        // );
-
         // Structure and content of what should be rendered on the screen
         return (
             <Fragment>
-                {/*{buttonQuestionTypeSelect}*/}
             <Table>
                 <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Vraag</th>
-                    <th>Vraagtype</th>
-                    {/* If question type 2 (MC) is selected: show these four additional columns */}
-                    {/*{qSelected === 2 && (*/}
-                        <>
-                            <th>A</th>
-                            <th>B</th>
-                            <th>C</th>
-                            <th>D</th>
-                        </>
-                    {/*)}*/}
+                    <th>A</th>
+                    <th>B</th>
+                    <th>C</th>
+                    <th>D</th>
                     {/* Edit button column */}
                     <th></th>
                     {/* Hide question button column */}
@@ -149,7 +110,7 @@ class McQuestionList extends Component {
                 </tr>
                 </thead>
                 <tbody>
-                {/* Condition: if there are no questions where is_hidden = false in the database
+                {/* Condition: if there are no mc questions where is_hidden = false in the database
                 then the sentence in <b> tags will be displayed. */}
                 {!visibleMcQuestions || visibleMcQuestions.length <= 0 ? (
                     <tr>
@@ -157,7 +118,7 @@ class McQuestionList extends Component {
                             <b>Nog geen vragen in de database.</b>
                         </td>
                     </tr>
-                //    Else if visibleQuestions is not empty, map over each element in the array,
+                //    Else if visibleMcQuestions is not empty, map over each element in the array,
                 //    render a table row for each question.
                 ) : (
                     visibleMcQuestions.map((mcQ) => {
@@ -168,7 +129,6 @@ class McQuestionList extends Component {
                         return (
                             // Return the columns from the questions database
                             <tr key={mcQ.pk}>
-                                <td>{mcQ.question_id}</td>
                                 <td>{mcQ.question_text}</td>
                                 <td>{mcQ.option_a}</td>
                                 <td>{mcQ.option_b}</td>

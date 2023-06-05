@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Col, Container, Row } from "reactstrap";
-import OpenQuestionList from "../components/openQuestions/QuestionList";
-import NewQuestionModal from "../components/openQuestions/NewQuestionModal";
+import OpenQuestionList from "../components/openQuestions/OpenQuestionList";
+import NewQuestionModal from "../components/openQuestions/NewOpenQuestionModal";
 import axios from "axios";
 import { API_URL_OPEN_Q } from "../constants";
 
