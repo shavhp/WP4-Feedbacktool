@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Col, Container, Row } from "reactstrap";
 import McQuestionList from "../components/mcQuestions/QuestionList";
-import NewQuestionModal from "../components/openQuestions/NewQuestionModal";
+import NewMcQuestionModal from "../components/mcQuestions/NewQuestionModal";
 import axios from "axios";
 import { API_URL_MC_Q } from "../constants";
 
@@ -49,10 +49,9 @@ class McQuestions extends Component {
                 </Row>
                 <Row>
                     <Col>
-                        <NewQuestionModal
+                        <NewMcQuestionModal
                             create={true}
                             resetState={this.resetState}
-                            getOpenQuestions={this.getOpenQuestions}
                             getMcQuestions={this.getMcQuestions}
                             />
                     </Col>

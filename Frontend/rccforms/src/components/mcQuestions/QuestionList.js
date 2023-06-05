@@ -5,7 +5,7 @@ import {
     API_URL_MC_Q,
     API_URL_HIDE_MC_Q
 } from "../../constants";
-import NewQuestionModal from "./NewQuestionModal";
+import NewMcQuestionModal from "./NewQuestionModal";
 
 
 class McQuestionList extends Component {
@@ -165,9 +165,6 @@ class McQuestionList extends Component {
                             return null;
                         }
 
-                        // If the Open vraag radio button is selected in the modal to add a question,
-                        // return the corresponding columns
-                        // if (qSelected === 2) {
                         return (
                             // Return the columns from the questions database
                             <tr key={mcQ.pk}>
@@ -179,7 +176,7 @@ class McQuestionList extends Component {
                                 <td>{mcQ.option_d}</td>
                                 <td align="center">
                                     {/* Display the modal to edit questions when Wijzigen button is clicked */}
-                                    <NewQuestionModal
+                                    <NewMcQuestionModal
                                         create={false}
                                         question={mcQ}
                                         resetState={this.props.resetState}
@@ -198,7 +195,6 @@ class McQuestionList extends Component {
                                     </td>
                             </tr>
                             );
-                        // }
                     })
                 )}
                 </tbody>

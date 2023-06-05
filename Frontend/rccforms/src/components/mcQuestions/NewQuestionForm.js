@@ -117,10 +117,10 @@ class NewMcQuestionForm extends React.Component {
             });
     };
 
-    editQuestion = (e) => {
+    editMcQuestion = (e) => {
         e.preventDefault();
         axios.put(API_URL_MC_Q +
-            this.state.pk,
+            this.state.question_id,
             this.state).then(() => {
                 this.props.resetState();
                 this.props.toggle();
@@ -137,7 +137,7 @@ class NewMcQuestionForm extends React.Component {
             <Form
                 onSubmit={
                 this.props.question
-                    ? this.editQuestion
+                    ? this.editMcQuestion
                     : this.createMcQuestion}>
                 <FormGroup>
                     <Label for="question_text">Vraag:</Label>
@@ -206,7 +206,6 @@ class NewMcQuestionForm extends React.Component {
                         placeholder="Optioneel"
                         />
                 </FormGroup>
-                )}
                 <Button>Toevoegen</Button>
             </Form>
         );

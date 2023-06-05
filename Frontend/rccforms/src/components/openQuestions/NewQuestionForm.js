@@ -62,7 +62,7 @@ class NewOpenQuestionForm extends React.Component {
     editOpenQuestion = e => {
         e.preventDefault();
         axios.put(API_URL_OPEN_Q +
-            this.state.pk,
+            this.state.question_id,
             this.state).then(() => {
                 this.props.resetState();
                 this.props.toggle();
