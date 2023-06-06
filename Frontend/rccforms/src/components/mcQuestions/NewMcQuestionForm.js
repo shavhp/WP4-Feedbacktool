@@ -10,7 +10,7 @@ import { API_URL_MC_Q } from "../../constants";
 class NewMcQuestionForm extends React.Component {
     // Initial state of the form: empty, but is_hidden is set to false.
     state = {
-        question_id: 0,
+        mc_id: 0,
         question_text: "",
         option_a: "",
         option_b: "",

@@ -117,7 +117,7 @@ def hide_open_q(request, pk):
 @csrf_exempt
 def hide_mc_q(request, pk):
     try:
-        mc_q_row = MultipleChoiceQ.objects.get(question_id=pk)
+        mc_q_row = MultipleChoiceQ.objects.get(mc_id=pk)
         mc_q_row.is_hidden = True
         mc_q_row.save()
         return JsonResponse({

@@ -14,10 +14,6 @@ class McQuestionList extends Component {
     // refreshing of the list is false (only activated when Verbergen button is clicked)
     state = {
         questions: [],
-        option_a: [],
-        option_b: [],
-        option_c: [],
-        option_d: [],
         refresh: false
     };
 
@@ -55,7 +51,7 @@ class McQuestionList extends Component {
                 if (response.data.success) {
                     this.setState((prevState) => ({
                         questions: prevState.questions.filter(
-                            (mcQ) => mcQ.question_id !== mcQuestionId
+                            (mcQ) => mcQ.mc_id !== mcQuestionId
                         ),
                     }));
                     this.refreshMcQuestionList();
@@ -148,7 +144,7 @@ class McQuestionList extends Component {
                                         {/* Display the button that hides questions */}
                                         <Button
                                             color="danger"
-                                            onClick={() => this.handleHideMcQuestion(mcQ.question_id)}
+                                            onClick={() => this.handleHideMcQuestion(mcQ.mc_id)}
                                         >
                                             Verbergen
                                         </Button>

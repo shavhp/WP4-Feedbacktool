@@ -5,7 +5,7 @@ import {
     API_URL_OPEN_Q,
     API_URL_HIDE_OPEN_Q,
 } from "../../constants";
-import NewQuestionModal from "./NewOpenQuestionModal";
+import NewOpenQuestionModal from "./NewOpenQuestionModal";
 
 
 class OpenQuestionList extends Component {
@@ -22,7 +22,6 @@ class OpenQuestionList extends Component {
     // before the OpenQuestionList appears on screen.
     componentDidMount() {
         this.getOpenQuestions();
-        // this.getMcQuestions();
     }
 
     // Retrieves all open questions from database that are not set as hidden
@@ -124,7 +123,7 @@ class OpenQuestionList extends Component {
                                 <td>{openQ.question_text}</td>
                                 <td align="center">
                                     {/* Display the modal to edit questions when Wijzigen button is clicked */}
-                                    <NewQuestionModal
+                                    <NewOpenQuestionModal
                                         create={false}
                                         question={openQ}
                                         resetState={this.props.resetState}
