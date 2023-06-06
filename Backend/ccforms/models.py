@@ -64,7 +64,7 @@ class TeamMember(models.Model):
 
 class Survey(models.Model):
     survey_id = models.AutoField(primary_key=True, verbose_name="ID")
-    admin = models.ForeignKey(Administrator, on_delete=models.CASCADE, default="",
+    admin = models.ForeignKey(Administrator, on_delete=models.CASCADE, null=True, blank=True,
                               verbose_name="Administrator")
     title = models.CharField(max_length=100, verbose_name="Naam enquête")
     description = models.CharField(max_length=500, verbose_name="Toelichting", blank=True, default="")

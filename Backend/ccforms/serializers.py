@@ -38,6 +38,9 @@ class MultipleChoiceQSerializer(serializers.ModelSerializer):
 
 
 class SurveySerializer(serializers.ModelSerializer):
+    questions = OpenQSerializer(many=True, read_only=True)
+    multiple_choice = MultipleChoiceQSerializer(many=True, read_only=True)
+
     class Meta:
         model = Survey
         fields = (
