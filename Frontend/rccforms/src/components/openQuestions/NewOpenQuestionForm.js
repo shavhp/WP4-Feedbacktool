@@ -56,6 +56,7 @@ class NewOpenQuestionForm extends React.Component {
                 this.props.resetState();
                 this.props.toggle();
                 this.props.getOpenQuestions();
+                this.refreshPage()
             });
      };
 
@@ -68,6 +69,10 @@ class NewOpenQuestionForm extends React.Component {
                 this.props.toggle();
         });
     };
+
+    refreshPage = () => {
+        window.location.reload();
+    }
 
     defaultIfEmpty = value => {
         return value === "" ? "" : value;

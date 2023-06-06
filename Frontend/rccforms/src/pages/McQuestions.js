@@ -28,6 +28,10 @@ class McQuestions extends Component {
         this.getMcQuestions();
     };
 
+    handleNewMcQuestion = () => {
+        this.resetState();
+    };
+
     render() {
         return (
             <Container style={{ marginTop: "20px" }}>
@@ -45,6 +49,7 @@ class McQuestions extends Component {
                             create={true}
                             resetState={this.resetState}
                             getMcQuestions={this.getMcQuestions}
+                            onQuestionCreated={this.handleNewMcQuestion}
                             />
                     </Col>
                 </Row>

@@ -68,6 +68,7 @@ class OpenQuestionList extends Component {
     // immediately visible: hidden questions are filtered out.
     refreshOpenQuestionList = () => {
         this.getOpenQuestions();
+        this.refreshPage();
     };
 
     render() {

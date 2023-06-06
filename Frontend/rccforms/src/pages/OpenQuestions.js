@@ -28,6 +28,10 @@ class OpenQuestions extends Component {
         this.getOpenQuestions();
     };
 
+    handleNewOpenQuestion = () => {
+        this.resetState();
+    };
+
     render() {
         return (
             <Container style={{ marginTop: "20px" }}>
@@ -45,6 +49,7 @@ class OpenQuestions extends Component {
                             create={true}
                             resetState={this.resetState}
                             getOpenQuestions={this.getOpenQuestions}
+                            onQuestionCreated={this.handleNewOpenQuestion}
                             />
                     </Col>
                 </Row>

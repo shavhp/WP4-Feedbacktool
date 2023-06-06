@@ -68,7 +68,8 @@ class NewMcQuestionForm extends React.Component {
             .then(() => {
                 this.props.resetState();
                 this.props.toggle();
-                this.getMcQuestions();
+                this.props.getMcQuestions();
+                this.refreshPage();
             });
     };
 
@@ -81,6 +82,10 @@ class NewMcQuestionForm extends React.Component {
                 this.props.toggle();
         });
     };
+
+    refreshPage = () => {
+        window.location.reload();
+    }
 
     defaultIfEmpty = value => {
         return value === "" ? "" : value;

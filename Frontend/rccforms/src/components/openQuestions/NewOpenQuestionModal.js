@@ -19,6 +19,10 @@ class NewOpenQuestionModal extends Component {
         }));
     };
 
+    refreshPage = () => {
+        window.location.reload();
+    }
+
     render() {
         // Assigns the value of the prop 'create' to the constant 'create'
         // Same for the modal
@@ -72,6 +76,7 @@ class NewOpenQuestionModal extends Component {
                             resetState={this.props.resetState}
                             toggle={this.toggle}
                             getOpenQuestions={this.props.getOpenQuestions}
+                            onQuestionCreated={this.props.onQuestionCreated}
                             />
                     </ModalBody>
                 </Modal>

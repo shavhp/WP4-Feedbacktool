@@ -68,6 +68,7 @@ class McQuestionList extends Component {
     // immediately visible: hidden questions are filtered out.
     refreshMcQuestionList = () => {
         this.getMcQuestions();
+        this.refreshPage();
     };
 
     render() {

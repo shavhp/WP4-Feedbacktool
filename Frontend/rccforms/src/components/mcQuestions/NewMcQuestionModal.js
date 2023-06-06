@@ -19,6 +19,10 @@ class NewMcQuestionModal extends Component {
         }));
     };
 
+    refreshPage = () => {
+        window.location.reload();
+    };
+
     render() {
         // Assigns the value of the prop 'create' to the constant 'create'
         // Same for the modal.
@@ -57,7 +61,7 @@ class NewMcQuestionModal extends Component {
                 <Modal
                     isOpen={modal}
                     toggle={this.toggle}
-                    >
+                >
                     {/* Modal header is visible when modal is open and
                     shows a title based on which button is clicked to activate it */}
                     <ModalHeader
