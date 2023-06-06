@@ -8,6 +8,7 @@ import Questions from "./pages/Questions";
 import Forms from "./components/making_forms/Forms";
 import LoginPage from './pages/Login';
 import RegistrationForm from './pages/Registration';
+import SurveyDetail from './pages/SurveyDetail';
 
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
@@ -68,6 +69,13 @@ function App() {
             Vragen
           </MenuItem>
 
+          <MenuItem
+            icon={<QuizOutlinedIcon />}
+            component={<Link to="/SurveyDetail" />}
+          >
+            SurveyDetail
+          </MenuItem>
+
           <SubMenu icon={<NoteAltOutlinedIcon />} label="Vragenlijsten">
             <MenuItem>Samenstellen</MenuItem>
             <MenuItem>Responsen</MenuItem>
@@ -109,6 +117,7 @@ function App() {
         <Route path="/forms" element={<Forms />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/registration" element={<RegistrationForm />} />
+        <Route path="/survey/:id" element={<SurveyDetail />} />
       </Routes>
     </div>
   );

@@ -15,9 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from ccforms.views import UserList
 from ccforms import views
-from ccforms.views import UserList, LoginView
+from ccforms.views import LoginView, SurveyDetailView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,4 +27,5 @@ urlpatterns = [
     path('api/surveys/<int:survey_id>/', views.survey_detail),
     path('api/register/', views.register),
     path('api/login/', LoginView.as_view()),
+    path('api/survey/<int:pk>/', SurveyDetailView.as_view(), name='survey-detail'),
 ]

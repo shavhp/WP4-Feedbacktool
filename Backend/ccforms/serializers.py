@@ -48,3 +48,8 @@ class SurveySerializer(serializers.ModelSerializer):
             'multiple_choice',
             'url',
         )
+        
+class SurveySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Survey
+        fields = '__all__'

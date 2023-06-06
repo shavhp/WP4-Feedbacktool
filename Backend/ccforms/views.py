@@ -11,7 +11,7 @@ from rest_framework.decorators import api_view
 from django.contrib.auth import authenticate, login
 from rest_framework.views import APIView
 from django.contrib.auth import get_user_model
-from django.views.generic import DetailView
+from rest_framework.generics import RetrieveAPIView
 
 
 User = get_user_model()
@@ -136,7 +136,6 @@ def register(request):
     except Exception as e:
         return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
-class SurveyDetailView(DetailView):
-    model = Survey
-    template_name = 'survey_detail.html'  
-    context_object_name = 'survey' 
+class SurveyDetailView(RetrieveAPIView):
+    queryset = Survey.objects.all()
+    serializer_class = SurveySerializer
