@@ -72,6 +72,7 @@ class NewOpenQuestionModal extends Component {
                             resetState={this.props.resetState}
                             toggle={this.toggle}
                             getOpenQuestions={this.props.getOpenQuestions}
+                            question={this.props.question}
                             />
                     </ModalBody>
                 </Modal>
