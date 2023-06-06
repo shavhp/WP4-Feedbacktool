@@ -130,6 +130,25 @@ def hide_mc_q(request, pk):
         })
 
 
+@csrf_exempt
+def edit_open_q(request, pk):
+    try:
+        open_q_row = OpenQ.objects.get(question_id=pk)
+        serializer = OpenQSerializer(open_q_row, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse({
+                'success': True})
+        return JsonResponse({
+            'success': False,
+            'error': serializer.errors})
+    except OpenQ.DoesNotExist:
+        return JsonResponse({
+            'success': False,
+            'error': 'Vraag bestaat niet.'
+        })
+    
+
 @login_required
 def current_user(request):
     return JsonResponse({'username': request.user.username})
