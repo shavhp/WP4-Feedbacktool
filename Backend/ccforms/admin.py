@@ -2,31 +2,24 @@ from django.contrib import admin
 from .models import *
 
 
-class QuestionAdmin(admin.ModelAdmin):
+class OpenQAdmin(admin.ModelAdmin):
     list_display = (
         "question_id",
         "question_text",
-        "question_type",
         "is_hidden",
     )
 
 
-class MultipleChoiceAdmin(admin.ModelAdmin):
+class MultipleChoiceQAdmin(admin.ModelAdmin):
     list_display = (
         "mc_id",
-        "question",
+        "question_text",
         "option_a",
         "option_b",
         "option_c",
         "option_d",
         "is_hidden",
     )
-
-    # Only display multiple-choice questions from Question table
-    def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        if db_field.name == "question":
-            kwargs["queryset"] = Question.objects.filter(question_type=Question.MULTIPLE_CHOICE)
-        return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 class AdministratorAdmin(admin.ModelAdmin):
@@ -57,22 +50,19 @@ class SurveyAdmin(admin.ModelAdmin):
         "description",
         "is_anonymous",
         "date_sent",
-        "get_questions",
-        "get_multiple_choice",
+        "get_open_q",
+        "get_mc_q",
         "url",
     )
 
-    # Display only selected open questions in database, in a string
-    def get_questions(self, obj):
-        open_questions = obj.questions.filter(question_type=Question.OPEN)
-        return ", ".join([q.question_text for q in open_questions])
-    get_questions.short_description = "Open vragen"
+    # Gets a list from all open and mc questions for survey model
+    def get_open_q(self, obj):
+        return ", ".join([q.question_text for q in obj.open_q.all()])
+    get_open_q.short_description = "OpenQ"
 
-    # Display only selected multiple choice questions in database, in a string
-    def get_multiple_choice(self, obj):
-        questions = obj.multiple_choice.all()
-        return ", ".join([q.question.question_text for q in questions])
-    get_multiple_choice.short_description = "Meerkeuzevragen"
+    def get_mc_q(self, obj):
+        return ", ".join([q.question_text for q in obj.mc_q.all()])
+    get_mc_q.short_description = "MultipleChoiceQ"
 
 
 class ResponseAdmin(admin.ModelAdmin):
@@ -86,11 +76,11 @@ class ResponseAdmin(admin.ModelAdmin):
 
     def get_answers(self, obj):
         return ", ".join([q.question_text for q in obj.answers.all()])
-    get_answers.short_description = "Questions"
+    get_answers.short_description = "openQuestions"
 
 
-admin.site.register(Question, QuestionAdmin)
-admin.site.register(MultipleChoice, MultipleChoiceAdmin)
+admin.site.register(OpenQ, OpenQAdmin)
+admin.site.register(MultipleChoiceQ, MultipleChoiceQAdmin)
 admin.site.register(Administrator, AdministratorAdmin)
 admin.site.register(TeamMember, TeamMemberAdmin)
 admin.site.register(Survey, SurveyAdmin)

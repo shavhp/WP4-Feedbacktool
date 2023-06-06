@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Question, MultipleChoice, Survey
+from .models import OpenQ, MultipleChoiceQ, Survey
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -9,23 +9,26 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id', 'username', 'email', 'first_name', 'last_name')
 
 
-class QuestionSerializer(serializers.ModelSerializer):
+# Question serializers inspired by
+# https://blog.logrocket.com/using-react-django-create-app-tutorial/
+class OpenQSerializer(serializers.ModelSerializer):
+    is_hidden = serializers.BooleanField()
+
     class Meta:
-        model = Question
+        model = OpenQ
         fields = (
             'question_id',
             'question_text',
-            'question_type',
             'is_hidden',
         )
 
 
-class MultipleChoiceSerializer(serializers.ModelSerializer):
+class MultipleChoiceQSerializer(serializers.ModelSerializer):
     class Meta:
-        model = MultipleChoice
+        model = MultipleChoiceQ
         fields = (
             'mc_id',
-            'question',
+            'question_text',
             'option_a',
             'option_b',
             'option_c',
