@@ -43,21 +43,21 @@ class NewOpenQuestionForm extends React.Component {
     };
 
      // Handles the addition of new questions to the database.
-     createOpenQuestion = (e) => {
-        e.preventDefault();
-        // Post new question to Question database with the given
-        // user text input and visibility set in the state.
-        axios.post(
-            API_URL_OPEN_Q, this.state)
-            // When POST is executed (when Toevoegen is clicked) the resetState method
-            // from the OpenQuestions component will be executed, the form disappears from the screen,
-            // and all questions will be fetched from the database.
-            .then(() => {
-                this.props.resetState();
-                this.props.toggle();
-                this.props.getOpenQuestions();
-            });
-     };
+    createOpenQuestion = (e) => {
+    e.preventDefault();
+    // Post new question to Question database with the given
+    // user text input and visibility set in the state.
+    axios.post(
+        API_URL_OPEN_Q, this.state)
+        // When POST is executed (when Toevoegen is clicked) the resetState method
+        // from the OpenQuestions component will be executed, the form disappears from the screen,
+        // and all questions will be fetched from the database.
+        .then(() => {
+            this.props.resetState();
+            this.props.toggle();
+            this.props.getOpenQuestions();
+        });
+    };
 
     editOpenQuestion = e => {
         e.preventDefault();
@@ -66,6 +66,7 @@ class NewOpenQuestionForm extends React.Component {
             this.state).then(() => {
                 this.props.resetState();
                 this.props.toggle();
+                this.props.getOpenQuestions();
         });
     };
 
