@@ -46,8 +46,7 @@ function App() {
             style={{ textAlign: "center" }}
             onClick={() => {
               collapseSidebar();
-            }}
-          >
+          }}>
             <h2>
               <CurrentUser />
             </h2>

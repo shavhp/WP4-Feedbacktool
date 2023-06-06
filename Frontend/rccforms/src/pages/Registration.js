@@ -103,15 +103,17 @@ const RegistrationForm = () => {
         </div>
         <div className="mb-3">
           <label htmlFor="role" className="form-label">Role:</label>
-          <input
-            type="text"
+          <select
             id="role"
             value={role}
             onChange={handleRoleChange}
             className="form-control"
             required
-          />
-          <div className="invalid-feedback">Please provide a role.</div>
+          >
+            <option value="Admin">Admin</option>
+            <option value="Member">Member</option>
+          </select>
+          <div className="invalid-feedback">Please select a role.</div>
         </div>
         <button type="submit" className="btn btn-primary">Register</button>
       </form>
