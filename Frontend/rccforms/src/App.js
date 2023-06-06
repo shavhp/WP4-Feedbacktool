@@ -71,7 +71,7 @@ function App() {
 
           <MenuItem
             icon={<QuizOutlinedIcon />}
-            component={<Link to="/SurveyDetail" />}
+            component={<Link to="/survey" />}
           >
             SurveyDetail
           </MenuItem>
