@@ -12,7 +12,7 @@ function Forms() {
     multiple_choice: [],
     url: "",
     is_anonymous: false,
-    date_sent: "" // Add the date_sent field
+    date_sent: ""
   });
   const [openQuestions, setOpenQuestions] = useState([]);
   const [multipleChoiceQuestions, setMultipleChoiceQuestions] = useState([]);
@@ -24,10 +24,11 @@ function Forms() {
   }, []);
 
   const handleSurveyClick = (surveyId) => {
-    if (expandedSurvey === surveyId) {
+    if (expandedSurvey && expandedSurvey.survey_id === surveyId) {
       setExpandedSurvey(null);
     } else {
-      setExpandedSurvey(surveyId);
+      const survey = surveys.find((survey) => survey.survey_id === surveyId);
+      setExpandedSurvey(survey);
     }
   };
 
@@ -53,7 +54,7 @@ function Forms() {
           multiple_choice: [],
           url: "",
           is_anonymous: false,
-          date_sent: "" // Reset the date_sent field
+          date_sent: ""
         });
         setShowForm(false);
         fetchSurveysData();
@@ -132,21 +133,22 @@ function Forms() {
     }
   };
 
-  const handleDelete = async (surveyId) => {
-    try {
-      const response = await fetch(`${API_URL_SURVEYS}${surveyId}/`, {
-        method: "DELETE",
-      });
+const handleDeleteClick = async (surveyId) => {
+  try {
+    const response = await fetch(`${API_URL_SURVEYS}${surveyId}/`, {
+      method: "DELETE",
+    });
 
-      if (response.ok) {
-        fetchSurveysData();
-      } else {
-        console.error("Form deletion failed");
-      }
-    } catch (error) {
-      console.error("Form deletion error:", error);
+    if (response.ok) {
+      fetchSurveysData();
+    } else {
+      console.error("Failed to delete form");
     }
-  };
+  } catch (error) {
+    console.error("Delete form error:", error);
+  }
+};
+
 
   return (
     <div className="forms-container">
@@ -155,41 +157,15 @@ function Forms() {
       {surveys.map((survey) => (
         <div className="survey-card" key={survey.survey_id}>
           <h3 onClick={() => handleSurveyClick(survey.survey_id)}>{survey.title}</h3>
-          {expandedSurvey === survey.survey_id && (
+          {expandedSurvey && expandedSurvey.survey_id === survey.survey_id && (
             <>
               <p className="survey-info">Survey ID: {survey.survey_id}</p>
               <p className="survey-info">Admin: {survey.admin}</p>
               <p className="survey-info">Is Anonymous: {survey.is_anonymous ? "Yes" : "No"}</p>
               <p className="survey-info">Date Sent: {survey.date_sent}</p>
               <p className="survey-info">Open Questions:</p>
-              <ul>
-                {survey.questions
-                  .filter((questionId) =>
-                    openQuestions.find((q) => q.question_id === questionId)
-                  )
-                  .map((questionId) => {
-                    const question = openQuestions.find((q) => q.question_id === questionId);
-                    if (question) {
-                      return <li key={question.question_id}>{question.question_text}</li>;
-                    }
-                    return null;
-                  })}
-              </ul>
               <p className="survey-info">Multiple Choice Questions:</p>
-              <ul>
-                {survey.multiple_choice
-                  .filter((mcQuestionId) =>
-                    multipleChoiceQuestions.find((q) => q.mc_id === mcQuestionId)
-                  )
-                  .map((mcQuestionId) => {
-                    const mcQuestion = multipleChoiceQuestions.find((q) => q.mc_id === mcQuestionId);
-                    if (mcQuestion) {
-                      return <li key={mcQuestion.mc_id}>{mcQuestion.question_text}</li>;
-                    }
-                    return null;
-                  })}
-              </ul>
-              <button onClick={() => handleDelete(survey.survey_id)}>Delete</button>
+              <button onClick={() => handleDeleteClick(survey.survey_id)}>Delete</button>
             </>
           )}
         </div>

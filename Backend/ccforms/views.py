@@ -149,3 +149,15 @@ def survey_list(request):
         else:
             print(serializer.errors)  # Print validation errors to console
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['DELETE'])
+def survey_detail(request, pk):
+    try:
+        survey = Survey.objects.get(pk=pk)
+    except Survey.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'DELETE':
+        survey.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
