@@ -41,6 +41,8 @@ function LoginPage() {
         if (response.data.success) {
           setSuccess(response.data.success);
           localStorage.setItem('Username', username);
+          localStorage.setItem('Role', response.data.success);
+          console.log(response.data.success)
         } else {
           setError(response.data.error);
         }

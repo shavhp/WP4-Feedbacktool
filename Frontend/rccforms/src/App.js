@@ -25,6 +25,7 @@ function App() {
 
   function logOut() {
     localStorage.removeItem('Username');
+    localStorage.removeItem('Role');
   }
 
   useEffect(() => {
