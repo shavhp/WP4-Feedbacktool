@@ -18,11 +18,12 @@ import Diversity3OutlinedIcon from '@mui/icons-material/Diversity3Outlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
-import InputOutlinedIcon from '@mui/icons-material/InputOutlined';
+import AddIcon from '@mui/icons-material/Add';
 
 function App() {
   const { collapseSidebar } = useProSidebar();
   const [username, setUsername] = useState(localStorage.getItem("Username"));
+  const [role, setRole] = useState(localStorage.getItem("Role"));
 
   function logOut() {
     localStorage.removeItem('Username');
@@ -32,6 +33,7 @@ function App() {
   useEffect(() => {
     const interval = setInterval(() => {
       setUsername(localStorage.getItem("Username"));
+      setRole(localStorage.getItem("Role"));
     }, 500);
 
     return () => clearInterval(interval);
@@ -83,6 +85,15 @@ function App() {
 
           <MenuItem icon={<AccountCircleOutlinedIcon />}>Mijn account</MenuItem>
 
+          {role && (
+            <MenuItem
+            icon={<AddIcon />}
+            component={<Link to="/registration" />}
+            >
+              Create user
+            </MenuItem>
+          )}
+
           {username && (
             <MenuItem icon={<LoginOutlinedIcon />}
             onClick={() => {
@@ -99,13 +110,6 @@ function App() {
                 component={<Link to="/login" />}
               >
                 Login
-              </MenuItem>
-
-              <MenuItem
-                icon={<InputOutlinedIcon />}
-                component={<Link to="/registration" />}
-              >
-                Registration
               </MenuItem>
             </>
           )}
