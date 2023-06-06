@@ -119,6 +119,6 @@ const RegistrationForm = () => {
       </form>
     </div>
   );
-};
-
+  };
+  
 export default RegistrationForm;
