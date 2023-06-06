@@ -15,14 +15,6 @@ class McQuestions extends Component {
         this.resetState();
     }
 
-    getOpenQuestions = () => {
-        axios.get(API_URL_MC_Q).then(
-            res => this.setState({
-                mcQuestions: res.data
-            })
-        );
-    };
-
     getMcQuestions = () => {
         axios.get(API_URL_MC_Q).then(
             res => this.setState({
