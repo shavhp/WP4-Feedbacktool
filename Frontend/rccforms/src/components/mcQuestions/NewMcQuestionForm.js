@@ -166,7 +166,9 @@ class NewMcQuestionForm extends React.Component {
                         placeholder="Optioneel"
                         />
                 </FormGroup>
-                <Button>Toevoegen</Button>
+                <Button
+                    color="success"
+                >Toevoegen</Button>
             </Form>
         );
     }

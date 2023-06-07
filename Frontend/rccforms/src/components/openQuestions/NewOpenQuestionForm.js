@@ -96,7 +96,9 @@ class NewOpenQuestionForm extends React.Component {
                         required
                         />
                 </FormGroup>
-                <Button>Toevoegen</Button>
+                <Button
+                    color="success"
+                >Toevoegen</Button>
             </Form>
         );
     }
