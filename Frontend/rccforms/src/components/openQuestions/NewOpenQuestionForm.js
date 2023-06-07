@@ -67,6 +67,7 @@ class NewOpenQuestionForm extends React.Component {
             this.state).then(() => {
                 this.props.resetState();
                 this.props.toggle();
+                this.props.getOpenQuestions();
         });
     };
 

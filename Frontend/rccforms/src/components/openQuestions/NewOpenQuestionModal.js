@@ -77,6 +77,7 @@ class NewOpenQuestionModal extends Component {
                             toggle={this.toggle}
                             getOpenQuestions={this.props.getOpenQuestions}
                             onQuestionCreated={this.props.onQuestionCreated}
+                            question={this.props.question}
                             />
                     </ModalBody>
                 </Modal>
