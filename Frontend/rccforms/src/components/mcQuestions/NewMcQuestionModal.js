@@ -33,7 +33,7 @@ class NewMcQuestionModal extends Component {
         let title = "Vraag aanpassen";
         // 'Wijzigen' button displayed in the table rows that activates the modal
         let button =
-            <Button onClick={this.toggle}>
+            <Button onClick={this.toggle} size="sm">
                 Wijzigen
             </Button>;
 
@@ -44,7 +44,6 @@ class NewMcQuestionModal extends Component {
             button = (
                 <Button
                     color="primary"
-                    className="float-right"
                     onClick={this.toggle}
                     style={{ minWidth: "200px" }}
                     >

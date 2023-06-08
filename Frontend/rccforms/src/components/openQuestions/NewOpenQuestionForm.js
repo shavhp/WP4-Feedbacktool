@@ -64,7 +64,7 @@ class NewOpenQuestionForm extends React.Component {
         e.preventDefault();
         axios.put(API_URL_OPEN_Q +
             this.state.question_id,
-            this.state).then(() => {
+            this.state.question_text).then(() => {
                 this.props.resetState();
                 this.props.toggle();
                 this.props.getOpenQuestions();
@@ -97,7 +97,9 @@ class NewOpenQuestionForm extends React.Component {
                         required
                         />
                 </FormGroup>
-                <Button>Toevoegen</Button>
+                <Button
+                    color="success"
+                >Toevoegen</Button>
             </Form>
         );
     }

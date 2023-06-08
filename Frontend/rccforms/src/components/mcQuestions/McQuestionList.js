@@ -92,9 +92,13 @@ class McQuestionList extends Component {
         // Structure and content of what should be rendered on the screen
         return (
             <Fragment>
-            <Table>
+            <Table
+                hover
+                striped
+            >
                 <thead>
                 <tr>
+                    <th>#</th>
                     <th>Vraag</th>
                     <th>A</th>
                     <th>B</th>
@@ -126,6 +130,7 @@ class McQuestionList extends Component {
                         return (
                             // Return the columns from the questions database
                             <tr key={mcQ.pk}>
+                                <th>{mcQ.mc_id}</th>
                                 <td>{mcQ.question_text}</td>
                                 <td>{mcQ.option_a}</td>
                                 <td>{mcQ.option_b}</td>
@@ -145,6 +150,7 @@ class McQuestionList extends Component {
                                         {/* Display the button that hides questions */}
                                         <Button
                                             color="danger"
+                                            size="sm"
                                             onClick={() => this.handleHideMcQuestion(mcQ.mc_id)}
                                         >
                                             Verbergen

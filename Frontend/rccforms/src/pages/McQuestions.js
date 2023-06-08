@@ -35,8 +35,12 @@ class McQuestions extends Component {
     render() {
         return (
             <Container style={{ marginTop: "20px" }}>
-                <Row>
-                    <Col>
+                <Row
+                    className="justify-content-center"
+                >
+                    <Col
+                        className="col-md-9"
+                    >
                         <McQuestionList
                             mcQuestions={this.state.mcQuestions}
                             resetState={this.resetState}
@@ -44,7 +48,9 @@ class McQuestions extends Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Col>
+                    <Col
+                        className="col-md-5 text-center"
+                    >
                         <NewMcQuestionModal
                             create={true}
                             resetState={this.resetState}
