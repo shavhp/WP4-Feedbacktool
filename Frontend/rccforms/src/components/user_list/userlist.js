@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Table } from "reactstrap";
 import axios from "axios";
-import { API_URL_USERS }from "../../constants";
+import { API_URL_USERS, API_URL_DEACTIVATE_USER }from "../../constants";
 
 
 class UserList extends Component {
@@ -13,6 +13,25 @@ class UserList extends Component {
         );
     };
 
+    handleCheckboxChange = (userId) => {
+        axios
+            .put(`${API_URL_DEACTIVATE_USER}${userId}/deactivate/`)
+            .then((response) => {
+                if (response.data.success) {
+                    this.setState((prevState) => ({
+                        users: prevState.users.filter(
+                            (user) => user.userId !== userId
+                        ),
+                    }));
+                } else {
+                    console.log(response.data.error);
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+    
     render() {
         const users = this.props.users
         return (
@@ -21,12 +40,12 @@ class UserList extends Component {
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Username</th>
-                            <th>First name</th>
-                            <th>Last name</th>
-                            <th>Email address</th>
-                            <th>Role</th>
-                            <th>Is active</th>
+                            <th>Gebruikersnaam</th>
+                            <th>Voornaam</th>
+                            <th>Achternaam</th>
+                            <th>Email adres</th>
+                            <th>Rol</th>
+                            <th>Is actief</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -46,7 +65,15 @@ class UserList extends Component {
                                     <td>{user.last_name}</td>
                                     <td>{user.email}</td>
                                     <td>{user.is_staff ? "Admin" : "Member"}</td>
-                                    <td>{user.is_active ? "Yes" : "No"}</td>
+                                    <td>
+                                        <input
+                                            type="checkbox"
+                                            checked={user.is_active}
+                                            onChange={() =>
+                                                this.handleCheckboxChange(user.pk, "is_active")
+                                            }
+                                        />
+                                    </td>
                                 </tr>
                             ))
                         )

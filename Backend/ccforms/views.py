@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from django.contrib.auth.models import User
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework import generics, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -151,3 +152,18 @@ def user_list(request):
             many=True
         )
         return Response(serializer.data)
+    
+@csrf_exempt
+def deactivate_user(request, pk):
+    try:
+        data = User.objects.get(user_id=pk)
+        data.is_active = False
+        data.save()
+        return JsonResponse({
+            'success': True
+        })
+    except User.DoesNotExist:
+        return JsonResponse({
+            'success': False,
+            'error': 'User bestaat niet.'
+        })
