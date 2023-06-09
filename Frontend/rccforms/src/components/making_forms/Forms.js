@@ -172,16 +172,16 @@ const handleDeleteClick = async (surveyId) => {
             <>
               <p className="survey-info"><strong>Survey ID:</strong> {survey.survey_id}</p>
               <p className="survey-info"><strong>Admin:</strong> {survey.admin}</p>
-              <p className="survey-info"><strong>Is Anonymous:</strong> {survey.is_anonymous ? "Yes" : "No"}</p>
-              <p className="survey-info"><strong>Date Sent:</strong> {survey.date_sent}</p>
-              <p className="survey-info"><strong>Open Questions:</strong></p>
+              <p className="survey-info"><strong>Is anoniem?:</strong> {survey.is_anonymous ? "Yes" : "No"}</p>
+              <p className="survey-info"><strong>Datum verzonden:</strong> {survey.date_sent}</p>
+              <p className="survey-info"><strong>Open Vragen:</strong></p>
               <ul>
                 {expandedSurvey.open_q.map((questionId) => {
                   const question = openQuestions.find((q) => q.question_id === questionId);
                   return <li key={questionId}>{question.question_text}</li>;
                 })}
               </ul>
-              <p className="survey-info"><strong>Multiple Choice Questions:</strong></p>
+              <p className="survey-info"><strong>Meerkeuze Vragen:</strong></p>
               <ul>
                 {expandedSurvey.mc_q.map((questionId) => {
                   const question = multipleChoiceQuestions.find((q) => q.mc_id === questionId);
@@ -268,7 +268,7 @@ const handleDeleteClick = async (surveyId) => {
           </form>
         </div>
       )}
-      {!showForm && <button onClick={handleAddClick}>Add New Form</button>}
+      {!showForm && <button onClick={handleAddClick}>Voeg nieuwe vragenlijst toe</button>}
     </div>
   );
 }
