@@ -122,3 +122,10 @@
 .form-popup .close-button:hover {
   background-color: darkred;
 }
+/* Forms.css */
+
+.survey-info {
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+}
