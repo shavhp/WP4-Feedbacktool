@@ -163,25 +163,25 @@ const handleDeleteClick = async (surveyId) => {
 
   return (
     <div className="forms-container">
-      <h1 className="forms-title">Forms</h1>
-      <h2 className="forms-subtitle">All Forms:</h2>
+      <h1 className="forms-title">Vragenlijst</h1>
+      <h2 className="forms-subtitle">All Vragenlijsten:</h2>
       {surveys.map((survey) => (
         <div className="survey-card" key={survey.survey_id}>
           <h3 onClick={() => handleSurveyClick(survey.survey_id)}>{survey.title}</h3>
           {expandedSurvey && expandedSurvey.survey_id === survey.survey_id && (
             <>
-              <p className="survey-info">Survey ID: {survey.survey_id}</p>
-              <p className="survey-info">Admin: {survey.admin}</p>
-              <p className="survey-info">Is Anonymous: {survey.is_anonymous ? "Yes" : "No"}</p>
-              <p className="survey-info">Date Sent: {survey.date_sent}</p>
-              <p className="survey-info">Open Questions:</p>
+              <p className="survey-info"><strong>Survey ID:</strong> {survey.survey_id}</p>
+              <p className="survey-info"><strong>Admin:</strong> {survey.admin}</p>
+              <p className="survey-info"><strong>Is Anonymous:</strong> {survey.is_anonymous ? "Yes" : "No"}</p>
+              <p className="survey-info"><strong>Date Sent:</strong> {survey.date_sent}</p>
+              <p className="survey-info"><strong>Open Questions:</strong></p>
               <ul>
                 {expandedSurvey.open_q.map((questionId) => {
                   const question = openQuestions.find((q) => q.question_id === questionId);
                   return <li key={questionId}>{question.question_text}</li>;
                 })}
               </ul>
-              <p className="survey-info">Multiple Choice Questions:</p>
+              <p className="survey-info"><strong>Multiple Choice Questions:</strong></p>
               <ul>
                 {expandedSurvey.mc_q.map((questionId) => {
                   const question = multipleChoiceQuestions.find((q) => q.mc_id === questionId);
@@ -195,6 +195,7 @@ const handleDeleteClick = async (surveyId) => {
       ))}
       {showForm && (
         <div className="form-popup">
+          <button className="close-button" onClick={() => setShowForm(false)}>X</button>
           <h3>Create Form</h3>
           <form onSubmit={handleFormSubmit}>
             <label htmlFor="title-input">Title:</label>

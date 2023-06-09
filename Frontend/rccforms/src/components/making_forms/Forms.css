@@ -111,3 +111,14 @@
 .add-button {
   margin-top: 20px;
 }
+
+
+.form-popup .close-button {
+  width: 30px;
+  float: right;
+  background-color: red;
+}
+
+.form-popup .close-button:hover {
+  background-color: darkred;
+}
