@@ -14,21 +14,16 @@ const SurveyDetail = () => {
         ]);
 
         var openQuestionId = surveyResponse.data.open_q;
-        var multipleQuistionId = surveyResponse.data.mc_q;
+        //var multipleQuistionId = surveyResponse.data.mc_q;
 
-        const multipleQuestionResponses = await Promise.all(
-          multipleQuistionId.map((questionId) => axios.get(`http://127.0.0.1:8000/api/multipleChoiceQuestions/${questionId}/`))
-        );
-        const multipleQuestionData = multipleQuestionResponses.map((response) => response.data);
-
-        console.log(openQuestionId, '-', multipleQuistionId)
         
-        const surveyData = surveyResponse.data;
-
+        
         const [openQResponse, mcQResponse] = await Promise.all([
           axios.get(`http://127.0.0.1:8000/api/openQuestions/${openQuestionId}/`),
-          axios.get(`http://127.0.0.1:8000/api/multipleChoiceQuestions/${id}/`),
+          axios.get(`http://127.0.0.1:8000/api/multipleChoiceQuestions/${surveyResponse.data.mc_q[0]}/`),
         ]);
+
+        const surveyData = surveyResponse.data;
         const openQData = openQResponse.data;
         const mcQData = mcQResponse.data;
 
