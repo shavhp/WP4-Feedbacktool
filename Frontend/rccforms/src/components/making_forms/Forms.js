@@ -163,7 +163,8 @@ const handleDeleteClick = async (surveyId) => {
 
   return (
     <div className="forms-container">
-      <h1 className="forms-title">Vragenlijsten</h1>
+      <h1 className="forms-title">Forms</h1>
+      <h2 className="forms-subtitle">All Forms:</h2>
       {surveys.map((survey) => (
         <div className="survey-card" key={survey.survey_id}>
           <h3 onClick={() => handleSurveyClick(survey.survey_id)}>{survey.title}</h3>
@@ -181,7 +182,6 @@ const handleDeleteClick = async (surveyId) => {
                 })}
               </ul>
               <p className="survey-info">Multiple Choice Questions:</p>
-<<<<<<< HEAD
               <ul>
                 {expandedSurvey.mc_q.map((questionId) => {
                   const question = multipleChoiceQuestions.find((q) => q.mc_id === questionId);
@@ -189,16 +189,13 @@ const handleDeleteClick = async (surveyId) => {
                 })}
               </ul>
               <button onClick={() => handleDeleteClick(survey.survey_id)}>Delete</button>
-=======
-              <button onClick={() => handleDeleteClick(survey.survey_id)}>Verwijderen</button>
->>>>>>> a535ee7f40d21dc3939d813c795fd0923acf7d9d
             </>
           )}
         </div>
       ))}
       {showForm && (
         <div className="form-popup">
-          <h3>Vragenlijst maken</h3>
+          <h3>Create Form</h3>
           <form onSubmit={handleFormSubmit}>
             <label htmlFor="title-input">Title:</label>
             <input
@@ -218,7 +215,7 @@ const handleDeleteClick = async (surveyId) => {
               onChange={handleInputChange}
             />
 
-            <label htmlFor="anonymous-checkbox">Anoniem:</label>
+            <label htmlFor="anonymous-checkbox">Is Anonymous:</label>
             <input
               type="checkbox"
               id="anonymous-checkbox"
@@ -227,7 +224,7 @@ const handleDeleteClick = async (surveyId) => {
               onChange={handleInputChange}
             />
 
-            <label htmlFor="date-sent-input">Verstuurd op:</label>
+            <label htmlFor="date-sent-input">Date Sent:</label>
             <input
               type="date"
               id="date-sent-input"
@@ -236,7 +233,7 @@ const handleDeleteClick = async (surveyId) => {
               onChange={handleInputChange}
             />
 
-            <label htmlFor="open-questions-select">Selecteer open vragen:</label>
+            <label htmlFor="open-questions-select">Select Open Questions:</label>
             <select
               id="open-questions-select"
               name="open_questions"
@@ -251,7 +248,7 @@ const handleDeleteClick = async (surveyId) => {
               ))}
             </select>
 
-            <label htmlFor="multiple-choice-select">Selecteer meerkeuzevragen:</label>
+            <label htmlFor="multiple-choice-select">Select Multiple Choice Questions:</label>
             <select
               id="multiple-choice-select"
               name="multiple_choice"
@@ -266,11 +263,11 @@ const handleDeleteClick = async (surveyId) => {
               ))}
             </select>
 
-            <button type="submit">Aanmaken</button>
+            <button type="submit">Create</button>
           </form>
         </div>
       )}
-      {!showForm && <button onClick={handleAddClick}>Nieuwe vragenlijst</button>}
+      {!showForm && <button onClick={handleAddClick}>Add New Form</button>}
     </div>
   );
 }
