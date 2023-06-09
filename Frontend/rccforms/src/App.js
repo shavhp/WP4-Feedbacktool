@@ -68,7 +68,7 @@ function App() {
                   </MenuItem>
                     <MenuItem
                         icon={<HomeOutlinedIcon/>}
-                        component={<Link to="/"/>}
+                        component={<Link to="/home"/>}
                     >
                         Home
                     </MenuItem>
@@ -140,7 +140,7 @@ function App() {
                     <>
                       <MenuItem
                         icon={<LoginOutlinedIcon />}
-                        component={<Link to="/login" />}
+                        component={<Link to="/" />}
                       >
                         Login
                       </MenuItem>
@@ -150,12 +150,12 @@ function App() {
             </Sidebar>
 
             <Routes>
-                <Route path='/' element={<Homepage/>}/>
+                <Route path="/" element={<LoginPage />} />
+                <Route path='/home' element={<Homepage/>}/>
                 <Route path='/userlist' element={<UserList/>}/>
                 <Route path='/openQuestions' element={<OpenQuestions/>}/>
                 <Route path='/mcQuestions' element={<McQuestions/>}/>
                 <Route path="/forms" element={<Forms />} />
-                <Route path="/login" element={<LoginPage />} />
                 <Route path="/registration" element={<RegistrationForm />} />
                 <Route path="/survey/:id" element={<SurveyDetail />} />
             </Routes>
