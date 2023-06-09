@@ -22,10 +22,30 @@ class MultipleChoiceQAdmin(admin.ModelAdmin):
     )
 
 
+class AdministratorAdmin(admin.ModelAdmin):
+    list_display = (
+        "admin_id",
+        "email",
+        "last_name",
+        "first_name",
+        "is_admin",
+    )
+
+
+class TeamMemberAdmin(admin.ModelAdmin):
+    list_display = (
+        "team_member_id",
+        "email",
+        "last_name",
+        "first_name",
+        "is_admin",
+    )
+
+
 class SurveyAdmin(admin.ModelAdmin):
     list_display = (
         "survey_id",
-        "name",
+        "admin",
         "title",
         "description",
         "is_anonymous",
@@ -49,7 +69,7 @@ class ResponseAdmin(admin.ModelAdmin):
     list_display = (
         "response_id",
         "survey",
-        "name",
+        "tm_email",
         "get_answers",
         "date_submitted",
     )
