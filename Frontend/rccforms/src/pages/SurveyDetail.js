@@ -40,7 +40,7 @@ const SurveyDetail = () => {
             <li key={question.question_id} className="mb-3">
               {question.question_text}
               <input type="text" className="form-control" />
-              <hr/>
+              <hr />
             </li>
           ))}
         </ul>
