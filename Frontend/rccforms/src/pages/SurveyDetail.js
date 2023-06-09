@@ -51,7 +51,6 @@ const SurveyDetail = () => {
     event.preventDefault();
   
     try {
-      // Create an object to hold the response data
       const responseData = {
         survey: id,
         tm_email: 'example@example.com',
@@ -59,30 +58,22 @@ const SurveyDetail = () => {
         mc_answers: [{ question: survey.mc_q.mc_id, answer: mcAnswer }],
       };
   
-      // Get the CSRF token from the cookie
       const csrfToken = Cookies.get('csrftoken');
   
-      // Make the POST request with the CSRF token in the headers
       axios.post('http://127.0.0.1:8000/api/PostRespond/', responseData, {
         headers: {
           'X-CSRFToken': csrfToken,
         },
       })
       .then(response => {
-        // Handle the response
         console.log(response.data);
       })
       .catch(error => {
-        // Handle the error
         console.error('Error submitting response:', error);
       });
   
-      // Reset the form fields
       setOpenAnswer('');
       setMcAnswer('');
-  
-      // Optional: Show a success message or redirect the user
-  
     } catch (error) {
       console.error('Error submitting response:', error);
     }
@@ -102,14 +93,14 @@ const SurveyDetail = () => {
       <p>Date Sent: {survey.date_sent}</p>
 
       <form onSubmit={handleSubmit}>
-        <h3>Open Questions:</h3>
+        <h3>Open vragen:</h3>
         <ul className="list-unstyled">
           <li>{survey.open_q.question_text}</li>
           <input type="text" className="form-control" />
           <hr />
         </ul>
 
-        <h3>Multiple Choice Questions:</h3>
+        <h3>Meerkeuzevragen:</h3>
         <ul className="list-unstyled">
           <li>{survey.mc_q.question_text}</li>
           <div className="form-check">

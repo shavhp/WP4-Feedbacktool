@@ -283,3 +283,7 @@ def post_respond(request):
             return JsonResponse({'error': 'Invalid request data.'}, status=400)
 
     return JsonResponse({'message': 'Invalid request method.'})
+
+def count_surveys(request):
+    survey_count = Survey.objects.count()
+    return JsonResponse({'count': survey_count})

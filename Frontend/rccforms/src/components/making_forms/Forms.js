@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { API_URL_SURVEYS, API_URL_OPEN_Q, API_URL_MC_Q } from "../../constants";
 import "./Forms.css";
+import axios from 'axios';
 
 function Forms() {
   const [surveys, setSurveys] = useState([]);
@@ -10,7 +11,7 @@ function Forms() {
     title: "",
     open_q: [],
     mc_q: [],
-    url: "",
+    url: 0,
     is_anonymous: false,
     date_sent: ""
   });
@@ -21,6 +22,21 @@ function Forms() {
     fetchSurveysData();
     fetchOpenQuestions();
     fetchMultipleChoiceQuestions();
+
+    const fetchSurveyCount = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/api/surveys/count/');
+        var count = response.data.count;
+        count = count + 1;
+        setFormData({
+          url: count,
+        });
+      } catch (error) {
+        console.error('Error fetching survey count:', error);
+      }
+    };
+    
+    fetchSurveyCount();
   }, []);
 
   const handleSurveyClick = (surveyId) => {
@@ -207,15 +223,6 @@ const handleDeleteClick = async (surveyId) => {
               onChange={handleInputChange}
             />
 
-            <label htmlFor="url-input">URL:</label>
-            <input
-              type="text"
-              id="url-input"
-              name="url"
-              value={formData.url}
-              onChange={handleInputChange}
-            />
-
             <label htmlFor="anonymous-checkbox">Is Anonymous:</label>
             <input
               type="checkbox"
@@ -263,6 +270,9 @@ const handleDeleteClick = async (surveyId) => {
                 </option>
               ))}
             </select>
+
+            <label htmlFor="url-input">Url link: <a href="#">http://localhost:8000/api/surveys/count/{formData.url}</a></label>
+            
 
             <button type="submit">Create</button>
           </form>

@@ -22,4 +22,5 @@ urlpatterns = [
     path('api/openQuestions/<int:pk>/', views.open_question_detail, name='open_question_detail'),
     path('api/multipleChoiceQuestions/<int:pk>/', views.multiple_choice_question_detail, name='multiple_choice_question_detail'),
     path('api/PostRespond/', views.post_respond, name='post_respond'),
+    path('api/surveys/count/', views.count_surveys, name='survey_count'),
 ]
