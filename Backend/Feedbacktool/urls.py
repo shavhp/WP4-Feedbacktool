@@ -30,4 +30,5 @@ urlpatterns = [
     path('api/mc_questions/<int:pk>/hide/', views.hide_mc_q),
     path('api/surveys/', views.survey_list),
     path('api/surveys/<int:pk>/', views.survey_detail),
+    path('api/count_open_q/', views.count_open_q),
 ]

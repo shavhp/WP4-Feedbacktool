@@ -10,3 +10,4 @@ export const API_URL_HIDE_OPEN_Q = "http://localhost:8000/api/open_questions/"
 export const API_URL_HIDE_MC_Q = "http://localhost:8000/api/mc_questions/"
 
 export const API_URL_SURVEYS = "http://localhost:8000/api/surveys/";
+export const API_URL_COUNT_OPEN_Q = "http://localhost:8000/api/count_open_q/"

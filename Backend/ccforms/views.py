@@ -1,12 +1,11 @@
 from django.http import JsonResponse
-from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import generics, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import UserSerializer, OpenQSerializer, MultipleChoiceQSerializer, SurveySerializer
-from .models import OpenQ, MultipleChoiceQ, Survey
+from .models import OpenQ, MultipleChoiceQ, Survey, Response
 from django.contrib.auth.decorators import login_required
 
 
@@ -68,8 +67,8 @@ def open_q_detail(request, pk):
     if request.method == 'PUT':
         serializer = OpenQSerializer(open_q,
                                      data=request.data,
-                                     context=
-                                     {'request': request},
+                                     context={
+                                         'request': request},
                                      )
         if serializer.is_valid():
             serializer.save()
@@ -88,8 +87,8 @@ def mc_q_detail(request, pk):
     if request.method == 'PUT':
         serializer = MultipleChoiceQSerializer(mc_q,
                                                data=request.data,
-                                               context=
-                                               {'request': request},
+                                               context={
+                                                   'request': request},
                                                )
         if serializer.is_valid():
             serializer.save()
@@ -180,3 +179,19 @@ def survey_detail(request, pk):
     if request.method == 'DELETE':
         survey.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+def count_open_q(request):
+    all_open_q = OpenQ.objects.count()
+    all_mc_q = MultipleChoiceQ.objects.count()
+    all_surveys = Survey.objects.count()
+    all_responses = Response.objects.count()
+
+    data = {
+        'all_open_q': all_open_q,
+        'all_mc_q': all_mc_q,
+        'all_surveys': all_surveys,
+        'all_responses': all_responses
+    }
+
+    return JsonResponse(data)
