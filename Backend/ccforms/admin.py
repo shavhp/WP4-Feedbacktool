@@ -22,30 +22,10 @@ class MultipleChoiceQAdmin(admin.ModelAdmin):
     )
 
 
-class AdministratorAdmin(admin.ModelAdmin):
-    list_display = (
-        "admin_id",
-        "email",
-        "last_name",
-        "first_name",
-        "is_admin",
-    )
-
-
-class TeamMemberAdmin(admin.ModelAdmin):
-    list_display = (
-        "team_member_id",
-        "email",
-        "last_name",
-        "first_name",
-        "is_admin",
-    )
-
-
 class SurveyAdmin(admin.ModelAdmin):
     list_display = (
         "survey_id",
-        "admin",
+        "name",
         "title",
         "description",
         "is_anonymous",
@@ -69,7 +49,7 @@ class ResponseAdmin(admin.ModelAdmin):
     list_display = (
         "response_id",
         "survey",
-        "tm_email",
+        "name",
         "get_answers",
         "date_submitted",
     )
@@ -81,7 +61,5 @@ class ResponseAdmin(admin.ModelAdmin):
 
 admin.site.register(OpenQ, OpenQAdmin)
 admin.site.register(MultipleChoiceQ, MultipleChoiceQAdmin)
-admin.site.register(Administrator, AdministratorAdmin)
-admin.site.register(TeamMember, TeamMemberAdmin)
 admin.site.register(Survey, SurveyAdmin)
 admin.site.register(Response, ResponseAdmin)

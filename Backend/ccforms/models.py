@@ -35,37 +35,9 @@ class MultipleChoiceQ(models.Model):
                f"{self.option_d[:10]}"
 
 
-class Administrator(models.Model):
-    admin_id = models.AutoField(primary_key=True, verbose_name="ID")
-    email = models.EmailField(max_length=250, verbose_name="E-mailadres")
-    last_name = models.CharField(max_length=250, verbose_name="Achternaam")
-    first_name = models.CharField(max_length=250, verbose_name="Voornaam")
-    is_admin = models.BooleanField(default=True, verbose_name="Is administrator")
-
-    def __str__(self):
-        return f"{self.last_name}, {self.first_name}"
-
-
-class TeamMember(models.Model):
-    team_member_id = models.AutoField(primary_key=True, verbose_name="ID")
-    email = models.EmailField(max_length=250, verbose_name="E-mailadres")
-    last_name = models.CharField(max_length=250, verbose_name="Achternaam")
-    first_name = models.CharField(max_length=250, verbose_name="Voornaam")
-    # is_active = models.BooleanField(default=True, verbose_name="Is actief")
-    is_admin = models.BooleanField(default=False, verbose_name="Is administrator")
-
-    class Meta:
-        verbose_name = "Teamlid"
-        verbose_name_plural = "Teamleden"
-
-    def __str__(self):
-        return self.email
-
-
 class Survey(models.Model):
     survey_id = models.AutoField(primary_key=True, verbose_name="ID")
-    admin = models.ForeignKey(Administrator, on_delete=models.CASCADE, null=True, blank=True,
-                              verbose_name="Administrator")
+    name = models.CharField(max_length=50, verbose_name="Naam", blank=True, default="Naam")
     title = models.CharField(max_length=100, verbose_name="Naam enquête")
     description = models.CharField(max_length=500, verbose_name="Toelichting", blank=True, default="")
     is_anonymous = models.BooleanField(default=False, verbose_name="Anonieme respons")
@@ -81,7 +53,7 @@ class Survey(models.Model):
 class Response(models.Model):
     response_id = models.AutoField(primary_key=True, verbose_name="ID")
     survey = models.ForeignKey(Survey, on_delete=models.CASCADE, default="", verbose_name="Naam enquête")
-    tm_email = models.ForeignKey(TeamMember, on_delete=models.CASCADE, default="", verbose_name="E-mailadres teamlid")
+    name = models.CharField(max_length=50, verbose_name="Naam", blank=True, default="Naam")
     open_answers = models.ManyToManyField(OpenQ, verbose_name="Open antwoorden")
     mc_answers = models.ManyToManyField(MultipleChoiceQ, verbose_name="Meerkeuzeantwoorden")
     date_submitted = models.DateField(auto_now_add=True, null=True, verbose_name="Ingevuld op")
