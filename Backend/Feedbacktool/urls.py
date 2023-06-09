@@ -28,4 +28,5 @@ urlpatterns = [
     path('api/register/', views.register),
     path('api/login/', LoginView.as_view()),
     path('api/survey/<int:pk>/', SurveyDetailView.as_view(), name='survey-detail'),
+    path('api/users/', views.user_list),
 ]

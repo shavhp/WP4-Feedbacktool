@@ -9,6 +9,7 @@ import Forms from "./components/making_forms/Forms";
 import LoginPage from './pages/Login';
 import RegistrationForm from './pages/Registration';
 import SurveyDetail from './pages/SurveyDetail';
+import Users from "./pages/Users";
 
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
@@ -62,7 +63,10 @@ function App() {
             Forms
           </MenuItem>
 
-          <MenuItem icon={<Diversity3OutlinedIcon />}>Teamleden</MenuItem>
+          <MenuItem
+            icon={<Diversity3OutlinedIcon />}
+            component={<Link to="/userlist" />}
+            >Teamleden</MenuItem>
 
           <MenuItem
             icon={<QuizOutlinedIcon />}
@@ -122,6 +126,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/registration" element={<RegistrationForm />} />
         <Route path="/survey/:id" element={<SurveyDetail />} />
+        <Route path="/userlist" element={<Users />} />
       </Routes>
     </div>
   );

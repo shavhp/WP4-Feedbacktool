@@ -4,6 +4,7 @@ from rest_framework import generics, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import UserSerializer, QuestionSerializer, MultipleChoiceSerializer, SurveySerializer
+from customUser.serializers import UserSerializer
 from .models import Question, MultipleChoice, Survey
 from django.contrib.auth.decorators import login_required
 from customUser.models import CustomUser
@@ -139,3 +140,14 @@ def register(request):
 class SurveyDetailView(RetrieveAPIView):
     queryset = Survey.objects.all()
     serializer_class = SurveySerializer
+
+@api_view(['GET', 'POST', 'PUT'])
+def user_list(request):
+    if request.method == 'GET':
+        data = User.objects.all()
+        serializer = UserSerializer(
+            data,
+            context={'request': request},
+            many=True
+        )
+        return Response(serializer.data)
