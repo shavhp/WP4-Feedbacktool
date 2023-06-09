@@ -25,7 +25,7 @@ class UserList extends Component {
                             <th>First name</th>
                             <th>Last name</th>
                             <th>Email address</th>
-                            <th>Is staff</th>
+                            <th>Role</th>
                             <th>Is active</th>
                             <th></th>
                         </tr>
@@ -45,8 +45,8 @@ class UserList extends Component {
                                     <td>{user.first_name}</td>
                                     <td>{user.last_name}</td>
                                     <td>{user.email}</td>
-                                    <td>{user.is_staff}</td>
-                                    <td>{user.is_active}</td>
+                                    <td>{user.is_staff ? "Admin" : "Member"}</td>
+                                    <td>{user.is_active ? "Yes" : "No"}</td>
                                 </tr>
                             ))
                         )
