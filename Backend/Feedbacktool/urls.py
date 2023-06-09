@@ -14,7 +14,7 @@ urlpatterns = [
     path('api/open_questions/<int:pk>/edit/', views.edit_open_q),
     path('api/mc_questions/', views.mc_q_list),
     path('api/mc_questions/<int:pk>/hide/', views.hide_mc_q),
-    path('api/surveys/<int:pk>/', views.survey_list),
+    path('api/surveys/', views.survey_list),
     path('api/surveys/<int:pk>/', views.survey_detail),
     path('api/register/', views.register),
     path('api/login/', LoginView.as_view()),
@@ -23,6 +23,5 @@ urlpatterns = [
     path('api/multipleChoiceQuestions/<int:pk>/', views.multiple_choice_question_detail, name='multiple_choice_question_detail'),
     path('api/PostRespond/', views.post_respond, name='post_respond'),
     path('api/surveys/count/', views.count_surveys, name='survey_count'),
-    path('api/users/', views.user_list),
-    path('api/users/<int:pk>/deactivate/', views.deactivate_user),
+    path('api/counters/', views.counters),
 ]

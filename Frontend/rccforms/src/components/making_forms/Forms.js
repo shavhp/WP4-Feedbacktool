@@ -68,7 +68,7 @@ function Forms() {
           title: "",
           questions: [],
           multiple_choice: [],
-          url: "",
+          url: formData.url,
           is_anonymous: false,
           date_sent: ""
         });

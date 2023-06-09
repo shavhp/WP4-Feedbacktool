@@ -72,7 +72,7 @@ class Survey(models.Model):
     date_sent = models.DateField(null=True, verbose_name="Verzonden op")
     open_q = models.ManyToManyField(OpenQ, blank=True, verbose_name="Open vragen")
     mc_q = models.ManyToManyField(MultipleChoiceQ, blank=True, verbose_name="Meerkeuzevragen")
-    url = models.URLField(max_length=200, default="", unique=True)
+    url = models.CharField(max_length=300, verbose_name="Link")
 
     def __str__(self):
         return self.title

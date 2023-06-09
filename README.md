@@ -32,17 +32,49 @@ virtualenv .venv
 
 ### Vereisten
 
-Installeer de benodigde packages terwijl je VENV is geactiveerd met het volgende commando:
+Zorg voor het gemak dat je twee terminals open hebt staan in je IDE.
+
+Installeer de benodigde packages terwijl je VENV is geactiveerd met het volgende commando in de ene terminal:
 ```
+cd .\Backend\
 pip install -r requirements.txt
+```
+
+
+Download de installer voor Node.JS via onderstaande link:
+
+https://nodejs.org/en/download
+
+Ga naar de volgende directory in je tweede terminal:
+```
+cd .\Frontend\rccforms\
+```
+Let op de hoofdletter!
+
+Voer vervolgens het volgende commando uit:
+```
+npm install
 ```
 
 ## Tool runnen
 
 Nu zou je in staat moeten zijn om de applicatie te runnen.
-Geef hiervoor het volgende commando:
+Geef hiervoor het volgende commando terwijl je in je eerste terminal zit:
 ```
 python manage.py runserver
 ```
 
-Open de URL in je browser.
+Voer het volgende commando uit terwijl je in je tweede terminal zit:
+```
+npm start
+```
+
+De tool zou nu vanzelf moeten starten.
+
+# Inloggen
+
+Log in met de volgende gegevens:
+```
+Username: mustafa
+Password: 123
+```

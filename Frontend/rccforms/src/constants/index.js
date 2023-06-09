@@ -15,3 +15,4 @@ export const API_URL_SURVEYS = "http://localhost:8000/api/surveys/";
 export const API_URL_LOGIN = "http://127.0.0.1:8000/api/login/"
 export const API_URL_REGISTER = "http://127.0.0.1:8000/api/register/"
 export const API_URL_SURVEYDETAIL = "http://127.0.0.1:8000/api/register/"
+export const API_URL_COUNTERS = "http://localhost:8000/api/counters/"
