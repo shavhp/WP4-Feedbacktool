@@ -49,102 +49,64 @@ function App() {
                 display: "flex"
             }}
         >
-            <Sidebar
-                style={{ height: "100vh" }}
-            >
-                <Menu>
-                  <MenuItem
-                    icon={<MenuOutlinedIcon />}
-                    style={{ textAlign: "center" }}
-                    onClick={() => {
-                      collapseSidebar();
-                  }}>
-                    <h2>
-                      <CurrentUser />
-                    </h2>
-                  </MenuItem>
-                    <MenuItem
-                        icon={<HomeOutlinedIcon/>}
-                        component={<Link to="/"/>}
-                    >
-                        Home
-                    </MenuItem>
+            {username ? (
+  <Sidebar style={{ height: "100vh" }}>
+    <Menu>
+      <React.Fragment>
+        <MenuItem
+          icon={<MenuOutlinedIcon />}
+          style={{ textAlign: "center" }}
+          onClick={() => {
+            collapseSidebar();
+          }}
+        >
+          <h2>
+            <CurrentUser />
+          </h2>
+        </MenuItem>
+        <MenuItem icon={<HomeOutlinedIcon />} component={<Link to="/" />}>
+          Home
+        </MenuItem>
 
-                    <MenuItem
-                        icon={<Diversity3OutlinedIcon/>}
-                    >
-                        Teamleden
-                    </MenuItem>
+        <MenuItem icon={<Diversity3OutlinedIcon />}>Teamleden</MenuItem>
 
-                    <SubMenu
-                        icon={<QuizOutlinedIcon/>}
-                        label="Vragen"
-                    >
-                        <MenuItem
-                            component={<Link
-                                to="/openQuestions"/>}
-                        >
-                            Open vragen
-                        </MenuItem>
-                        <MenuItem
-                            component={<Link
-                                to="/mcQuestions"/>}
-                        >
-                            Meerkeuzevragen
-                        </MenuItem>
-                    </SubMenu>
+        <SubMenu icon={<QuizOutlinedIcon />} label="Vragen">
+          <MenuItem component={<Link to="/openQuestions" />}>
+            Open vragen
+          </MenuItem>
+          <MenuItem component={<Link to="/mcQuestions" />}>
+            Meerkeuzevragen
+          </MenuItem>
+        </SubMenu>
 
-                    <SubMenu
-                        icon={<NoteAltOutlinedIcon/>}
-                        label="Vragenlijsten"
-                    >
-                        <MenuItem
-                            component={<Link
-                                to="/forms"/>}
-                        >
-                            Overzicht
-                        </MenuItem>
-                        <MenuItem>
-                            Responsen
-                        </MenuItem>
-                    </SubMenu>
+        <SubMenu icon={<NoteAltOutlinedIcon />} label="Vragenlijsten">
+          <MenuItem component={<Link to="/forms" />}>Overzicht</MenuItem>
+          <MenuItem>Responsen</MenuItem>
+        </SubMenu>
 
-                    <MenuItem
-                        icon={<AccountCircleOutlinedIcon/>}
-                    >
-                        Mijn account
-                    </MenuItem>
+        <MenuItem icon={<AccountCircleOutlinedIcon />} >Mijn account</MenuItem>
+      </React.Fragment>
 
-                    {role && (
-                    <MenuItem
-                    icon={<AddIcon />}
-                    component={<Link to="/registration" />}
-                    >
-                      Create user
-                    </MenuItem>
-                  )}
+      {role && (
+        <MenuItem icon={<AddIcon />} component={<Link to="/registration" />}>
+          Create user
+        </MenuItem>
+      )}
 
-                  {username && (
-                    <MenuItem icon={<LoginOutlinedIcon />}
-                    onClick={() => {
-                      logOut();
-                    }}>
-                      Logout
-                    </MenuItem>
-                  )}
+      <MenuItem
+        icon={<LoginOutlinedIcon />}
+        onClick={() => {
+          logOut();
+        }}
+      >
+        Logout
+      </MenuItem>
+    </Menu>
+  </Sidebar>
+) : (
+  <p></p>
+)}
 
-                  {!username && (
-                    <>
-                      <MenuItem
-                        icon={<LoginOutlinedIcon />}
-                        component={<Link to="/login" />}
-                      >
-                        Login
-                      </MenuItem>
-                    </>
-                  )}
-                </Menu>
-            </Sidebar>
 
             <Routes>
                 <Route path='/' element={<Homepage/>}/>

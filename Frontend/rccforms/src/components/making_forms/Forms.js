@@ -271,7 +271,7 @@ const handleDeleteClick = async (surveyId) => {
               ))}
             </select>
 
-            <label htmlFor="url-input">Url link: <a href="#">http://localhost:8000/api/surveys/count/{formData.url}</a></label>
+            <label htmlFor="url-input">Url link: <a href="#">http://localhost:8000/api/survey/{formData.url}</a></label>
             
 
             <button type="submit">Create</button>
