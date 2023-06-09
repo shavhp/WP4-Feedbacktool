@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import generics, status
 from rest_framework.decorators import api_view
@@ -233,3 +234,22 @@ def register(request):
 class SurveyDetailView(RetrieveAPIView):
     queryset = Survey.objects.all()
     serializer_class = SurveySerializer
+
+def open_question_detail(request, pk):
+    question = get_object_or_404(OpenQ, question_id=pk)
+    data = {
+        'question_id': question.question_id,
+        'question_text': question.question_text,
+        'is_hidden': question.is_hidden,
+    }
+    return JsonResponse(data)
+
+@api_view(['GET'])
+def multiple_choice_question_detail(request, pk):
+    try:
+        question = MultipleChoiceQ.objects.get(pk=pk)
+    except MultipleChoiceQ.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    serializer = MultipleChoiceQSerializer(question)
+    return Response(serializer.data)
