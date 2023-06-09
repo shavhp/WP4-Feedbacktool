@@ -15,7 +15,6 @@ urlpatterns = [
     path('api/mc_questions/<int:pk>/hide/', views.hide_mc_q),
     path('api/surveys/', views.survey_list),
     path('api/surveys/<int:pk>/', views.survey_detail),
-    path('api/surveys/<int:survey_id>/', views.survey_detail),
     path('api/register/', views.register),
     path('api/login/', LoginView.as_view()),
     path('api/survey/<int:pk>/', SurveyDetailView.as_view(), name='survey-detail'),

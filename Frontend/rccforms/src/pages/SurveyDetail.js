@@ -26,31 +26,53 @@ const SurveyDetail = () => {
   const { admin } = survey;
 
   return (
-    <div>
-      <h1>Detail Page</h1>
-      <h1>{survey.title}</h1>
+    <div className="container w-75 mt-5">
+      <h2>{survey.title}</h2>
       <p>{survey.description}</p>
       <p>Administrator: {admin ? `${admin.first_name} ${admin.last_name}` : 'N/A'}</p>
       <p>Is Anonymous: {survey.is_anonymous ? 'Yes' : 'No'}</p>
       <p>Date Sent: {survey.date_sent}</p>
 
-      <h2>Open Questions:</h2>
-      <ul>
-        {survey.open_q.map((question) => (
-          <li key={question.question_id}>
-            {question.question_text}
-          </li>
-        ))}
-      </ul>
+      <form>
+        <h3>Open Questions:</h3>
+        <ul className="list-unstyled">
+          {survey.open_q.map((question) => (
+            <li key={question.question_id} className="mb-3">
+              {question.question_text}
+              <input type="text" className="form-control" />
+              <hr/>
+            </li>
+          ))}
+        </ul>
 
-      <h2>Multiple Choice Questions:</h2>
-      <ul>
-        {survey.mc_q.map((question) => (
-          <li key={question.mc_id}>
-            {question.question_text}
-          </li>
-        ))}
-      </ul>
+        <h3>Multiple Choice Questions:</h3>
+        <ul className="list-unstyled">
+          {survey.mc_q.map((question) => (
+            <li key={question.mc_id} className="mb-3">
+              {question.question_text}
+              <div className="form-check">
+                <input type="radio" className="form-check-input" name={`mcQuestion_${question.mc_id}`} />
+                <label className="form-check-label">Option A</label>
+              </div>
+              <div className="form-check">
+                <input type="radio" className="form-check-input" name={`mcQuestion_${question.mc_id}`} />
+                <label className="form-check-label">Option B</label>
+              </div>
+              <div className="form-check">
+                <input type="radio" className="form-check-input" name={`mcQuestion_${question.mc_id}`} />
+                <label className="form-check-label">Option C</label>
+              </div>
+              <div className="form-check">
+                <input type="radio" className="form-check-input" name={`mcQuestion_${question.mc_id}`} />
+                <label className="form-check-label">Option D</label>
+              </div>
+              <hr/>
+            </li>
+          ))}
+        </ul>
+
+        <button type="submit" className="btn btn-primary">Submit</button>
+      </form>
     </div>
   );
 };
