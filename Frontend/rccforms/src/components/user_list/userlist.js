@@ -13,17 +13,22 @@ class UserList extends Component {
         );
     };
 
+    updateUsers = () => {
+        axios.get(API_URL_USERS).then((response) => {
+          this.setState({ users: response.data });
+        }).catch((error) => {
+          console.log(error);
+        });
+      };
+      
     handleCheckboxChange = (userId) => {
         axios
             .put(`${API_URL_DEACTIVATE_USER}${userId}/deactivate/`)
             .then((response) => {
                 if (response.data.success) {
-                    this.setState((prevState) => ({
-                        users: prevState.users.filter(
-                            (user) => user.userId !== userId
-                        ),
-                    }));
-                } else {
+                    this.updateUsers()
+                }
+                else {
                     console.log(response.data.error);
                 }
             })
@@ -64,13 +69,14 @@ class UserList extends Component {
                                     <td>{user.first_name}</td>
                                     <td>{user.last_name}</td>
                                     <td>{user.email}</td>
-                                    <td>{user.is_staff ? "Admin" : "Member"}</td>
+                                    <td>{user.is_staff ? "Admin" : "Teamlid"}</td>
                                     <td>
                                         <input
                                             type="checkbox"
                                             checked={user.is_active}
-                                            onChange={() =>
-                                                this.handleCheckboxChange(user.pk, "is_active")
+                                            onChange={() => {
+                                                this.handleCheckboxChange(user.id)
+                                            }
                                             }
                                         />
                                     </td>

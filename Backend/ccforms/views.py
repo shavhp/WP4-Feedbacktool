@@ -156,8 +156,8 @@ def user_list(request):
 @csrf_exempt
 def deactivate_user(request, pk):
     try:
-        data = User.objects.get(user_id=pk)
-        data.is_active = False
+        data = User.objects.get(id=pk)
+        data.is_active = 0
         data.save()
         return JsonResponse({
             'success': True
