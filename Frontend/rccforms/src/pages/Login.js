@@ -1,7 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Col, Container } from 'reactstrap';
 import { API_URL_LOGIN } from '../constants';
+import {
+  Form,
+  FormGroup,
+  Input,
+  Label,
+  Button,
+  Col,
+  Row,
+  Container,
+  Card,
+  CardBody,
+} from 'reactstrap';
 
 function LoginPage() {
   const [username, setUsername] = useState('');
@@ -54,45 +65,102 @@ function LoginPage() {
   };
 
   return (
-    <Container>
-      <Col md={{ span: 6, offset: 3 }} className="mt-5">
+    <Container
+        style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+    >
+      <img
+            src="https://www.dyflexis.com/nl/wp-content/uploads/2019/04/logo-dyflexis-2.svg"
+            alt="Dyflexis logo"
+            style={{
+              marginBottom: '25px',
+              marginLeft: '-20px',
+              width: "220px"
+            }}
+            />
+      <Row>
+      <Col>
         {isLoggedIn ? (
           <>
-            <h1>Welcome, {localStorage.getItem('Username')}!</h1>
+            <h1>Welkom, {localStorage.getItem('Username')}!</h1>
             {/* Add your logged-in content here */}
           </>
         ) : (
           <>
-            <h1>Login Page</h1>
+            <Card
+                      style={{
+                        width: '30em',
+                      }}
+                  >
+                    <CardBody
+                        style={{
+                          background: 'linear-gradient(146deg, rgba(28,94,173,1) 0%, rgba(75,162,28,1) 100%)'
+                        }}
+                    >
+                      <div
+                          style={{padding: '25px'}}
+                      >
+                      <h2
+                          style={{
+                            color: 'white',
+                            textAlign: 'center',
+                            marginBottom: '30px'
+                          }}
+                      >Login</h2>
             {error && <p>{error}</p>}
             {success && <p>{success}</p>}
-            <form onSubmit={handleSubmit}>
-              <div className="mb-3">
-                <label className="form-label">Username:</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  value={username}
-                  onChange={handleUsernameChange}
-                />
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Password:</label>
-                <input
-                  type="password"
-                  className="form-control"
-                  value={password}
-                  onChange={handlePasswordChange}
-                />
-              </div>
-              <button type="submit" className="btn btn-primary">
-                Login
-              </button>
-            </form>
-          </>
-        )}
-      </Col>
-    </Container>
+            <Form onSubmit={handleSubmit}>
+              <FormGroup floating>
+                <Input
+                              id="user"
+                              type="text"
+                              name="username"
+                              placeholder="Gebruiker"
+                              value={username}
+                              onChange={handleUsernameChange}
+                          />
+                          <Label
+                              for="user"
+                          >Gebruiker</Label>
+                        </FormGroup>
+                        {' '}
+                        <FormGroup
+                            floating
+                        >
+                          <Input
+                              type="password"
+                              name="password"
+                              placeholder="Wachtwoord"
+                              value={password}
+                              onChange={handlePasswordChange}
+                          />
+                          <Label
+                              for="password"
+                          >Wachtwoord</Label>
+                        </FormGroup>
+                        {' '}
+                        <Button
+                            type="submit"
+                            outline
+                            block
+                            size="lg"
+                            color="light"
+                            >
+                          Inloggen
+                        </Button>
+                      </Form>
+                        </div>
+                    </CardBody>
+                  </Card>
+                </>
+            )}
+          </Col>
+        </Row>
+      </Container>
   );
 }
 

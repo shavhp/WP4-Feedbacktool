@@ -64,7 +64,7 @@ function App() {
             <CurrentUser />
           </h2>
         </MenuItem>
-        <MenuItem icon={<HomeOutlinedIcon />} component={<Link to="/" />}>
+        <MenuItem icon={<HomeOutlinedIcon />} component={<Link to="/home" />}>
           Home
         </MenuItem>
 
@@ -112,11 +112,11 @@ function App() {
 
 
             <Routes>
-                <Route path='/' element={<Homepage/>}/>
+                <Route path="/" element={<LoginPage />} />
+                <Route path='/home' element={<Homepage/>}/>
                 <Route path='/openQuestions' element={<OpenQuestions/>}/>
                 <Route path='/mcQuestions' element={<McQuestions/>}/>
                 <Route path="/forms" element={<Forms />} />
-                <Route path="/login" element={<LoginPage />} />
                 <Route path="/registration" element={<RegistrationForm />} />
                 <Route path="/survey/:id" element={<SurveyDetail />} />
               <Route path="/userlist" element={<Users />} />
