@@ -34,9 +34,15 @@ class OpenQuestions extends Component {
 
     render() {
         return (
-            <Container style={{ marginTop: "20px" }}>
-                <Row>
-                    <Col>
+            <Container
+                style={{ marginTop: "20px" }}
+            >
+                <Row
+                    className="justify-content-center"
+                >
+                    <Col
+                        className="col-md-9"
+                    >
                         <OpenQuestionList
                             openQuestions={this.state.openQuestions}
                             resetState={this.resetState}
@@ -44,7 +50,9 @@ class OpenQuestions extends Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Col>
+                    <Col
+                        className="col-md-5 text-center"
+                    >
                         <NewOpenQuestionModal
                             create={true}
                             resetState={this.resetState}

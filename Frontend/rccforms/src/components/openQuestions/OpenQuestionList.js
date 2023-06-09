@@ -91,9 +91,13 @@ class OpenQuestionList extends Component {
         // Structure and content of what should be rendered on the screen
         return (
             <Fragment>
-            <Table>
+            <Table
+                hover
+                striped
+            >
                 <thead>
                 <tr>
+                    <th>#</th>
                     <th>Vraag</th>
                     {/* Edit button column */}
                     <th></th>
@@ -121,6 +125,7 @@ class OpenQuestionList extends Component {
                         return (
                             // Return the columns from the questions database
                             <tr key={openQ.pk}>
+                                <th scope="row">{openQ.question_id}</th>
                                 <td>{openQ.question_text}</td>
                                 <td align="center">
                                     {/* Display the modal to edit questions when Wijzigen button is clicked */}
@@ -136,6 +141,7 @@ class OpenQuestionList extends Component {
                                         {/* Display the button that hides questions */}
                                         <Button
                                             color="danger"
+                                            size="sm"
                                             onClick={() => this.handleHideOpenQuestion(openQ.question_id)}
                                         >
                                             Verbergen
