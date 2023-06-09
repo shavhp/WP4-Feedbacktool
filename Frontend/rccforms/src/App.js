@@ -4,8 +4,6 @@ import { Sidebar, Menu, MenuItem, SubMenu, useProSidebar } from "react-pro-sideb
 
 import './App.css';
 import CurrentUser from './CurrentUser';
-import { Routes, Route, Link } from "react-router-dom";
-import { Sidebar, Menu, MenuItem, SubMenu, useProSidebar } from "react-pro-sidebar";
 import Homepage from "./pages/Homepage";
 import UserList from "./GetUser";
 import OpenQuestions from "./pages/OpenQuestions";
@@ -21,7 +19,6 @@ import NoteAltOutlinedIcon from '@mui/icons-material/NoteAltOutlined';
 import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
 import Diversity3OutlinedIcon from '@mui/icons-material/Diversity3Outlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
 import AddIcon from '@mui/icons-material/Add';
 
@@ -149,16 +146,16 @@ function App() {
                 </Menu>
             </Sidebar>
 
-                <Routes>
-                    <Route path='/' element={<Homepage/>}/>
-                    <Route path='/userlist' element={<UserList/>}/>
-                    <Route path='/openQuestions' element={<OpenQuestions/>}/>
-                    <Route path='/mcQuestions' element={<McQuestions/>}/>
-                    <Route path="/forms" element={<Forms />} />
-                    <Route path="/login" element={<LoginPage />} />
-                    <Route path="/registration" element={<RegistrationForm />} />
-                    <Route path="/survey/:id" element={<SurveyDetail />} />
-                </Routes>
+            <Routes>
+                <Route path='/' element={<Homepage/>}/>
+                <Route path='/userlist' element={<UserList/>}/>
+                <Route path='/openQuestions' element={<OpenQuestions/>}/>
+                <Route path='/mcQuestions' element={<McQuestions/>}/>
+                <Route path="/forms" element={<Forms />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/registration" element={<RegistrationForm />} />
+                <Route path="/survey/:id" element={<SurveyDetail />} />
+            </Routes>
         </div>
     );
 }
