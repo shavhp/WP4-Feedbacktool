@@ -5,13 +5,13 @@ import { Sidebar, Menu, MenuItem, SubMenu, useProSidebar } from "react-pro-sideb
 import './App.css';
 import CurrentUser from './CurrentUser';
 import Homepage from "./pages/Homepage";
-import UserList from "./GetUser";
 import OpenQuestions from "./pages/OpenQuestions";
 import McQuestions from "./pages/McQuestions";
 import Forms from "./components/making_forms/Forms";
 import LoginPage from './pages/Login';
 import RegistrationForm from './pages/Registration';
 import SurveyDetail from './pages/SurveyDetail';
+import Users from "./pages/Users";
 
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
@@ -70,11 +70,10 @@ function App() {
                         Home
                     </MenuItem>
 
-                    <MenuItem
-                        icon={<Diversity3OutlinedIcon/>}
-                    >
-                        Teamleden
-                    </MenuItem>
+          <MenuItem
+            icon={<Diversity3OutlinedIcon />}
+            component={<Link to="/userlist" />}
+            >Teamleden</MenuItem>
 
                     <SubMenu
                         icon={<QuizOutlinedIcon/>}
@@ -148,14 +147,14 @@ function App() {
 
             <Routes>
                 <Route path='/' element={<Homepage/>}/>
-                <Route path='/userlist' element={<UserList/>}/>
                 <Route path='/openQuestions' element={<OpenQuestions/>}/>
                 <Route path='/mcQuestions' element={<McQuestions/>}/>
                 <Route path="/forms" element={<Forms />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/registration" element={<RegistrationForm />} />
                 <Route path="/survey/:id" element={<SurveyDetail />} />
-            </Routes>
+              <Route path="/userlist" element={<Users />} />
+      </Routes>
         </div>
     );
 }

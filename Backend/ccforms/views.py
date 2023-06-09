@@ -2,10 +2,12 @@ from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework import generics, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import UserSerializer, OpenQSerializer, MultipleChoiceQSerializer, SurveySerializer
+from customUser.serializers import UserSerializer
 from .models import OpenQ, MultipleChoiceQ, Survey
 from django.contrib.auth.decorators import login_required
 from customUser.models import CustomUser
@@ -287,3 +289,29 @@ def post_respond(request):
 def count_surveys(request):
     survey_count = Survey.objects.count()
     return JsonResponse({'count': survey_count})
+
+@api_view(['GET', 'POST', 'PUT'])
+def user_list(request):
+    if request.method == 'GET':
+        data = User.objects.all()
+        serializer = UserSerializer(
+            data,
+            context={'request': request},
+            many=True
+        )
+        return Response(serializer.data)
+    
+@csrf_exempt
+def deactivate_user(request, pk):
+    try:
+        data = User.objects.get(id=pk)
+        data.is_active = 0
+        data.save()
+        return JsonResponse({
+            'success': True
+        })
+    except User.DoesNotExist:
+        return JsonResponse({
+            'success': False,
+            'error': 'User bestaat niet.'
+        })

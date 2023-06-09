@@ -23,4 +23,6 @@ urlpatterns = [
     path('api/multipleChoiceQuestions/<int:pk>/', views.multiple_choice_question_detail, name='multiple_choice_question_detail'),
     path('api/PostRespond/', views.post_respond, name='post_respond'),
     path('api/surveys/count/', views.count_surveys, name='survey_count'),
+    path('api/users/', views.user_list),
+    path('api/users/<int:pk>/deactivate/', views.deactivate_user),
 ]
