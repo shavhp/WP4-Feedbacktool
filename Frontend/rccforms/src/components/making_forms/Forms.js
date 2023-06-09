@@ -8,8 +8,8 @@ function Forms() {
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
-    questions: [],
-    multiple_choice: [],
+    open_q: [],
+    mc_q: [],
     url: "",
     is_anonymous: false,
     date_sent: ""
@@ -67,21 +67,30 @@ function Forms() {
   };
 
   const handleInputChange = (event) => {
-    const { name, value, type, checked, options } = event.target;
+    const { name, value, type, checked } = event.target;
 
     if (type === "checkbox") {
       setFormData({
         ...formData,
         [name]: checked,
       });
-    } else if (name === "questions" || name === "multiple_choice") {
-      const selectedOptions = Array.from(options)
-        .filter((option) => option.selected)
-        .map((option) => option.value);
+    } else if (name === "open_questions") {
+      const selectedOptions = Array.from(event.target.selectedOptions).map(
+        (option) => option.value
+      );
 
       setFormData({
         ...formData,
-        [name]: selectedOptions,
+        open_q: selectedOptions,
+      });
+    } else if (name === "multiple_choice") {
+      const selectedOptions = Array.from(event.target.selectedOptions).map(
+        (option) => option.value
+      );
+
+      setFormData({
+        ...formData,
+        mc_q: selectedOptions,
       });
     } else {
       setFormData({
@@ -90,6 +99,8 @@ function Forms() {
       });
     }
   };
+
+
 
   const fetchSurveysData = async () => {
     try {
@@ -164,7 +175,19 @@ const handleDeleteClick = async (surveyId) => {
               <p className="survey-info">Is Anonymous: {survey.is_anonymous ? "Yes" : "No"}</p>
               <p className="survey-info">Date Sent: {survey.date_sent}</p>
               <p className="survey-info">Open Questions:</p>
+              <ul>
+                {expandedSurvey.open_q.map((questionId) => {
+                  const question = openQuestions.find((q) => q.question_id === questionId);
+                  return <li key={questionId}>{question.question_text}</li>;
+                })}
+              </ul>
               <p className="survey-info">Multiple Choice Questions:</p>
+              <ul>
+                {expandedSurvey.mc_q.map((questionId) => {
+                  const question = multipleChoiceQuestions.find((q) => q.mc_id === questionId);
+                  return <li key={questionId}>{question.question_text}</li>;
+                })}
+              </ul>
               <button onClick={() => handleDeleteClick(survey.survey_id)}>Delete</button>
             </>
           )}
@@ -213,9 +236,9 @@ const handleDeleteClick = async (surveyId) => {
             <label htmlFor="open-questions-select">Select Open Questions:</label>
             <select
               id="open-questions-select"
-              name="questions"
+              name="open_questions"
               multiple
-              value={formData.questions}
+              value={formData.open_q}
               onChange={handleInputChange}
             >
               {openQuestions.map((question) => (
@@ -230,7 +253,7 @@ const handleDeleteClick = async (surveyId) => {
               id="multiple-choice-select"
               name="multiple_choice"
               multiple
-              value={formData.multiple_choice}
+              value={formData.mc_q}
               onChange={handleInputChange}
             >
               {multipleChoiceQuestions.map((question) => (

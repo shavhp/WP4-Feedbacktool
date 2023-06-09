@@ -38,8 +38,8 @@ class MultipleChoiceQSerializer(serializers.ModelSerializer):
 
 
 class SurveySerializer(serializers.ModelSerializer):
-    questions = OpenQSerializer(many=True, read_only=True)
-    multiple_choice = MultipleChoiceQSerializer(many=True, read_only=True)
+    open_q = serializers.PrimaryKeyRelatedField(many=True, queryset=OpenQ.objects.all())
+    mc_q = serializers.PrimaryKeyRelatedField(many=True, queryset=MultipleChoiceQ.objects.all())
 
     class Meta:
         model = Survey
@@ -50,7 +50,22 @@ class SurveySerializer(serializers.ModelSerializer):
             'description',
             'is_anonymous',
             'date_sent',
-            'questions',
-            'multiple_choice',
+            'open_q',
+            'mc_q',
             'url',
         )
+
+    def create(self, validated_data):
+        open_q_data = validated_data.pop('open_q')
+        mc_q_data = validated_data.pop('mc_q')
+        survey = Survey.objects.create(**validated_data)
+
+        for question in open_q_data:
+            survey.open_q.add(question)
+
+        for question in mc_q_data:
+            survey.mc_q.add(question)
+
+        return survey
+
+
