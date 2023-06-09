@@ -1,3 +1,6 @@
+// Sidebar source:
+// https://blog.logrocket.com/creating-responsive-sidebar-react-mui/
+
 import React, { useEffect, useState } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import { Sidebar, Menu, MenuItem, SubMenu, useProSidebar } from "react-pro-sidebar";

@@ -5,7 +5,7 @@ from rest_framework import generics, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import UserSerializer, OpenQSerializer, MultipleChoiceQSerializer, SurveySerializer
-from .models import OpenQ, MultipleChoiceQ, Survey
+from .models import OpenQ, MultipleChoiceQ, Survey, Response
 from django.contrib.auth.decorators import login_required
 from customUser.models import CustomUser
 from rest_framework.decorators import api_view
@@ -76,8 +76,8 @@ def open_q_detail(request, pk):
     if request.method == 'PUT':
         serializer = OpenQSerializer(open_q,
                                      data=request.data,
-                                     context=
-                                     {'request': request},
+                                     context={
+                                         'request': request},
                                      )
         if serializer.is_valid():
             serializer.save()
@@ -96,8 +96,8 @@ def mc_q_detail(request, pk):
     if request.method == 'PUT':
         serializer = MultipleChoiceQSerializer(mc_q,
                                                data=request.data,
-                                               context=
-                                               {'request': request},
+                                               context={
+                                                   'request': request},
                                                )
         if serializer.is_valid():
             serializer.save()
@@ -196,15 +196,15 @@ class LoginView(APIView):
         username = request.data.get('username')
         password = request.data.get('password')
         user = authenticate(request, username=username, password=password)
-        
+
         if user is not None:
             login(request, user)
             role = user.role
             return Response({'success': True, 'success': username, 'success': role})
         else:
             return Response({'success': False, 'error': 'Invalid credentials'})
-        
-   
+
+
 @api_view(['POST'])
 def register(request):
     username = request.data.get('username')
@@ -219,7 +219,7 @@ def register(request):
         # Check if a user with the same username or email already exists
         if User.objects.filter(username=username).exists():
             return Response({'error': 'Username already exists.'}, status=status.HTTP_400_BAD_REQUEST)
-        
+
         if User.objects.filter(email=email).exists():
             return Response({'error': 'Email already exists.'}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -229,7 +229,28 @@ def register(request):
 
     except Exception as e:
         return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    
+
+
 class SurveyDetailView(RetrieveAPIView):
     queryset = Survey.objects.all()
     serializer_class = SurveySerializer
+
+
+# Counts all instances from OpenQ, McQ, Survey and Response models
+# to display them on the dashboard on the homepage
+# Source:
+# https://stackoverflow.com/questions/61350232/counting-number-of-records-in-database-django
+def count_open_q(request):
+    all_open_q = OpenQ.objects.count()
+    all_mc_q = MultipleChoiceQ.objects.count()
+    all_surveys = Survey.objects.count()
+    all_responses = Response.objects.count()
+
+    data = {
+        'all_open_q': all_open_q,
+        'all_mc_q': all_mc_q,
+        'all_surveys': all_surveys,
+        'all_responses': all_responses
+    }
+
+    return JsonResponse(data)
