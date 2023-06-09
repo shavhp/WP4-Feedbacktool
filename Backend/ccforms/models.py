@@ -81,7 +81,7 @@ class Survey(models.Model):
 class Response(models.Model):
     response_id = models.AutoField(primary_key=True, verbose_name="ID")
     survey = models.ForeignKey(Survey, on_delete=models.CASCADE, default="", verbose_name="Naam enquête")
-    tm_email = models.ForeignKey(TeamMember, on_delete=models.CASCADE, default="", verbose_name="E-mailadres teamlid")
+    tm_email = models.CharField(max_length=100, verbose_name="Naam enquête")
     open_answers = models.ManyToManyField(OpenQ, verbose_name="Open antwoorden")
     mc_answers = models.ManyToManyField(MultipleChoiceQ, verbose_name="Meerkeuzeantwoorden")
     date_submitted = models.DateField(auto_now_add=True, null=True, verbose_name="Ingevuld op")

@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import Cookies from 'js-cookie';
+
 
 const SurveyDetail = () => {
   const { id } = useParams();
   const [survey, setSurvey] = useState(null);
+  const [openAnswer, setOpenAnswer] = useState('');
+  const [mcAnswer, setMcAnswer] = useState('');
+  const [email, setEmail] = useState('');
+
 
   useEffect(() => {
     const fetchSurvey = async () => {
@@ -13,14 +19,12 @@ const SurveyDetail = () => {
           axios.get(`http://127.0.0.1:8000/api/survey/${id}/`)
         ]);
 
-        var openQuestionId = surveyResponse.data.open_q;
-        //var multipleQuistionId = surveyResponse.data.mc_q;
+        const openQuestionId = surveyResponse.data.open_q;
+        const mcQuestionId = surveyResponse.data.mc_q[0];
 
-        
-        
         const [openQResponse, mcQResponse] = await Promise.all([
           axios.get(`http://127.0.0.1:8000/api/openQuestions/${openQuestionId}/`),
-          axios.get(`http://127.0.0.1:8000/api/multipleChoiceQuestions/${surveyResponse.data.mc_q[0]}/`),
+          axios.get(`http://127.0.0.1:8000/api/multipleChoiceQuestions/${mcQuestionId}/`),
         ]);
 
         const surveyData = surveyResponse.data;
@@ -32,9 +36,9 @@ const SurveyDetail = () => {
           open_q: openQData,
           mc_q: mcQData,
         };
-    
+
         setSurvey(updatedSurveyData);
-        
+
       } catch (error) {
         console.error('Error fetching survey:', error);
       }
@@ -42,6 +46,47 @@ const SurveyDetail = () => {
 
     fetchSurvey();
   }, [id]);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+  
+    try {
+      // Create an object to hold the response data
+      const responseData = {
+        survey: id,
+        tm_email: 'example@example.com',
+        open_answers: [{ answer: openAnswer }],
+        mc_answers: [{ question: survey.mc_q.mc_id, answer: mcAnswer }],
+      };
+  
+      // Get the CSRF token from the cookie
+      const csrfToken = Cookies.get('csrftoken');
+  
+      // Make the POST request with the CSRF token in the headers
+      axios.post('http://127.0.0.1:8000/api/PostRespond/', responseData, {
+        headers: {
+          'X-CSRFToken': csrfToken,
+        },
+      })
+      .then(response => {
+        // Handle the response
+        console.log(response.data);
+      })
+      .catch(error => {
+        // Handle the error
+        console.error('Error submitting response:', error);
+      });
+  
+      // Reset the form fields
+      setOpenAnswer('');
+      setMcAnswer('');
+  
+      // Optional: Show a success message or redirect the user
+  
+    } catch (error) {
+      console.error('Error submitting response:', error);
+    }
+  };
 
   if (!survey) {
     return <div>Loading survey...</div>;
@@ -56,7 +101,7 @@ const SurveyDetail = () => {
       <p>Is Anonymous: {survey.is_anonymous ? 'Yes' : 'No'}</p>
       <p>Date Sent: {survey.date_sent}</p>
 
-      <form>
+      <form onSubmit={handleSubmit}>
         <h3>Open Questions:</h3>
         <ul className="list-unstyled">
           <li>{survey.open_q.question_text}</li>
@@ -67,7 +112,6 @@ const SurveyDetail = () => {
         <h3>Multiple Choice Questions:</h3>
         <ul className="list-unstyled">
           <li>{survey.mc_q.question_text}</li>
-          <input type="text" className="form-control" />
           <div className="form-check">
             <input type="radio" className="form-check-input" name={`mcQuestion_${survey.mc_q.mc_id}`} value="A" />
             <label className="form-check-label">{survey.mc_q.option_a}</label>
@@ -87,6 +131,9 @@ const SurveyDetail = () => {
           <hr />
         </ul>
 
+        <h3>Email:</h3>
+        <input type="email" className="form-control" value={email} onChange={e => setEmail(e.target.value)} />
+        <hr />
 
         <button type="submit" className="btn btn-primary">Submit</button>
       </form>

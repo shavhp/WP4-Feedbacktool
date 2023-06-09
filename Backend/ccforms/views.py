@@ -14,6 +14,7 @@ from django.contrib.auth import authenticate, login
 from rest_framework.views import APIView
 from django.contrib.auth import get_user_model
 from rest_framework.generics import RetrieveAPIView
+import datetime
 
 
 User = get_user_model()
@@ -253,3 +254,32 @@ def multiple_choice_question_detail(request, pk):
 
     serializer = MultipleChoiceQSerializer(question)
     return Response(serializer.data)
+
+import json
+@csrf_exempt
+def post_respond(request):
+    if request.method == 'POST':
+        try:
+            # Extract the data from the request body
+            data = json.loads(request.body)
+            survey_id = data.get('survey')
+            tm_email = data.get('tm_email')
+            open_answer = data.get('open_answers')[0]['answer']
+            mc_question = data.get('mc_answers')[0]['question']
+            mc_answer = data.get('mc_answers')[0]['answer']
+
+            # Save the response to the Response table
+            response = Response.objects.create(
+                survey_id=survey_id,
+                tm_email=tm_email,
+                date_submitted=datetime.date.today()
+            )
+            response.open_answers.create(answer=open_answer)
+            response.mc_answers.create(question_id=mc_question, answer=mc_answer)
+
+            return JsonResponse({'message': 'Response saved successfully.'})
+
+        except (KeyError, json.JSONDecodeError) as e:
+            return JsonResponse({'error': 'Invalid request data.'}, status=400)
+
+    return JsonResponse({'message': 'Invalid request method.'})

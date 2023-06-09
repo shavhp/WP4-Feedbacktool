@@ -21,4 +21,5 @@ urlpatterns = [
     path('api/survey/<int:pk>/', SurveyDetailView.as_view(), name='survey-detail'),
     path('api/openQuestions/<int:pk>/', views.open_question_detail, name='open_question_detail'),
     path('api/multipleChoiceQuestions/<int:pk>/', views.multiple_choice_question_detail, name='multiple_choice_question_detail'),
+    path('api/PostRespond/', views.post_respond, name='post_respond'),
 ]
